@@ -2,4 +2,4 @@
 
 == Sub Pages ==
 
-  * [TODOList TODO List]
+  * [ToDoList TODO List]
