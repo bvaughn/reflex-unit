@@ -27,6 +27,15 @@ package reflexunit.framework {
 		}
 		
 		/**
+		 * Asserts that the two values specified are not equal.
+		 */
+		public static function assertNotEquals( expected:*, actual:*, message:String = null ):void {
+			if ( expected == actual ) {
+				throw new AssertFailedError( message ? message : 'Values expected to be different but were equal.' );
+			}
+		}
+		
+		/**
 		 * Asserts that the value specified is not NULL.
 		 */
 		public static function assertNotNull( expression:*, message:String = null ):void {

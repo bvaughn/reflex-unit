@@ -6,47 +6,82 @@ package reflexunit.framework.tests {
 	
 	public class SampleTest extends TestCase {
 		
-		public function SampleTest() {
-			super();
-		}
-		
 		/*
-		 * Small sample test methods.
+		 * Test that all assertion methods work.
 		 */
 		
-		public function testBasicAssertTest():void {
+		public function testAssertEquals():void {
 			assertEquals( 1, 1 );
+		}
+		
+		public function testAssertFalse():void {
 			assertFalse( false );
+		}
+		
+		public function testAssertNotEquals():void {
+			assertNotEquals( 1, 2 );
+		}
+		
+		public function testAssertNotNull():void {
+			assertNotNull(  new Object() );
+		}
+		
+		public function testAssertNull():void {
+			assertNull( null );
+		}
+		
+		public function testAssertTrue():void {
 			assertTrue( true );
 		}
 		
-		public function testAsynchTimer():void {
+		public function testAddAsync():void {
 			var timer:Timer = new Timer( 100, 1 );
 			timer.addEventListener( TimerEvent.TIMER_COMPLETE, addAsync( onTimerComplete, 1000 ) );
 			timer.start();
 		}
 		
-		public function testAsynchTimerTheTimesOut():void {
+		/*
+		 * Test that invalid values make our assert methods fail.
+		 * TODO: Wrap these tests in an "expects-failure" block somehow.
+		 */
+		
+		public function testAssertEqualsFails():void {
+			assertEquals( 1, 2 );
+		}
+		
+		public function testAssertFalseFails():void {
+			assertFalse( true );
+		}
+		
+		public function testAssertNotEqualsFails():void {
+			assertNotEquals( 1, 1 );
+		}
+		
+		public function testAssertNotNullFails():void {
+			assertNotNull(  null );
+		}
+		
+		public function testAssertNullFails():void {
+			assertNull( new Object() );
+		}
+		
+		public function testAssertTrueFails():void {
+			assertTrue( false );
+		}
+		
+		public function testAddAsyncFails():void {
 			var timer:Timer = new Timer( 100, 1 );
 			timer.addEventListener( TimerEvent.TIMER_COMPLETE, addAsync( onTimerComplete, 10 ) );
 			timer.start();
 		}
 		
-		public function testThatResultsInError():void {
+		/*
+		 * Test that the test properly handles runtime errors.
+		 */
+		
+		public function testRunTimeError():void {
 			var a:Array = new Array();
 			a[1].fakeProperty;
-		}
-		
-		public function testFailedEquals():void {
-			assertEquals( 1, 2, '1 should equal 1' );
-		}
-		
-		public function testFailedFalse():void {
-			assertFalse( true );
-		}
-		
-		public function testFailedTrue():void {
-			assertTrue( false );
 		}
 		
 		/*
@@ -54,14 +89,15 @@ package reflexunit.framework.tests {
 		 */
 		
 		public function doesNotBeginWithTest():void {
+			throw new Error( 'Invalid method executed: doesNotBeginWithTest()' );
 		}
 		
 		public function testInTheNameButExpectsArguments( arg1:String, arg2:Boolean = true ):Boolean {
-			return true;
+			throw new Error( 'Invalid method executed: testInTheNameButExpectsArguments()' );
 		}
 		
 		public function testInTheNameButNonVoidReturnType():String {
-			return 'String';
+			throw new Error( 'Invalid method executed: testInTheNameButNonVoidReturnType()' );
 		}
 		
 		/*

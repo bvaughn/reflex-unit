@@ -1,22 +1,22 @@
 package reflexunit.framework.runners {
 	import flash.utils.getQualifiedClassName;
 	
+	import mx.controls.dataGridClasses.DataGridColumn;
+	import mx.events.ListEvent;
+	
 	import reflexunit.framework.Failure;
 	import reflexunit.framework.GUIRunner;
 	import reflexunit.framework.IStatus;
 	import reflexunit.framework.ITest;
 	import reflexunit.framework.InProgress;
 	import reflexunit.framework.Result;
-	import reflexunit.framework.RunEvent;
-	import reflexunit.framework.RunNotifier;
 	import reflexunit.framework.Success;
 	import reflexunit.introspection.model.MethodModel;
-	
-	import mx.controls.dataGridClasses.DataGridColumn;
 	
 	public class GUIRunnerController {
 		
 		private var _currentStatus:IStatus;
+		private var _currentTestNum:int;
 		private var _initialized:Boolean;
 		private var _test:ITest;
 		private var _result:Result;
@@ -28,10 +28,14 @@ package reflexunit.framework.runners {
 		
 		public function GUIRunnerController( view:GUIRunner ) {
 			_view = view;
+			
+			_currentTestNum = 0;
 		}
 		
 		public function initialize():void {
 			_initialized = true;
+			
+			_view.dataGrid.addEventListener( ListEvent.ITEM_CLICK, onDataGridItemClick, false, 0, true );
 		}
 		
 		/**
@@ -49,6 +53,12 @@ package reflexunit.framework.runners {
 			// Remove the InProgress status and add the completed status.
 			_view.dataProvider.removeItemAt( _view.dataProvider.length - 1 );
 			
+			_view.numErrorsLabel.text = _result.errorCount.toString();
+			_view.numFailuresLabel.text = _result.failureCount.toString();
+			_view.numTestsLabel.text = _currentTestNum + '/' + _test.testCount;
+			
+			_view.progressBar.width = ( _view.progressBarContainer.width * ( _currentTestNum / _test.testCount ) );
+			
 			if ( _result.errorCount > 0 && ( _result.errors[ _result.errorCount - 1 ] as Failure ).methodModel.method == methodModel.method ) {
 				_view.dataProvider.addItem( _result.errors[ _result.errorCount - 1 ] as Failure );
 			} else if ( _result.failureCount > 0 && ( _result.failures[ _result.failureCount - 1 ] as Failure ).methodModel.method == methodModel.method ) {
@@ -65,6 +75,8 @@ package reflexunit.framework.runners {
 			_currentStatus = new InProgress( methodModel );
 			
 			_view.dataProvider.addItem( _currentStatus );
+			
+			_currentTestNum++;
 		}
 		
 		/*
@@ -102,8 +114,46 @@ package reflexunit.framework.runners {
 		}
 		
 		public static function getTestName( data:Object, dataGridColumn:DataGridColumn ):String {
-trace( 'getTestName(): ' + ( data as IStatus ).methodModel.name + ' => ' + ( data as IStatus ).methodModel.thisObject );
 			return ( data as IStatus ).methodModel.name;
+		}
+		
+		/*
+		 * Event handlers
+		 */
+		
+		private function onDataGridItemClick( event:ListEvent ):void {
+			var message:String;
+			var stackTraceText:String;
+			var test:String;
+			var testCase:String;
+			
+			if ( event.itemRenderer.data is Failure ) {
+				var failure:Failure = event.itemRenderer.data as Failure;
+				
+				message = failure.errorMessage; 
+				stackTraceText = failure.error.getStackTrace();
+				test = failure.methodModel.name;
+				testCase = getQualifiedClassName( failure.methodModel.methodDefinedBy );
+				
+			} else if ( event.itemRenderer.data is Success ) {
+				var success:Success = event.itemRenderer.data as Success;
+				
+				message = ''; 
+				stackTraceText = ''; 
+				test = success.methodModel.name;
+				testCase = getQualifiedClassName( success.methodModel.methodDefinedBy );
+				
+			} else {
+				message = ''; 
+				stackTraceText = '';
+				test = '';
+				testCase = '';
+			}
+			
+			_view.messageLabel.text = message;
+			_view.stackTraceTextArea.text = stackTraceText;
+			_view.testCaseLabel.text = testCase;
+			_view.testLabel.text = test;
 		}
 	}
 }
