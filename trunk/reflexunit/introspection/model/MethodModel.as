@@ -9,6 +9,11 @@ package reflexunit.introspection.model {
 	 */
 	public class MethodModel {
 		
+		/**
+		 * Since the <code>void</code> type is not a Class, this constant represents it.
+		 */
+		public static const RETURN_TYPE_VOID:* = null;
+		
 		private var _metaDataModel:MetaDataModel;
 		private var _method:Function;
 		private var _methodDefinedBy:Class;
@@ -62,6 +67,8 @@ package reflexunit.introspection.model {
 				
 				_parameterModels.push( parameterModel );
 			}
+			
+			_parameterModels.sortOn( 'index' );
 		}
 		
 		/**
@@ -110,14 +117,16 @@ package reflexunit.introspection.model {
 		}
 		
 		/**
-		 * Array of <code>ParameterModel</code> objects.
+		 * Array of <code>ParameterModel</code> objects, sorted in ascending order by <code>index</code>.
+		 * 
+		 * @see reflexunit.introspection.model.ParameterModel
 		 */
 		public function get parameterModels():Array {
 			return _parameterModels;
 		}
 		
 		/**
-		 * A <code>null</code> value indicates a <code>returnType</code> of <code>void</code>.
+		 * A <code>RETURN_TYPE_VOID</code> value indicates a <code>returnType</code> of <code>void</code>.
 		 */
 		public function get returnType():Class {
 			return _returnType;

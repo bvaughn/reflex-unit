@@ -11,6 +11,11 @@ package reflexunit.introspection.model {
 	 */
 	public class ParameterModel {
 		
+		/**
+		 * Since the <code>*</code> (unspecified) type is not a Class, this constant represents it.
+		 */
+		public static const RETURN_TYPE_UNSPECIFIED:* = null;
+		
 		private var _index:int;
 		private var _optional:Boolean;
 		private var _type:Class;
@@ -62,7 +67,7 @@ package reflexunit.introspection.model {
 		}
 		
 		/**
-		 * A <code>null</code> value for <code>type</code> indicates that the type is unspecified or <code>*</code>.
+		 * A <code>RETURN_TYPE_UNSPECIFIED</code> value for <code>type</code> indicates that the type is unspecified or <code>*</code>.
 		 */
 		public function get type():Class {
 			return _type;

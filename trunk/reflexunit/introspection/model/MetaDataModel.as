@@ -59,7 +59,9 @@ package reflexunit.introspection.model {
 		 */
 		
 		/**
-		 * Array of <code>ArgModel</code> objects.
+		 * Array of <code>ArgModel</code> objects, sorted in ascending order by <code>key</code>.
+		 * 
+		 * @see reflexunit.introspection.model.ArgModel
 		 */
 		public function get argModels():Array {
 			return _argModels;
