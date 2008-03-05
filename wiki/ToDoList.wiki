@@ -1,0 +1,19 @@
+#summary Checklist of features currently (or soon-to-be) under development
+
+=== Expand metadata to support the following ===
+
+  * shouldFail = true|false - _this test is expected to result in a `failure` (not an `error`)_
+  * forceSerialExecution = true|false - _asynchronous test should block other tests until completion_
+
+
+=== Multiple asynchronous tests can execute in parallel ===
+
+  * Queue up a series of strong event listeners such that (potentially) all asynchronous tests within a !TestCase can execute in parallel
+  * This must defer to the optional _forceSerialExecution_ metadata arg
+
+
+=== FlexMock style support available for all dynamic classes ===
+
+  * Offer rails-style .all, .new_instances, .exactly_once, .at_least_once, etc.
+  * Implement this using getter methods that return a reference to the Class (or singleton) itself but also mark Boolean flags inside to check
+  * Wrap specified functions in dynamically declared functions to ensure execution
