@@ -1,6 +1,10 @@
-package reflexunit.framework {
-	import reflexunit.introspection.model.MethodModel;
-	import reflexunit.introspection.util.IntrospectionUtil;
+package reflexunit.framework.runners {
+	import reflexunit.framework.IResultViewer;
+	import reflexunit.framework.IRunner;
+	import reflexunit.framework.ITest;
+	import reflexunit.framework.Result;
+	import reflexunit.framework.RunEvent;
+	import reflexunit.framework.RunNotifier;
 	
 	/**
 	 * Basic implementation of <code>IRunner</code> used to run tests and convey results to one or more <code>ResultViewer</code> objects.
