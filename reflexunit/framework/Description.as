@@ -1,11 +1,11 @@
-package funit.framework {
-	import funit.introspection.model.MethodModel;
-	import funit.introspection.util.IntrospectionUtil;
+package reflexunit.framework {
+	import reflexunit.introspection.model.MethodModel;
+	import reflexunit.introspection.util.IntrospectionUtil;
 	
 	/**
 	 * Parses a <code>TestCase</code> instance for its test methods.
 	 * 
-	 * @see funit.framework.TestCase
+	 * @see reflexunit.framework.TestCase
 	 */
 	public class Description {
 		

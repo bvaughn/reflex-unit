@@ -1,8 +1,8 @@
-package funit.framework.tests {
+package reflexunit.framework.tests {
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
-	import funit.framework.TestCase;
+	import reflexunit.framework.TestCase;
 	
 	public class SampleTest extends TestCase {
 		

@@ -1,4 +1,4 @@
-package funit.introspection.model {
+package reflexunit.introspection.model {
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
 	
@@ -6,8 +6,8 @@ package funit.introspection.model {
 	 * Represents a function parameter.
 	 * This type of object belongs to a <code>MethodModel</code>.
 	 * 
-	 * @see funit.introspection.model.MethodModel
-	 * @see funit.introspection.util.IntrospectionUtil
+	 * @see reflexunit.introspection.model.MethodModel
+	 * @see reflexunit.introspection.util.IntrospectionUtil
 	 */
 	public class ParameterModel {
 		

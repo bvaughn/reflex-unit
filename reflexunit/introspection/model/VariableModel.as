@@ -1,11 +1,11 @@
-package funit.introspection.model {
+package reflexunit.introspection.model {
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
 	
 	/**
 	 * Represents a public instance variable.
 	 * 
-	 * @see funit.introspection.util.IntrospectionUtil
+	 * @see reflexunit.introspection.util.IntrospectionUtil
 	 */
 	public class VariableModel {
 		

@@ -1,16 +1,16 @@
-package funit.framework.runners {
+package reflexunit.framework.runners {
 	import flash.utils.getQualifiedClassName;
 	
-	import funit.framework.Failure;
-	import funit.framework.GUIRunner;
-	import funit.framework.IStatus;
-	import funit.framework.ITest;
-	import funit.framework.InProgress;
-	import funit.framework.Result;
-	import funit.framework.RunEvent;
-	import funit.framework.RunNotifier;
-	import funit.framework.Success;
-	import funit.introspection.model.MethodModel;
+	import reflexunit.framework.Failure;
+	import reflexunit.framework.GUIRunner;
+	import reflexunit.framework.IStatus;
+	import reflexunit.framework.ITest;
+	import reflexunit.framework.InProgress;
+	import reflexunit.framework.Result;
+	import reflexunit.framework.RunEvent;
+	import reflexunit.framework.RunNotifier;
+	import reflexunit.framework.Success;
+	import reflexunit.introspection.model.MethodModel;
 	
 	import mx.controls.dataGridClasses.DataGridColumn;
 	
@@ -35,14 +35,14 @@ package funit.framework.runners {
 		}
 		
 		/**
-		 * @see funit.framework.IResultViewer#allTestsCompleted
+		 * @see reflexunit.framework.IResultViewer#allTestsCompleted
 		 */
 		public function allTestsCompleted():void {
 			// TODO
 		}
 		
 		/**
-		 * @see funit.framework.IResultViewer#testCompleted
+		 * @see reflexunit.framework.IResultViewer#testCompleted
 		 */
 		public function testCompleted( methodModel:MethodModel ):void {
 			
@@ -59,7 +59,7 @@ package funit.framework.runners {
 		}
 		
 		/**
-		 * @see funit.framework.IResultViewer#testStarting
+		 * @see reflexunit.framework.IResultViewer#testStarting
 		 */
 		public function testStarting( methodModel:MethodModel ):void {
 			_currentStatus = new InProgress( methodModel );
@@ -72,14 +72,14 @@ package funit.framework.runners {
 		 */
 		
 		/**
-		 * @see funit.framework.IResultViewer#result
+		 * @see reflexunit.framework.IResultViewer#result
 		 */
 		public function set result( value:Result ):void {
 			_result = value;
 		}
 		
 		/**
-		 * @see funit.framework.IResultViewer#test
+		 * @see reflexunit.framework.IResultViewer#test
 		 */
 		public function set test( value:ITest ):void {
 			_test = value;

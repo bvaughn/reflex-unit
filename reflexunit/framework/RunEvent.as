@@ -1,7 +1,7 @@
-package funit.framework {
+package reflexunit.framework {
 	import flash.events.Event;
 	
-	import funit.introspection.model.MethodModel;
+	import reflexunit.introspection.model.MethodModel;
 	
 	public class RunEvent extends Event {
 		

@@ -1,6 +1,6 @@
-package funit.framework {
-	import funit.introspection.model.MethodModel;
-	import funit.introspection.util.IntrospectionUtil;
+package reflexunit.framework {
+	import reflexunit.introspection.model.MethodModel;
+	import reflexunit.introspection.util.IntrospectionUtil;
 	
 	/**
 	 * Basic implementation of <code>IRunner</code> used to run tests and convey results to one or more <code>ResultViewer</code> objects.

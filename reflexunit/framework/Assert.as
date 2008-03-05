@@ -1,4 +1,4 @@
-package funit.framework {
+package reflexunit.framework {
 	
 	/**
 	 * Defines various assertion-methods that may be used to compare one or more values.
