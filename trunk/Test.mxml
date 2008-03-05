@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="init()">
+	<mx:Script>
+		<![CDATA[
+			import flash.utils.describeType;
+			private function init():void {
+				trace( describeType( new TestClass() ) );
+			}
+		]]>
+	</mx:Script>
+</mx:Application>
