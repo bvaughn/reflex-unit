@@ -17,27 +17,32 @@ package reflexunit.framework {
 		 * Constructor.
 		 */
 		public function ConsoleResultViewer() {
+			trace( '>>> Beginning Test --------------' );
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
 		public function allTestsCompleted():void {
-			trace( 'Final Stats:' );
+			trace( '>>> Final Stats -----------------' );
 			trace( '+ testsRun: ' + _result.testsRun );
 			trace( '+ errorCount: ' + _result.errorCount );
 			trace( '+ failureCount: ' + _result.failureCount );
 			
 			var failure:Failure;
 			
-			trace( 'Errors:' );
+			if ( _result.errorCount > 0 ) {
+				trace( '>>> Errors ----------------------' );
+			}
 			
 			for each ( failure in _result.errors ) {
 				trace( '+ ' + failure.methodModel + ' => ' + failure.errorMessage );
 				//trace( failure.error.getStackTrace() );
 			}
 			
-			trace( 'Failures:' );
+			if ( _result.failureCount > 0 ) {
+				trace( '>>> Failures --------------------' );
+			}
 			
 			for each ( failure in _result.failures ) {
 				trace( '+ ' + failure.methodModel + ' => ' + failure.errorMessage );
