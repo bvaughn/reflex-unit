@@ -36,7 +36,7 @@ package reflexunit.framework {
 		}
 		
 		public function get testCase():TestCase {
-			return _introspectionUtil.instance as TestCase;
+			return _introspectionUtil.classModel.instance as TestCase;
 		}
 		
 		public function get testCount():int {
@@ -51,11 +51,11 @@ package reflexunit.framework {
 			var explicitTestMethods:Array;
 			
 			// If an explicit set of test methods have been defined then use that set only.
-			if ( _introspectionUtil.instanceClass.hasOwnProperty( 'testMethods' ) ) {
-				explicitTestMethods = ( _introspectionUtil.instanceClass['testMethods'] as Function ).apply( new Object() );
+			if ( _introspectionUtil.classModel.type.hasOwnProperty( 'testMethods' ) ) {
+				explicitTestMethods = ( _introspectionUtil.classModel.type['testMethods'] as Function ).apply( new Object() );
 			}
 			
-			for each ( var methodModel:MethodModel in _introspectionUtil.methodModels ) {
+			for each ( var methodModel:MethodModel in _introspectionUtil.classModel.methodModels ) {
 				if ( explicitTestMethods ) {
 					if ( explicitTestMethods.indexOf( methodModel.method ) >= 0 ) {
 						_methodModels.push( methodModel );

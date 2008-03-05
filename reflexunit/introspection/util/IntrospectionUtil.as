@@ -1,10 +1,7 @@
 package reflexunit.introspection.util {
-	import reflexunit.introspection.model.MethodModel;
-	import reflexunit.introspection.model.VariableModel;
-	
 	import flash.utils.describeType;
-	import flash.utils.getDefinitionByName;
-	import flash.utils.getQualifiedClassName;
+	
+	import reflexunit.introspection.model.ClassModel;
 	
 	/**
 	 * Analyzes an instance object and describes its public instance variables and methods.
@@ -15,24 +12,15 @@ package reflexunit.introspection.util {
 	 */
 	public class IntrospectionUtil {
 		
-		private var _describeTypeXML:XML;
-		private var _instance:Object;
-		private var _instanceClass:Class;
-		private var _methodModels:Array;
-		private var _variableModels:Array;
+		private var _classModel:ClassModel;
 		
 		/*
 		 * Initialization
 		 */
 		
 		public function IntrospectionUtil( instance:Object ) {
-			_instance = instance;
-			_instanceClass = getDefinitionByName( getQualifiedClassName( instance ) ) as Class;
-			
-			_methodModels = new Array();
-			_variableModels = new Array();
-			
-			initClassInformation();
+			_classModel = new ClassModel( instance );
+			_classModel.fromXML( describeType( instance ) );
 		}
 		
 		/**
@@ -41,62 +29,15 @@ package reflexunit.introspection.util {
 		 * functions
 		 */
 		public function toString():String {
-			var strings:Array = [ _instanceClass + ' ' + _instance ];
-			
-			for each ( var variableModel:VariableModel in _variableModels ) {
-				strings.push( variableModel.toString() );
-			}
-			
-			for each ( var methodModel:MethodModel in _methodModels ) {
-				strings.push( methodModel.toString() );
-			}
-			
-			return strings.join( "\n" );
-		}
-		
-		/*
-		 * Helper methods
-		 */
-		
-		private function initClassInformation():void {
-			_describeTypeXML = describeType( _instance );
-			
-			for each ( var methodXML:XML in _describeTypeXML.method ) {
-				var methodModel:MethodModel = new MethodModel( _instance );
-				methodModel.fromXML( methodXML );
-				
-				_methodModels.push( methodModel );
-			}
-			
-			for each ( var variableXML:XML in _describeTypeXML.variable ) {
-				var variableModel:VariableModel = new VariableModel();
-				variableModel.fromXML( variableXML );
-				
-				_variableModels.push( variableModel );
-			}
-			
-			_methodModels.sortOn( 'name' );
-			_variableModels.sortOn( 'name' );
+			return _classModel ? _classModel.toString() : '';
 		}
 		
 		/*
 		 * Getter / setter methods
 		 */
 		
-		public function get instance():Object {
-			return _instance;
-		}
-		
-		public function get instanceClass():Class {
-			return _instanceClass;
-		}
-		
-		public function get methodModels():Array {
-			return _methodModels;
-		}
-		
-		public function get variableModels():Array {
-			return _variableModels;
+		public function get classModel():ClassModel {
+			return _classModel;
 		}
 	}
 }

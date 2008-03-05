@@ -9,6 +9,7 @@ package reflexunit.introspection.model {
 	 */
 	public class MethodModel {
 		
+		private var _metaDataModel:MetaDataModel;
 		private var _method:Function;
 		private var _methodDefinedBy:Class;
 		private var _name:String;
@@ -30,6 +31,9 @@ package reflexunit.introspection.model {
 		 * Expects XML in the following format:
 		 * <code>
 		 *   <method name="expectsArguments" declaredBy="TestClass" returnType="Boolean">
+		 *     <metadata name="MetaData">
+		 *       <arg key="attribute" value="value"/>
+		 *     </metadata>
 		 *     <parameter index="1" type="String" optional="false"/>
 		 *     <parameter index="2" type="Boolean" optional="true"/>
 		 *   </method>
@@ -39,6 +43,12 @@ package reflexunit.introspection.model {
 			_methodDefinedBy = getDefinitionByName( methodXML.@declaredBy.toString() ) as Class;
 			_method = _thisObject[ methodXML.@name.toString() ] as Function;
 			_name = methodXML.@name.toString();
+			
+			// Not all methods have metadata.
+			if ( methodXML.metadata.length() > 0 ) {
+				_metaDataModel = new MetaDataModel();
+				_metaDataModel.fromXML( methodXML.metadata[0] as XML );
+			}
 			
 			// A return type of 'void' is a special case.
 			// It can't be cast to a Class and so must be indicated by 'null'.
@@ -70,12 +80,22 @@ package reflexunit.introspection.model {
 			
 			var returnTypeString:String = _returnType ? getQualifiedClassName( _returnType ) : 'void';
 			
-			return 'public function ' + _name + '(' + parametersString + '):' + returnTypeString + ' {} ' + _methodDefinedBy;
+			var metaDataString:String = '';
+			
+			if ( _metaDataModel ) {
+				metaDataString = _metaDataModel.toString() + "\n";
+			}
+			
+			return metaDataString + 'public function ' + _name + '(' + parametersString + '):' + returnTypeString + ' {} ' + _methodDefinedBy;
 		}
 		
 		/*
 		 * Getter / setter methods
 		 */
+		
+		public function get metaDataModel():MetaDataModel {
+			return _metaDataModel;
+		}
 		
 		public function get method():Function {
 			return _method;
