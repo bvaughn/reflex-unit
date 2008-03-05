@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application width="100%" height="100%" layout="absolute"
+                backgroundColor="0xFFFFFF" backgroundGradientColors="[ 0xFFFFFF, 0xFFFFFF ]"
+                initialize="onInitialize( event )"
+                xmlns:framework="funit.framework.*"
+                xmlns:mx="http://www.adobe.com/2006/mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import funit.framework.ConsoleResultViewer;
+			import funit.framework.Runner;
+			import funit.framework.Failure;
+			import funit.framework.Result;
+			import funit.framework.RunEvent;
+			import funit.framework.RunNotifier;
+			import funit.framework.TestSuite;
+			import funit.framework.tests.SampleTest;
+			
+			import mx.events.FlexEvent;
+			
+			private var _runner:Runner;
+			
+			private function onInitialize( event:FlexEvent ):void {
+				_runner = new Runner( [ runner, new ConsoleResultViewer() ] );
+				_runner.run( new TestSuite( [ SampleTest ] ),
+				             new RunNotifier() );
+			}
+		]]>
+	</mx:Script>
+	
+	<framework:GUIRunner id="runner" width="100%" height="100%" />
+	
+</mx:Application>
