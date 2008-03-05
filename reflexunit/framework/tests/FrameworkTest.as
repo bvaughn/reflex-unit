@@ -69,6 +69,12 @@ package reflexunit.framework.tests {
 			assertTrue( false );
 		}
 		
+		public function testAddAsyncError():void {
+			var timer:Timer = new Timer( 100, 1 );
+			timer.addEventListener( TimerEvent.TIMER_COMPLETE, addAsync( onTimerCompleteWithError, 1000 ) );
+			timer.start();
+		}
+		
 		public function testAddAsyncFails():void {
 			var timer:Timer = new Timer( 100, 1 );
 			timer.addEventListener( TimerEvent.TIMER_COMPLETE, addAsync( onTimerComplete, 10 ) );
@@ -106,6 +112,11 @@ package reflexunit.framework.tests {
 		
 		private function onTimerComplete( event:TimerEvent ):void {
 			assertTrue( event.currentTarget is Timer );
+		}
+		
+		private function onTimerCompleteWithError( event:TimerEvent ):void {
+			var obj:Object;
+			obj[0];	// Cause a RTE to be thrown to make sure the testing framework catches it.
 		}
 	}
 }

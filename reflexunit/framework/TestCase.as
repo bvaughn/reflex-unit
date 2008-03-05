@@ -4,7 +4,6 @@ package reflexunit.framework {
 	import flash.utils.Timer;
 	
 	import reflexunit.introspection.model.MethodModel;
-	import reflexunit.introspection.util.IntrospectionUtil;
 	
 	/**
 	 * Base implementation of <code>ITest</code> interface.
@@ -78,7 +77,7 @@ package reflexunit.framework {
 			
 			// If this Timer event handler executes before the below wrapper consider it a failure.
 			var onTimerComplete:Function = function( event:TimerEvent ):void {
-				var message:String = 'Asynchronous function was not executed in ' + timeout + 'ms';
+				var message:String = 'Asynchronous function was not executed in ' + timeout + 'ms'; 
 				
 				// If a failure handler has been provided, use its custom message.
 				if ( failureMessageFunction != null ) {
@@ -87,9 +86,8 @@ package reflexunit.framework {
 				
 				// Don't throw the Error but rather, add it directly to the Result.
 				// (We have no way to catch a thrown error in an asynchronous test.)
-				 _result.addFailure( currentTestMethodModel,
-				                     new AssertFailedError( message ) );
-				 
+				 _result.addFailure( currentTestMethodModel, new AssertFailedError( message ) );
+				
 				runNextTest();
 			}
 			
@@ -108,7 +106,12 @@ package reflexunit.framework {
 				timer.removeEventListener( TimerEvent.TIMER_COMPLETE, onTimerComplete );
 				timer.stop();
 				
-				eventHandler.call( this, event );
+				// Errors can occur in asynchronous handlers too; be sure to catch them.
+				try {
+					eventHandler.call( this, event );
+				} catch ( error:Error ) {
+					_result.addError( currentTestMethodModel, error );
+				}
 				
 				_numAsycTests--;
 				
