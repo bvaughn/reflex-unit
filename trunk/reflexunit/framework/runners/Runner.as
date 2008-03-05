@@ -47,8 +47,6 @@ package reflexunit.framework.runners {
 			runNotifier.addEventListener( RunEvent.TEST_COMPLETED, onTestCompleted, false, 0, true );
 			runNotifier.addEventListener( RunEvent.TEST_STARTING, onTestStarting, false, 0, true );
 			
-			trace( 'Running Tests:' );
-			
 			_test.run( _result, runNotifier );
 		}
 		
