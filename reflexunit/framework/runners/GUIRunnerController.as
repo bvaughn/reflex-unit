@@ -5,7 +5,6 @@ package reflexunit.framework.runners {
 	import mx.events.ListEvent;
 	
 	import reflexunit.framework.Failure;
-	import reflexunit.framework.GUIRunner;
 	import reflexunit.framework.IStatus;
 	import reflexunit.framework.ITest;
 	import reflexunit.framework.InProgress;

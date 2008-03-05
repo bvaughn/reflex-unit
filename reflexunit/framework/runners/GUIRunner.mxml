@@ -9,12 +9,14 @@
 		<![CDATA[
 			import flash.utils.getQualifiedClassName;
 			
-			import reflexunit.framework.runners.GUIRunnerController;
-			import reflexunit.introspection.model.MethodModel;
-			
 			import mx.collections.ArrayCollection;
 			import mx.controls.dataGridClasses.DataGridColumn;
 			import mx.events.FlexEvent;
+			
+			import reflexunit.framework.ITest;
+			import reflexunit.framework.Result;
+			import reflexunit.framework.runners.GUIRunnerController;
+			import reflexunit.introspection.model.MethodModel;
 			
 			/*
 			 * Variables
