@@ -1,5 +1,7 @@
 #summary Checklist of features currently (or soon-to-be) under development
 
+== Flex Framework ==
+
 === Expand metadata to support the following ===
 
   * shouldFail = true|false - _this test is expected to result in a `failure` (not an `error`)_
@@ -17,3 +19,5 @@
   * Offer rails-style .all, .new_instances, .exactly_once, .at_least_once, etc.
   * Implement this using getter methods that return a reference to the Class (or singleton) itself but also mark Boolean flags inside to check
   * Wrap specified functions in dynamically declared functions to ensure execution
+
+== Eclipse Plugin ==
