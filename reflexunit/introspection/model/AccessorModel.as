@@ -9,6 +9,11 @@ package reflexunit.introspection.model {
 	 */
 	public class AccessorModel {
 		
+		/**
+		 * Since the <code>void</code> type is not a Class, this constant represents it.
+		 */
+		public static const RETURN_TYPE_VOID:* = null;
+		
 		private var _metaDataModel:MetaDataModel;
 		private var _methodDefinedBy:Class;
 		private var _name:String;
@@ -92,7 +97,7 @@ package reflexunit.introspection.model {
 		}
 		
 		/**
-		 * A <code>null</code> value indicates a <code>type</code> of <code>void</code>.
+		 * A <code>RETURN_TYPE_VOID</code> value indicates a <code>type</code> of <code>void</code>.
 		 */
 		public function get type():Class {
 			return _type;

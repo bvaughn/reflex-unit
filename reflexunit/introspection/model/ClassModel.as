@@ -56,6 +56,13 @@ package reflexunit.introspection.model {
 				_metaDataModel.fromXML( classXML.metadata[0] as XML );
 			}
 			
+			for each ( var accessorXML:XML in classXML.accessor ) {
+				var accessorModel:AccessorModel = new AccessorModel( _instance );
+				accessorModel.fromXML( accessorXML );
+				
+				_accessorModels.push( accessorModel );
+			}
+			
 			for each ( var methodXML:XML in classXML.method ) {
 				var methodModel:MethodModel = new MethodModel( _instance );
 				methodModel.fromXML( methodXML );
@@ -70,6 +77,7 @@ package reflexunit.introspection.model {
 				_variableModels.push( variableModel );
 			}
 			
+			_accessorModels.sortOn( 'name' );
 			_methodModels.sortOn( 'name' );
 			_variableModels.sortOn( 'name' );
 		}
@@ -103,6 +111,11 @@ package reflexunit.introspection.model {
 		 * Getter / setter methods
 		 */
 		
+		/**
+		 * Array of <code>AccessorModel</code> objects, sorted in ascending order by <code>name</code>.
+		 * 
+		 * @see reflexunit.introspection.model.AccessorModel
+		 */
 		public function get accessorModels():Array {
 			return _accessorModels;
 		}
@@ -131,6 +144,11 @@ package reflexunit.introspection.model {
 			return _metaDataModel;
 		}
 		
+		/**
+		 * Array of <code>MethodModel</code> objects, sorted in ascending order by <code>name</code>.
+		 * 
+		 * @see reflexunit.introspection.model.MethodModel
+		 */
 		public function get methodModels():Array {
 			return _methodModels;
 		}
@@ -139,6 +157,11 @@ package reflexunit.introspection.model {
 			return _type;
 		}
 		
+		/**
+		 * Array of <code>VariableModel</code> objects, sorted in ascending order by <code>name</code>.
+		 * 
+		 * @see reflexunit.introspection.model.VariableModel
+		 */
 		public function get variableModels():Array {
 			return _variableModels;
 		}

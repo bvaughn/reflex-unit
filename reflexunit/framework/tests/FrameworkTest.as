@@ -4,7 +4,7 @@ package reflexunit.framework.tests {
 	
 	import reflexunit.framework.TestCase;
 	
-	public class SampleTest extends TestCase {
+	public class FrameworkTest extends TestCase {
 		
 		/*
 		 * Test that all assertion methods work.

@@ -14,7 +14,8 @@
 			import reflexunit.framework.RunEvent;
 			import reflexunit.framework.RunNotifier;
 			import reflexunit.framework.TestSuite;
-			import reflexunit.framework.tests.SampleTest;
+			import reflexunit.framework.tests.FrameworkTest;
+			import reflexunit.introspection.tests.IntrospectionTest;
 			
 			import mx.events.FlexEvent;
 			
@@ -22,7 +23,7 @@
 			
 			private function onInitialize( event:FlexEvent ):void {
 				_runner = new Runner( [ runner, new ConsoleResultViewer() ] );
-				_runner.run( new TestSuite( [ SampleTest ] ),
+				_runner.run( new TestSuite( [ FrameworkTest, IntrospectionTest ] ),
 				             new RunNotifier() );
 			}
 		]]>
