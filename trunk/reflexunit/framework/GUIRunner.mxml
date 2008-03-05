@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Grid width="100%" height="100%"
+         paddingTop="15" paddingBottom="15" paddingLeft="15" paddingRight="15"
          initialize="onInitialize( event )"
          implements="reflexunit.framework.IResultViewer"
          xmlns:mx="http://www.adobe.com/2006/mxml">
@@ -84,21 +85,112 @@
 		]]>
 	</mx:Script>
 	
-	<mx:GridRow width="100%" height="100%">
+	<mx:GridRow width="100%">
+		<mx:GridItem width="100%">
+			<mx:Label text="Reflex Unit Runner"
+			          color="0x333333" fontSize="20" fontWeight="bold" />
+		</mx:GridItem>
+	</mx:GridRow>
+	
+	<mx:GridRow width="100%">
+		<mx:GridItem width="100%" verticalAlign="middle">
+			<mx:Label text="Progress"
+			          color="0x333333" fontSize="15" fontWeight="bold" />
+			
+			<mx:Canvas id="progressBarContainer" width="200" height="20"
+			           backgroundColor="0xDDDDDD"
+			           cornerRadius="5" borderStyle="solid"
+			           horizontalScrollPolicy="off" verticalScrollPolicy="off">
+				
+				<mx:Canvas id="progressBar" width="100" height="100%"
+				           backgroundColor="0xCC0000"
+				           cornerRadius="5" />
+			</mx:Canvas>
+			
+			<mx:Label text="Tests:"
+			          color="0x666666" fontSize="15" fontWeight="bold" />
+			<mx:Label id="numTestsLabel" text="0/0"
+			          color="0x666666" fontSize="15" fontWeight="bold" />
+			<mx:VRule height="20" />
+			<mx:Label text="Failures:"
+			          color="0x333333" fontSize="15" fontWeight="bold" />
+			<mx:Label id="numFailuresLabel" text="0"
+			          color="0x333333" fontSize="15" fontWeight="bold" />
+			<mx:VRule height="20" />
+			<mx:Label text="Errors:"
+			          color="0x333333" fontSize="15" fontWeight="bold" />
+			<mx:Label id="numErrorsLabel" text="0"
+			          color="0x333333" fontSize="15" fontWeight="bold" />
+		</mx:GridItem>
+	</mx:GridRow>
+	
+	<mx:GridRow width="100%" height="50%">
 		<mx:GridItem width="100%">
 			<mx:DataGrid id="dataGrid" horizontalCenter="0" width="100%" height="100%"
 			             dataProvider="{ dataProvider }">
 				
 				<mx:columns>
-					<mx:DataGridColumn headerText="Test Case" labelFunction="{ GUIRunnerController.getTestCaseName }" />
-					<mx:DataGridColumn headerText="Test" labelFunction="{ GUIRunnerController.getTestName }" />
+					<mx:DataGridColumn headerText="Test Case" width="300"
+					                   labelFunction="{ GUIRunnerController.getTestCaseName }" />
+					<mx:DataGridColumn headerText="Test" width="200"
+					                   labelFunction="{ GUIRunnerController.getTestName }" />
 					<!-- TODO
 					<mx:DataGridColumn headerText="Time" />
 					-->
-					<mx:DataGridColumn headerText="Status" dataField="status" />
-					<mx:DataGridColumn headerText="Message" labelFunction="{ GUIRunnerController.getMessage }" />
+					<mx:DataGridColumn headerText="Status" width="55"
+					                   dataField="status" />
+					<mx:DataGridColumn headerText="Message"
+					                   labelFunction="{ GUIRunnerController.getMessage }" />
 				</mx:columns>
 			</mx:DataGrid>
+		</mx:GridItem>
+	</mx:GridRow>
+	
+	<mx:GridRow width="100%">
+		<mx:GridItem width="100%">
+			<mx:Grid>
+				<mx:GridRow>
+					<mx:GridItem>
+						<mx:Label text="Test Case:"
+						          color="0x333333" fontSize="12" fontWeight="bold" />
+					</mx:GridItem>
+					<mx:GridItem>
+						<mx:Label id="testCaseLabel"
+						          color="0x333333" fontSize="12" />
+					</mx:GridItem>
+				</mx:GridRow>
+				<mx:GridRow>
+					<mx:GridItem>
+						<mx:Label text="Test:"
+						          color="0x333333" fontSize="12" fontWeight="bold" />
+					</mx:GridItem>
+					<mx:GridItem>
+						<mx:Label id="testLabel"
+						          color="0x333333" fontSize="12" />
+					</mx:GridItem>
+				</mx:GridRow>
+				<mx:GridRow>
+					<mx:GridItem>
+						<mx:Label text="Message:"
+						          color="0x333333" fontSize="12" fontWeight="bold" />
+					</mx:GridItem>
+					<mx:GridItem>
+						<mx:Label id="messageLabel"
+						          color="0x333333" fontSize="12" />
+					</mx:GridItem>
+				</mx:GridRow>
+			</mx:Grid>
+		</mx:GridItem>
+	</mx:GridRow>
+	
+	<mx:GridRow width="100%" height="50%">
+		<mx:GridItem width="100%">
+			<mx:VBox width="100%" height="100%">
+				<mx:Label text="Stack Trace:"
+				          color="0x333333" fontSize="12" fontWeight="bold" />
+				
+				<mx:TextArea id="stackTraceTextArea" width="100%" height="100%" />
+			</mx:VBox>
 		</mx:GridItem>
 	</mx:GridRow>
 	
