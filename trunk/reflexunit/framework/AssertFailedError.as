@@ -1,9 +1,9 @@
-package funit.framework {
+package reflexunit.framework {
 	
 	/**
 	 * Dispatched by an instance of <code>Assert</codEe> to indicate assertion failures.
 	 * 
-	 * @see funit.framework.Assert
+	 * @see reflexunit.framework.Assert
 	 */
 	public class AssertFailedError extends Error {
 		

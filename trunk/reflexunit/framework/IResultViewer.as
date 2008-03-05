@@ -1,5 +1,5 @@
-package funit.framework {
-	import funit.introspection.model.MethodModel;
+package reflexunit.framework {
+	import reflexunit.introspection.model.MethodModel;
 	
 	/**
 	 * An <code>IResultViewer</code> parses and displays (or prints) a running summary of the contents within a <code>Result</code> object.

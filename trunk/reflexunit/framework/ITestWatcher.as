@@ -1,5 +1,5 @@
-package funit.framework {
-	import funit.introspection.model.MethodModel;
+package reflexunit.framework {
+	import reflexunit.introspection.model.MethodModel;
 	
 	/**
 	 * Defines a collection of methods to be implemented by classes that monitor the progress of an <code>ITest</code>.

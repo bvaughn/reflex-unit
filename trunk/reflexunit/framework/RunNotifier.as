@@ -1,7 +1,7 @@
-package funit.framework {
+package reflexunit.framework {
 	import flash.events.EventDispatcher;
 	
-	import funit.introspection.model.MethodModel;
+	import reflexunit.introspection.model.MethodModel;
 	
 	/**
 	 * Used to signify certain <code>ITest</code> events or actions.

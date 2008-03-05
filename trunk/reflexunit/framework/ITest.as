@@ -1,5 +1,5 @@
-package funit.framework {
-	import funit.introspection.model.MethodModel;
+package reflexunit.framework {
+	import reflexunit.introspection.model.MethodModel;
 	
 	/**
 	 * A Test can be run and collect its results.
@@ -23,7 +23,7 @@ package funit.framework {
 		/**
 		 * <code>MethodModel</code> describing the currently active test method.
 		 * 
-		 * @see funit.introspection.model.MethodModel
+		 * @see reflexunit.introspection.model.MethodModel
 		 */
 		function get currentTestMethodModel():MethodModel;
 		

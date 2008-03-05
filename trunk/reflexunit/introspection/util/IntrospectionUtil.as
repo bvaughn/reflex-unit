@@ -1,6 +1,6 @@
-package funit.introspection.util {
-	import funit.introspection.model.MethodModel;
-	import funit.introspection.model.VariableModel;
+package reflexunit.introspection.util {
+	import reflexunit.introspection.model.MethodModel;
+	import reflexunit.introspection.model.VariableModel;
 	
 	import flash.utils.describeType;
 	import flash.utils.getDefinitionByName;
@@ -9,9 +9,9 @@ package funit.introspection.util {
 	/**
 	 * Analyzes an instance object and describes its public instance variables and methods.
 	 * 
-	 * @see funit.introspection.model.MethodModel
-	 * @see funit.introspection.model.ParameterModel
-	 * @see funit.introspection.model.VariableModel
+	 * @see reflexunit.introspection.model.MethodModel
+	 * @see reflexunit.introspection.model.ParameterModel
+	 * @see reflexunit.introspection.model.VariableModel
 	 */
 	public class IntrospectionUtil {
 		

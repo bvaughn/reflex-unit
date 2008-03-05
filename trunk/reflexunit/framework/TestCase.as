@@ -1,10 +1,10 @@
-package funit.framework {
+package reflexunit.framework {
 	import flash.events.Event;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
-	import funit.introspection.model.MethodModel;
-	import funit.introspection.util.IntrospectionUtil;
+	import reflexunit.introspection.model.MethodModel;
+	import reflexunit.introspection.util.IntrospectionUtil;
 	
 	/**
 	 * Base implementation of <code>ITest</code> interface.
@@ -190,7 +190,7 @@ package funit.framework {
 		}
 		
 		/**
-		 * @see funit.framework.Description
+		 * @see reflexunit.framework.Description
 		 */
 		public function get description():Description {
 			return _description;

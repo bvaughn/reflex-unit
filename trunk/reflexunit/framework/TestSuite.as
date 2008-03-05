@@ -1,5 +1,5 @@
-package funit.framework {
-	import funit.introspection.model.MethodModel;
+package reflexunit.framework {
+	import reflexunit.introspection.model.MethodModel;
 	
 	/**
 	 * Contains a collection of other <code>ITest</code> objects.

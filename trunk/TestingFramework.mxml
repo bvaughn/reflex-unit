@@ -2,19 +2,19 @@
 <mx:Application width="100%" height="100%" layout="absolute"
                 backgroundColor="0xFFFFFF" backgroundGradientColors="[ 0xFFFFFF, 0xFFFFFF ]"
                 initialize="onInitialize( event )"
-                xmlns:framework="funit.framework.*"
+                xmlns:framework="reflexunit.framework.*"
                 xmlns:mx="http://www.adobe.com/2006/mxml">
 	
 	<mx:Script>
 		<![CDATA[
-			import funit.framework.ConsoleResultViewer;
-			import funit.framework.Runner;
-			import funit.framework.Failure;
-			import funit.framework.Result;
-			import funit.framework.RunEvent;
-			import funit.framework.RunNotifier;
-			import funit.framework.TestSuite;
-			import funit.framework.tests.SampleTest;
+			import reflexunit.framework.ConsoleResultViewer;
+			import reflexunit.framework.Runner;
+			import reflexunit.framework.Failure;
+			import reflexunit.framework.Result;
+			import reflexunit.framework.RunEvent;
+			import reflexunit.framework.RunNotifier;
+			import reflexunit.framework.TestSuite;
+			import reflexunit.framework.tests.SampleTest;
 			
 			import mx.events.FlexEvent;
 			

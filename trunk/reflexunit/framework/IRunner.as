@@ -1,4 +1,4 @@
-package funit.framework {
+package reflexunit.framework {
 	
 	/**
 	 * Executes an instance of <code>ITest</code> and returns results in the form of a <code>Result</code> object.
