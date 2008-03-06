@@ -1,0 +1,10 @@
+#summary - Create !CruiseControl-friendly XML output
+
+{{{
+<testsuites>
+  <testsuite name="package_name::ClassName">
+    <testcase name="methodName" time="0.0"/>
+    ...
+  </testsuite>
+  ...</testsuites>
+}}}
