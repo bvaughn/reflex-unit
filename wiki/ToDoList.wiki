@@ -20,4 +20,11 @@
   * Implement this using getter methods that return a reference to the Class (or singleton) itself but also mark Boolean flags inside to check
   * Wrap specified functions in dynamically declared functions to ensure execution
 
+=== Remove requirement for tests to extend !TestCase ===
+
+  * Create new !TestRunner class that wraps test and handles running
+  * Make methods in !TestCase public-static and able to be _called by_ tests, (perhaps multiple tests in parallel)
+  * Get rid of the concept of an ITest?
+
+
 == Eclipse Plugin ==
