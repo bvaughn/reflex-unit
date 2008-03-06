@@ -4,6 +4,7 @@ package reflexunit.framework {
 	public class Success implements IStatus {
 		
 		private var _methodModel:MethodModel;
+		private var _numAsserts:int;
 		
 		/*
 		 * Initialization
@@ -12,8 +13,9 @@ package reflexunit.framework {
 		/**
 		 * Constructor.
 		 */
-		public function Success( methodModelIn:MethodModel ) {
+		public function Success( methodModelIn:MethodModel, numAssertsIn:int = 0 ) {
 			_methodModel = methodModelIn;
+			_numAsserts = numAssertsIn;
 		}
 		
 		/*
@@ -25,6 +27,13 @@ package reflexunit.framework {
 		 */
 		public function get methodModel():MethodModel {
 			return _methodModel;
+		}
+		
+		/**
+		 * 
+		 */
+		public function get numAsserts():int {
+			return _numAsserts;
 		}
 		
 		/**

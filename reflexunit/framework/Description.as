@@ -78,9 +78,9 @@ package reflexunit.framework {
 		 */
 		protected static function isTestMethod( methodModel:MethodModel ):Boolean {
 			
-			// If the MetaData keyword 'TestCase' has been provided, support it.
+			// If the MetaData keyword 'Test' has been provided, support it.
 			if ( methodModel.metaDataModel ) {
-				if ( methodModel.metaDataModel.name == TestCase.METADATA_TEST_CASE ) {
+				if ( methodModel.metaDataModel.name == TestCase.METADATA_TEST ) {
 					return true;
 				}
 			}

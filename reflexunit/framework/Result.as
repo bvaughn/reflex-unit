@@ -12,6 +12,7 @@ package reflexunit.framework {
 		
 		private var _errors:Array;
 		private var _failures:Array;
+		private var _successes:Array;
 		private var _testsRun:int;
 		
 		/*
@@ -21,6 +22,7 @@ package reflexunit.framework {
 		public function Result() {
 			_errors = new Array();
 			_failures = new Array();
+			_successes = new Array();
 			_testsRun = 0;
 		}
 		
@@ -40,6 +42,13 @@ package reflexunit.framework {
 		 */
 		public function addFailure( methodModel:MethodModel, error:AssertFailedError ):void {
 			_failures.push( new Failure( methodModel, error ) );
+		}
+		
+		/**
+		 * Adds a failure to the list of failures.
+		 */
+		public function addSuccess( methodModel:MethodModel, numAsserts:int = 0 ):void {
+			_successes.push( new Success( methodModel, numAsserts ) );
 		}
 		
 		/*
@@ -72,6 +81,20 @@ package reflexunit.framework {
 		 */
 		public function get failures():Array {
 			return _failures;
+		}
+		
+		/**
+		 * Gets the number of detected successful tests.
+		 */
+		public function get successCount():int {
+			return successes.length;
+		}
+		
+		/**
+		 * Array of test <code>Success</code> objects.
+		 */
+		public function get successes():Array {
+			return _successes;
 		}
 		
 		/**

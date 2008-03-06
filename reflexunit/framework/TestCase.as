@@ -41,8 +41,10 @@ package reflexunit.framework {
 	 */
 	public class TestCase extends Assert implements ITest {
 		
-		public static const METADATA_TEST_CASE:String = 'TestCase';
+		public static const METADATA_ARG_FORCE_SERIAL_EXECUTION:String = 'forceSerialExecution';
 		public static const METADATA_ARG_SHOULD_FAIL:String = 'shouldFail';
+		public static const METADATA_TEST:String = 'Test';
+		public static const METADATA_TEST_CASE:String = 'TestCase';
 		
 		private var _description:Description;
 		private var _name:String;
@@ -103,6 +105,8 @@ package reflexunit.framework {
 		
 		private function runNextTest():void {
 			if ( _currentTestIndex >= 0 ) {
+				_result.addSuccess( currentTestMethodModel, numAsserts );
+				
 				_runNotifier.testCompleted( currentTestMethodModel );
 			}
 			
@@ -123,6 +127,8 @@ package reflexunit.framework {
 			setup();
 			
 			try {
+				resetNumAsserts();
+				
 				_runNotifier.testStarting( currentTestMethodModel );
 				
 				methodModel.method.call( methodModel.thisObject );
