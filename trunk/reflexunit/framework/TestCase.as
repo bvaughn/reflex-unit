@@ -41,7 +41,8 @@ package reflexunit.framework {
 	 */
 	public class TestCase extends Assert implements ITest {
 		
-		private const METADATA_ARG_SHOULD_FAIL:String = 'shouldFail';
+		public static const METADATA_TEST_CASE:String = 'TestCase';
+		public static const METADATA_ARG_SHOULD_FAIL:String = 'shouldFail';
 		
 		private var _description:Description;
 		private var _name:String;
