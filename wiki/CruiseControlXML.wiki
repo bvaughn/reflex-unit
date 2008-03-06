@@ -1,4 +1,4 @@
-#summary - Create !CruiseControl-friendly XML output
+#summary - Create CruiseControl-friendly XML output
 
 {{{
 <testsuites>
