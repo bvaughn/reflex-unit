@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application width="100%" height="100%" layout="absolute"
+                backgroundColor="0xFFFFFF" backgroundGradientColors="[ 0xFFFFFF, 0xFFFFFF ]"
+                initialize="onInitialize( event )"
+                xmlns:framework="reflexunit.framework.runners.*"
+                xmlns:mx="http://www.adobe.com/2006/mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import reflexunit.framework.ConsoleResultViewer;
+			import reflexunit.framework.runners.Runner;
+			import reflexunit.framework.Failure;
+			import reflexunit.framework.Result;
+			import reflexunit.framework.RunEvent;
+			import reflexunit.framework.RunNotifier;
+			import reflexunit.framework.TestSuite;
+			import reflexunit.framework.tests.FrameworkTest;
+			import reflexunit.introspection.tests.IntrospectionTest;
+			
+			import mx.events.FlexEvent;
+			
+			private var _runner:Runner;
+			
+			private function onInitialize( event:FlexEvent ):void {
+				_runner = new Runner( [ runner, new ConsoleResultViewer() ] );
+				_runner.run( new TestSuite( [ FrameworkTest, IntrospectionTest ] ),
+				             new RunNotifier() );
+			}
+		]]>
+	</mx:Script>
+	
+	<framework:GUIRunner id="runner" width="100%" height="100%" />
+	
+</mx:Application>
