@@ -3,7 +3,9 @@ package reflexunit.framework {
 	import reflexunit.introspection.util.IntrospectionUtil;
 	
 	/**
-	 * Parses a <code>TestCase</code> instance for its test methods.
+	 * Describes a single test class and its set of testable methods.
+	 * This class is responsible for analyzing the specified class to determine which methods are testable.
+	 * Each testable method is bundled into a single <code>MethodModel</code> for later use. 
 	 * 
 	 * @see reflexunit.framework.TestCase
 	 */
