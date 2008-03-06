@@ -10,6 +10,19 @@ package reflexunit.framework.tests {
 		 * Test that all assertion methods work.
 		 */
 		
+		public function testAddAsync():void {
+			var timer:Timer = new Timer( 100, 1 );
+			timer.addEventListener( TimerEvent.TIMER_COMPLETE, addAsync( onTimerComplete, 1000 ) );
+			timer.start();
+		}
+		
+		[TestCase(shouldFail="true")]
+		public function testAddAsyncFailureExpected():void {
+			var timer:Timer = new Timer( 100, 1 );
+			timer.addEventListener( TimerEvent.TIMER_COMPLETE, addAsync( onTimerComplete, 10 ) );
+			timer.start();
+		}
+		
 		public function testAssertEquals():void {
 			assertEquals( 1, 1 );
 		}
@@ -34,10 +47,9 @@ package reflexunit.framework.tests {
 			assertTrue( true );
 		}
 		
-		public function testAddAsync():void {
-			var timer:Timer = new Timer( 100, 1 );
-			timer.addEventListener( TimerEvent.TIMER_COMPLETE, addAsync( onTimerComplete, 1000 ) );
-			timer.start();
+		[TestCase(shouldFail="true")]
+		public function testFailureExpected():void {
+			assertTrue( false );
 		}
 		
 		/*
@@ -69,6 +81,7 @@ package reflexunit.framework.tests {
 			assertTrue( false );
 		}
 		
+		[TestCase(shouldFail="true")]	// Note that a 'failure' is not the same as an 'error'; this test should still fail.
 		public function testAddAsyncError():void {
 			var timer:Timer = new Timer( 100, 1 );
 			timer.addEventListener( TimerEvent.TIMER_COMPLETE, addAsync( onTimerCompleteWithError, 1000 ) );
