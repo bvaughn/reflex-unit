@@ -3,6 +3,7 @@ package reflexunit.framework {
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
+	import reflexunit.introspection.model.ArgModel;
 	import reflexunit.introspection.model.MethodModel;
 	
 	/**
@@ -40,6 +41,8 @@ package reflexunit.framework {
 	 */
 	public class TestCase extends Assert implements ITest {
 		
+		private const METADATA_ARG_SHOULD_FAIL:String = 'shouldFail';
+		
 		private var _description:Description;
 		private var _name:String;
 		private var _currentTestIndex:int = -1;
@@ -68,63 +71,28 @@ package reflexunit.framework {
 		 * @param failureMessageFunction Optional method to provide a custom error message in the event of a failure
 		 * @param failureMessageFunctionArgs Optional argumetns to pass to the failureMessageFunction
 		 */
-		public function addAsync( eventHandler:Function,
-		                          timeout:int = 1000,
-		                          failureMessageFunction:Function = null,
-		                          failureMessageFunctionArgs:Array = null ):Function {
+		public final function addAsync( eventHandler:Function,
+		                                timeout:int = 1000,
+		                                failureMessageFunction:Function = null,
+		                                failureMessageFunctionArgs:Array = null ):Function {
 			
 			_numAsycTests++;
 			
 			// If this Timer event handler executes before the below wrapper consider it a failure.
-			var onTimerComplete:Function = function( event:TimerEvent ):void {
-				var message:String = 'Asynchronous function was not executed in ' + timeout + 'ms'; 
-				
-				// If a failure handler has been provided, use its custom message.
-				if ( failureMessageFunction != null ) {
-					message = failureMessageFunction.apply( this, failureMessageFunctionArgs ) as String;
-				}
-				
-				// Don't throw the Error but rather, add it directly to the Result.
-				// (We have no way to catch a thrown error in an asynchronous test.)
-				 _result.addFailure( currentTestMethodModel, new AssertFailedError( message ) );
-				
-				runNextTest();
-			}
+			var onTimerComplete:Function = defineTimerCompleteFunction( timeout, failureMessageFunction, failureMessageFunctionArgs );
 			
 			var timer:Timer = new Timer( timeout, 1 );
 			timer.addEventListener( TimerEvent.TIMER_COMPLETE, onTimerComplete );
 			timer.start();
 			
 			// If this wrapper executes before the above Timer handler our test was a success.
-			var eventHandlerWrapper:Function = function( event:Event ):void {
-				
-				// Do not pass through to the wrapped function if the assertion has already failed (ie. timed-out).
-				if ( !timer.running ) {
-					return;
-				}
-				
-				timer.removeEventListener( TimerEvent.TIMER_COMPLETE, onTimerComplete );
-				timer.stop();
-				
-				// Errors can occur in asynchronous handlers too; be sure to catch them.
-				try {
-					eventHandler.call( this, event );
-				} catch ( error:Error ) {
-					_result.addError( currentTestMethodModel, error );
-				}
-				
-				_numAsycTests--;
-				
-				runNextTest();
-			}
-			
-			return eventHandlerWrapper;
+			return defineInlineWrapperFunction( eventHandler, timer, onTimerComplete );
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
-		public function run( result:Result, runNotifier:RunNotifier ):void {
+		public final function run( result:Result, runNotifier:RunNotifier ):void {
 			_currentTestIndex = -1;
 			_result = result;
 			_runNotifier = runNotifier;
@@ -162,7 +130,13 @@ package reflexunit.framework {
 				_numAsycTests = 0;
 				
 				if ( error is AssertFailedError ) {
-					_result.addFailure( methodModel, error as AssertFailedError );
+					
+					// At this point, we must decide if the failure was expected.
+					// If not then we should store the current failure as a failure a
+					if ( !isFailureExpected( methodModel ) ) {
+						_result.addFailure( methodModel, error as AssertFailedError );
+					}
+					
 				} else {
 					_result.addError( methodModel, error );
 				}
@@ -184,7 +158,7 @@ package reflexunit.framework {
 		/**
 		 * @inheritDoc
 		 */
-		public function get currentTestMethodModel():MethodModel {
+		public final function get currentTestMethodModel():MethodModel {
 			if ( _currentTestIndex >= _description.methodModels.length ) {
 				return null;
 			}
@@ -195,24 +169,24 @@ package reflexunit.framework {
 		/**
 		 * @see reflexunit.framework.Description
 		 */
-		public function get description():Description {
+		public final function get description():Description {
 			return _description;
 		}
 		
 		/**
 		 * Gets the name of a TestCase.
 		 */
-		public function get name():String {
+		public final function get name():String {
 			return _name;
 		}
-		public function set name( value:String ):void {
+		public final function set name( value:String ):void {
 			_name = value;
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
-		public function get testCount():int {
+		public final function get testCount():int {
 			return _description.testCount;
 		}
 		
@@ -223,7 +197,7 @@ package reflexunit.framework {
 		/**
 		 * Causes the current test to intentionally fail with an optional message.
 		 */
-		protected function fail( message:String = null ):void {
+		protected final function fail( message:String = null ):void {
 			throw new AssertFailedError( message ? message : 'Test was instructed to fail.' );
 		}
 		
@@ -239,6 +213,87 @@ package reflexunit.framework {
 		 * This method may be overriden as necessary.
 		 */
 		protected function tearDown():void {
+		}
+		
+		/*
+		 * Internal helper methods
+		 */
+		
+		/**
+		 * Helper method used by <code>addAsycn</code>.
+		 * If the function returned by this method executes before the specified Timer handler then our test was a success.
+		 */
+		private function defineInlineWrapperFunction( eventHandler:Function, timer:Timer, onTimerComplete:Function ):Function {
+			var returnFunction:Function = function( event:Event ):void {
+				
+				// Do not pass through to the wrapped function if the assertion has already failed (ie. timed-out).
+				if ( !timer.running ) {
+					return;
+				}
+				
+				// Remove strong event reference.
+				timer.removeEventListener( TimerEvent.TIMER_COMPLETE, onTimerComplete ); 
+				timer.stop();
+				
+				// Errors can occur in asynchronous handlers too; be sure to catch them.
+				try {
+					eventHandler.call( this, event );
+				} catch ( error:Error ) {
+					_result.addError( currentTestMethodModel, error );
+				}
+				
+				_numAsycTests--;
+				
+				runNextTest();
+			}
+			
+			return returnFunction;
+		}
+		
+		/**
+		 * Helper method used by <code>addAsycn</code>.
+		 * If this Timer event handler, defined by this method, executes before the below wrapper then our test has failed.
+		 * Note that a failure may be what is expected, in which case the test is actually a success.
+		 */
+		private function defineTimerCompleteFunction( timeout:int, failureMessageFunction:Function = null, failureMessageFunctionArgs:Array = null ):Function {;
+			var returnFunction:Function = function( event:TimerEvent ):void {
+				
+				// Remove strong event reference.
+				// TODO: Should we *also* remove the original (external) function/handler at this point?
+				// We would have to require its eventType or something, via addAsync so perhaps not.
+				event.currentTarget.removeEventListener( TimerEvent.TIMER_COMPLETE, returnFunction );
+				
+				// At this point, we must decide if the failure was expected.
+				// If not then we should store the current failure as a failure and continue.
+				if ( !isFailureExpected( currentTestMethodModel ) ) {
+					var message:String = 'Asynchronous function was not executed in ' + timeout + 'ms';
+					
+					// If a failure handler has been provided, use its custom message.
+					if ( failureMessageFunction != null ) {
+						message = failureMessageFunction.apply( this, failureMessageFunctionArgs ) as String;
+					}
+					
+					// Don't throw the Error but rather, add it directly to the Result.
+					// (We have no way to catch a thrown error in an asynchronous test.)
+					 _result.addFailure( currentTestMethodModel, new AssertFailedError( message ) );
+				}
+				
+				runNextTest();
+			}
+			
+			return returnFunction;
+		}
+		
+		private function isFailureExpected( methodModel:MethodModel ):Boolean {
+			if ( methodModel.metaDataModel ) {
+				for each ( var argModel:ArgModel in methodModel.metaDataModel.argModels ) {
+					if ( argModel.key == METADATA_ARG_SHOULD_FAIL && argModel.value.toString() == 'true' ) {
+						return true;
+					}
+				}
+			}
+			
+			return false;
 		}
 	}
 }
