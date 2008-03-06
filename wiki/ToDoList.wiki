@@ -3,7 +3,7 @@
 == Flex Framework ==
 
 === Expand metadata to support the following ===
-  * !TestCase - _methods not beginning with 'test' may still be designated as tests with this meta tag_
+  * ~~!TestCase - _methods not beginning with 'test' may still be designated as tests with this meta tag_~~
   * ~~shouldFail = true|false - _this test is expected to result in a `failure` (not an `error`)_~~
   * forceSerialExecution = true|false - _asynchronous test should block other tests until completion_
 
