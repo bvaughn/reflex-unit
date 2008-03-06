@@ -17,6 +17,7 @@ package reflexunit.framework.runners {
 		private var _currentStatus:IStatus;
 		private var _currentTestNum:int;
 		private var _initialized:Boolean;
+		private var _numAssertsTotal:int;
 		private var _test:ITest;
 		private var _result:Result;
 		private var _view:GUIRunner;
@@ -29,6 +30,7 @@ package reflexunit.framework.runners {
 			_view = view;
 			
 			_currentTestNum = 0;
+			_numAssertsTotal = 0;
 		}
 		
 		public function initialize():void {
@@ -52,10 +54,6 @@ package reflexunit.framework.runners {
 			// Remove the InProgress status and add the completed status.
 			_view.dataProvider.removeItemAt( _view.dataProvider.length - 1 );
 			
-			_view.numErrorsLabel.text = _result.errorCount.toString();
-			_view.numFailuresLabel.text = _result.failureCount.toString();
-			_view.numTestsLabel.text = _currentTestNum + '/' + _test.testCount;
-			
 			_view.progressBar.width = ( _view.progressBarContainer.width * ( _currentTestNum / _test.testCount ) );
 			
 			if ( _result.errorCount > 0 && ( _result.errors[ _result.errorCount - 1 ] as Failure ).methodModel.method == methodModel.method ) {
@@ -63,8 +61,17 @@ package reflexunit.framework.runners {
 			} else if ( _result.failureCount > 0 && ( _result.failures[ _result.failureCount - 1 ] as Failure ).methodModel.method == methodModel.method ) {
 				_view.dataProvider.addItem( _result.failures[ _result.failureCount - 1 ] as Failure );
 			} else {
-				_view.dataProvider.addItem( new Success( _currentStatus.methodModel ) );
+				var success:Success = _result.successes[ _result.successCount - 1 ] as Success;
+				
+				_numAssertsTotal += success.numAsserts;
+				
+				_view.dataProvider.addItem( success );
 			}
+			
+			// Update all test labels to indicate progress.
+			_view.numErrorsLabel.text = 'Errors: ' + _result.errorCount.toString();
+			_view.numFailuresLabel.text = 'Failures: ' + _result.failureCount.toString();
+			_view.numTestsLabel.text = 'Tests: ' + ( _currentTestNum + '/' + _test.testCount ) + ', Asserts: ' + _numAssertsTotal;
 		}
 		
 		/**
@@ -100,7 +107,7 @@ package reflexunit.framework.runners {
 		 * Helper methods
 		 */
 		
-		public static function getMessage( data:Object, dataGridColumn:DataGridColumn ):String {
+		public static function getMessage( data:Object, dataGridColumn:DataGridColumn = null ):String {
 			if ( data is Failure ) {
 				return ( data as Failure ).errorMessage;
 			} else {
@@ -137,7 +144,14 @@ package reflexunit.framework.runners {
 			} else if ( event.itemRenderer.data is Success ) {
 				var success:Success = event.itemRenderer.data as Success;
 				
-				message = ''; 
+				if ( success.numAsserts == 0 ) {
+					message = 'No asserts were made';
+				} else {
+					var assertLabel:String = ( success.numAsserts == 1 ) ? 'assert' : 'asserts';
+					
+					message = 'Test executed ' + success.numAsserts + ' ' + assertLabel;
+				}
+				
 				stackTraceText = ''; 
 				test = success.methodModel.name;
 				testCase = getQualifiedClassName( success.methodModel.methodDefinedBy );

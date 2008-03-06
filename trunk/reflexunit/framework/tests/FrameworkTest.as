@@ -10,7 +10,7 @@ package reflexunit.framework.tests {
 		 * Test that all assertion methods work.
 		 */
 		
-		[TestCase]
+		[Test]
 		public function metaDataTestCaseSupported():void {
 			assertTrue( true );
 		}
@@ -21,7 +21,7 @@ package reflexunit.framework.tests {
 			timer.start();
 		}
 		
-		[TestCase(shouldFail="true")]
+		[Test(shouldFail="true")]
 		public function testAddAsyncFailureExpected():void {
 			var timer:Timer = new Timer( 100, 1 );
 			timer.addEventListener( TimerEvent.TIMER_COMPLETE, addAsync( onTimerComplete, 10 ) );

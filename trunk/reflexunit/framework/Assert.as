@@ -8,10 +8,18 @@ package reflexunit.framework {
 	 */
 	public class Assert {
 		
+		private static var _numAsserts:int = 0;
+		
+		/*
+		 * Assert methods
+		 */
+		
 		/**
 		 * Asserts that two values are equal.
 		 */
 		public static function assertEquals( expected:*, actual:*, message:String = null ):void {
+			_numAsserts++;
+			
 			if ( expected != actual ) {
 				throw new AssertFailedError( message ? message : 'Values expected to be equal but were different.' );
 			}
@@ -21,6 +29,8 @@ package reflexunit.framework {
 		 * Asserts that the value specified is FALSE.
 		 */
 		public static function assertFalse( expression:*, message:String = null ):void {
+			_numAsserts++;
+			
 			if ( expression == true ) {
 				throw new AssertFailedError( message ? message : 'False expected but was true.' );
 			}
@@ -30,6 +40,8 @@ package reflexunit.framework {
 		 * Asserts that the two values specified are not equal.
 		 */
 		public static function assertNotEquals( expected:*, actual:*, message:String = null ):void {
+			_numAsserts++;
+			
 			if ( expected == actual ) {
 				throw new AssertFailedError( message ? message : 'Values expected to be different but were equal.' );
 			}
@@ -39,6 +51,8 @@ package reflexunit.framework {
 		 * Asserts that the value specified is not NULL.
 		 */
 		public static function assertNotNull( expression:*, message:String = null ):void {
+			_numAsserts++;
+			
 			if ( expression == null ) {
 				throw new AssertFailedError( message ? message : 'Non-null value expected but was null.' );
 			}
@@ -48,6 +62,8 @@ package reflexunit.framework {
 		 * Asserts that the value specified is NULL.
 		 */
 		public static function assertNull( expression:*, message:String = null ):void {
+			_numAsserts++;
+			
 			if ( expression != null ) {
 				throw new AssertFailedError( message ? message : 'Null expected but was not null.' );
 			}
@@ -57,9 +73,33 @@ package reflexunit.framework {
 		 * Asserts that the value specified is TRUE.
 		 */
 		public static function assertTrue( expression:*, message:String = null ):void {
+			_numAsserts++;
+			
 			if ( expression == false ) {
 				throw new AssertFailedError( message ? message : 'True expected but was false.' );
 			}
 		}
+		
+		/*
+		 * Public methods
+		 */
+		 
+		/**
+		 * 
+		 */
+		 public static function resetNumAsserts():void {
+		 	_numAsserts = 0;
+		 }
+		
+		/*
+		 * Getter / setter methods
+		 */
+		 
+		/**
+		 * 
+		 */
+		 public static function get numAsserts():int {
+		 	return _numAsserts;
+		 }
 	}
 }

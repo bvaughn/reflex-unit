@@ -109,18 +109,12 @@
 				           cornerRadius="5" />
 			</mx:Canvas>
 			
-			<mx:Label text="Tests:"
-			          color="0x666666" fontSize="15" fontWeight="bold" />
 			<mx:Label id="numTestsLabel" text="0/0"
 			          color="0x666666" fontSize="15" fontWeight="bold" />
 			<mx:VRule height="20" />
-			<mx:Label text="Failures:"
-			          color="0x333333" fontSize="15" fontWeight="bold" />
 			<mx:Label id="numFailuresLabel" text="0"
 			          color="0x333333" fontSize="15" fontWeight="bold" />
 			<mx:VRule height="20" />
-			<mx:Label text="Errors:"
-			          color="0x333333" fontSize="15" fontWeight="bold" />
 			<mx:Label id="numErrorsLabel" text="0"
 			          color="0x333333" fontSize="15" fontWeight="bold" />
 		</mx:GridItem>
