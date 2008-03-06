@@ -6,7 +6,8 @@
     <testcase name="methodName" time="0.0"/>
     ...
   </testsuite>
-  ...</testsuites>
+  ...
+</testsuites>
 }}}
 
  * What about failed tests? How much (and what type of) information is needed?
