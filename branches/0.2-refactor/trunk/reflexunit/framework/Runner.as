@@ -158,17 +158,25 @@ package reflexunit.framework {
 					break;
 				}
 				
+				// No need to listen for a starting event; we are starting the test explicitly
+				alertTestStarting( methodModel );
+				
 				var runNotifier:RunNotifier = new RunNotifier();
-				runNotifier.addEventListener( RunEvent.TEST_COMPLETED, onTestCompleted );
-				runNotifier.addEventListener( RunEvent.TEST_STARTING, onTestStarting );
 				
 				wrapper.run( runNotifier );
 				
-				_currentMethodModels.push( methodModel );
-				
-				// If current test has asked to run in isolation, prevent other tests from running until it has completed.
-				if ( wrapper.forceSerialExecution ) {
-					break;
+				if ( wrapper.isAsync ) {
+					_currentMethodModels.push( methodModel );
+					
+					runNotifier.addEventListener( RunEvent.TEST_COMPLETED, onTestCompleted );
+					
+					// If current test has asked to run in isolation, prevent other tests from running until it has completed.
+					if ( wrapper.forceSerialExecution ) {
+						break;
+					}
+					
+				} else {
+					alertTestCompleted( methodModel );
 				}
 			}
 		}
