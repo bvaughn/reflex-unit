@@ -3,7 +3,7 @@ package reflexunit.framework {
 	
 	/**
 	 * This class is responsible for the high-level management of test execution.
-	 * This includes the following actions:
+	 * That includes the following actions:
 	 * <ol>
 	 *   <li>Convert a <code>TestSuite</code> into a <code>Recipe</code> of testable methods</li>
 	 *   <li>Execute each of those methods and store their outcome in a <code>Result</code> object</li>
@@ -14,16 +14,14 @@ package reflexunit.framework {
 	 * @see reflexunit.framework.Recipe
 	 * @see reflexunit.framework.RunNotifier
 	 * @see reflexunit.framework.TestSuite
-	 * 
-	 * @internal
-	 * TODO: Consider renaming this class; it's kind of a crappy/generic name.
 	 */
 	public class Runner {
 		
-		private var _currentDescriptionIndex:int;
-		private var _currentMethodModelIndex:int;
+		private var _currentDescription:Description;
+		private var _currentMethodModels:Array;
 		private var _recipe:Recipe;
 		private var _result:Result;
+		private var _resultViewers:Array;
 		private var _runNotifier:RunNotifier;
 		private var _testSuite:TestSuite;
 		
@@ -32,10 +30,17 @@ package reflexunit.framework {
 		 */
 		
 		public function Runner( testSuiteIn:TestSuite ) {
-			_recipe = new Recipe( testSuiteIn );
 			_testSuite = testSuiteIn;
 			
+			_currentMethodModels = new Array();
+			_recipe = new Recipe( _testSuite );
 			_result = new Result();
+		}
+		
+		public static function create( testSuiteIn:TestSuite, resultViewers:Array, runNotifier:RunNotifier = null ):Result {
+			var runner:Runner = new Runner( testSuiteIn );
+			
+			return runner.run( resultViewers, runNotifier );
 		}
 		
 		/**
@@ -49,19 +54,17 @@ package reflexunit.framework {
 		 * @throws TypeError if resultsViewer contains non-IResultViewer object(s) 
 		 */
 		public function run( resultViewers:Array, runNotifier:RunNotifier = null ):Result {
+			_resultViewers = resultViewers;
 			_runNotifier = runNotifier ? runNotifier : new RunNotifier();
 			
-			_currentDescriptionIndex = 0;
-			_currentMethodModelIndex = 0;
-			
-			for ( var index:int = 0; index < resultViewers; index++ ) {
+			for ( var index:int = 0; index < _resultViewers.length; index++ ) {
 				var resultViewer:IResultViewer = resultViewers[ index ] as IResultViewer;
 				
 				if ( !resultViewer ) {
 					throw new TypeError( 'Expected IResultViewer instance' );
 				}
 				
-				resultViewer.runNotifier = _runNotifier;
+				resultViewer.result = _result;
 			}
 			
 			runNextSeriesOfTests();
@@ -85,26 +88,100 @@ package reflexunit.framework {
 		 * Helper methods
 		 */
 		
+		private function alertAllTestsCompleted():void {
+			_runNotifier.allTestsCompleted();
+			
+			for each ( var resultViewer:IResultViewer in _resultViewers ) {
+				resultViewer.allTestsCompleted();
+			}
+		}
+		
+		private function alertTestStarting( methodModel:MethodModel ):void {
+			_runNotifier.testStarting( methodModel );
+			
+			for each ( var resultViewer:IResultViewer in _resultViewers ) {
+				resultViewer.testStarting( methodModel );
+			}
+		}
+		
+		private function alertTestCompleted( methodModel:MethodModel ):void {
+			_runNotifier.testCompleted( methodModel );
+			
+			for each ( var resultViewer:IResultViewer in _resultViewers ) {
+				resultViewer.testCompleted( methodModel );
+			}
+		}
+		
+		private function finalizeMethodModel( methodModel:MethodModel ):void {
+			for ( var index:int = 0; index < _currentMethodModels.length; index++ ) {
+				if ( methodModel.method == ( _currentMethodModels[ index ] as MethodModel ).method ) {
+					_currentMethodModels.splice( index, 1 );
+					
+					break;
+				}
+			}
+		}
+		
 		private function runNextSeriesOfTests():void {
-			if ( _currentMethodModelIndex >= description.methodModels.length ) {
-				_currentMethodModelIndex = 0;
+			
+			// If we do not have a current Description this means: (a) we should get the next one or (b) tests are all done. 
+			if ( !_currentDescription ) {
+				if ( _recipe.descriptions.length > 0 ) {
+					_currentDescription = _recipe.descriptions.shift() as Description;
+				} else {
+					alertAllTestsCompleted();
+					
+					return;
+				}
+			}
+			
+			// If the current Description contains no more MethodModel objects, then it's time to run the next Description.
+			if ( _currentDescription.methodModels.length == 0 ) {
+				_currentDescription = null;
 				
-				_currentDescriptionIndex++;
+				return runNextSeriesOfTests();
 			}
 			
-			if ( _currentDescriptionIndex >= _recipe.descriptions.length ) {
-				// TODO: Mark as completed (provided no tests are pending).
+			// Run tests until: (a) we run out of them for this Description or (b) we reach a blocking test
+			while ( _currentDescription.methodModels.length > 0 ) {
+				var methodModel:MethodModel = _currentDescription.methodModels.shift() as MethodModel;
+				
+				var wrapper:Wrapper = new Wrapper( methodModel, _result );
+				
+				// If current test has asked to run in isolation, do not run it if other tests are executing.
+				if ( wrapper.forceSerialExecution && _currentMethodModels.length > 0 ) {
+					_currentDescription.methodModels.unshift( methodModel );
+					
+					break;
+				}
+				
+				wrapper.run( _runNotifier );
+				
+				_currentMethodModels.push( methodModel );
+				
+				// If current test has asked to run in isolation, prevent other tests from running until it has completed.
+				if ( wrapper.forceSerialExecution ) {
+					break;
+				}
 			}
+		}
+		
+		/*
+		 * Error handlers
+		 */
+		
+		private function onTestCompleted( event:RunEvent ):void {
+			alertTestCompleted( event.methodModel );
 			
-			var description:Description = _recipe.descriptions[ _currentDescriptionIndex ] as Description;
-			var methodModel:MethodModel = description.methodModels[ _currentMethodModelIndex ] as MethodModel;
+			finalizeMethodModel( event.methodModel );
 			
-			var wrapper:Wrapper = new Wrapper( methodModel );
-			wrapper.run( _result );
-			
-			// TODO: Check for serialization.
-			
-			// TODO: Check for completion. (This should be factored into helper methods).
+			if ( _currentMethodModels.length == 0 ) {
+				runNextSeriesOfTests();
+			}
+		}
+		
+		private function onTestStarting( event:RunEvent ):void {
+			alertTestStarting( event.methodModel );
 		}
 	}
 }
