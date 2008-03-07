@@ -14,6 +14,11 @@ package reflexunit.introspection.model {
 		 */
 		public static const RETURN_TYPE_VOID:* = null;
 		
+		/**
+		 * Since the <code>undefined</code> type is not a Class, this constant represents it.
+		 */
+		public static const RETURN_TYPE_UNDEFINED:* = null;
+			
 		private var _metaDataModel:MetaDataModel;
 		private var _method:Function;
 		private var _methodDefinedBy:Class;
@@ -55,9 +60,11 @@ package reflexunit.introspection.model {
 				_metaDataModel.fromXML( methodXML.metadata[0] as XML );
 			}
 			
-			// A return type of 'void' is a special case.
-			// It can't be cast to a Class and so must be indicated by 'null'.
-			if ( methodXML.@returnType.toString() != 'void' ) {
+			// Return types of 'void' or '*' (undefined) are special cases.
+			// They can't be cast to a Class and so much be indicated using the constants defined by this class.
+			if ( methodXML.@returnType.toString() != '*' &&
+			     methodXML.@returnType.toString() != 'void' ) {
+				
 				_returnType = getDefinitionByName( methodXML.@returnType.toString() ) as Class;
 			}
 			

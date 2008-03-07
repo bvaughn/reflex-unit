@@ -1,7 +1,7 @@
 package reflexunit.framework {
 	
 	/**
-	 * Defines various assertion-methods that may be used to compare one or more values.
+	 * Defines various assertions that may be used to compare one or more values.
 	 * Dispatches <code>AssertFailedError</code> to indicate a failed assertion.
 	 * 
 	 * @see AssertFailedError
@@ -85,7 +85,8 @@ package reflexunit.framework {
 		 */
 		 
 		/**
-		 * 
+		 * Resets the value of <code>numAsserts</code>.
+		 * Should be explicitly called before each test method is run.
 		 */
 		 public static function resetNumAsserts():void {
 		 	_numAsserts = 0;
@@ -96,7 +97,7 @@ package reflexunit.framework {
 		 */
 		 
 		/**
-		 * 
+		 * Number of assertions made by the most recently executed test method.
 		 */
 		 public static function get numAsserts():int {
 		 	return _numAsserts;

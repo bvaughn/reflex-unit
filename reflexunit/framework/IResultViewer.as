@@ -2,19 +2,19 @@ package reflexunit.framework {
 	import reflexunit.introspection.model.MethodModel;
 	
 	/**
-	 * An <code>IResultViewer</code> parses and displays (or prints) a running summary of the contents within a <code>Result</code> object.
-	 * In many cases a viewer should also update its display while testing is still in progress.
+	 * An <code>IResultViewer</code> relates the status of a test as it is executed.
+	 * This is often done using a graphical interface but may also be done using plain text, XML, sockets, etc.
 	 */
 	public interface IResultViewer extends ITestWatcher {
 		
 		/**
-		 * <code>Result</code> containig information pertaining to the related <code>ITest</code>.
+		 * @see reflexunit.framework.Recipe
 		 */
-		function set result( value:Result ):void;
+		function set recipe( value:Recipe ):void;
 		
 		/**
-		 * <code>ITest</code> this viewer will be displaying information describing.
+		 * <code>Result</code> containig information pertaining to the related test.
 		 */
-		function set test( value:ITest ):void;
+		function set result( value:Result ):void;
 	}
 }

@@ -1,15 +1,10 @@
 package reflexunit.framework {
-	import reflexunit.introspection.model.MethodModel;
 	
 	/**
-	 * Contains a collection of other <code>ITest</code> objects.
+	 * Contains a collection of: (a) test classes and/or (b) other <code>TestSuite</code> objects.
 	 */
-	public class TestSuite implements ITest {
+	public class TestSuite {
 		
-		private var _nextTestIndex:int;
-		private var _result:Result;
-		private var _runNotifier:RunNotifier;
-		private var _testCount:int;
 		private var _tests:Array;
 		
 		/*
@@ -19,23 +14,12 @@ package reflexunit.framework {
 		/**
 		 * Constructor.
 		 * 
-		 * @param testClassesIn Array of ITest instances or Class objects comprising a test
+		 * @param testsIn Array of tests or TestSuites; tests may be instantiated objects or Class objects
 		 */
-		public function TestSuite( testsIn:Array = null ) {
-			_testCount = 0;
+		public function TestSuite( testsAndTestSuites:Array = null ) {
 			_tests = new Array();
 			
-			if ( testsIn ) {
-				for ( var index:int = 0; index < testsIn.length; index++ ) {
-					var test:* = testsIn[ index ];
-					
-					if ( test is ITest ) {
-						addTest( test as ITest );
-					} else {
-						addTest( new test() as ITest );
-					}
-				}
-			}
+			initTests( testsAndTestSuites );
 		}
 		
 		/*
@@ -43,17 +27,18 @@ package reflexunit.framework {
 		 */
 		
 		/**
-		 * Adds a test to the suite.
+		 * Adds a test instance to the current suite.
 		 * 
-		 * @param test Instance of ITest
+		 * @param test Any class defining testable methods
 		 */
-		public function addTest( test:ITest ):void {
-			_testCount += test.testCount;
+		public function addTest( test:* ):void {
 			_tests.push( test );
 		}
 		
 		/**
-		 * Adds the tests from the given class to the suite.
+		 * Adds all tests within a <code>TestSuite</code> to the current suite.
+		 * 
+		 * @param testSuite TestSuite containing tests and/or other TestSuites
 		 */
 		public function addTestSuite( testSuite:TestSuite ):void {
 			for ( var index:int = 0; index < testSuite.testCount; index++ ) {
@@ -66,24 +51,12 @@ package reflexunit.framework {
 		 * 
 		 * @throws RangeError if index provided is invalid
 		 */
-		public function getTestAt( index:uint ):ITest {
+		public function getTestAt( index:uint ):* {
 			if ( index >= testCount ) {
 				throw new RangeError( 'Invalid index specified for getTestAt' );
 			}
 			
-			return _tests[ index ] as ITest;
-		}
-		
-		/**
-		 * @inheritDoc
-		 */
-		public function run( result:Result, runNotifier:RunNotifier ):void {
-			_result = result;
-			_runNotifier = runNotifier;
-			
-			_nextTestIndex = 0;
-			
-			runNextTest();
+			return _tests[ index ];
 		}
 		
 		/*
@@ -91,38 +64,14 @@ package reflexunit.framework {
 		 */
 		
 		/**
-		 * Reference to the <code>ITest</code> currently being executed.
-		 */
-		public function get currentTest():ITest {
-			if ( _nextTestIndex >= _tests.length ) {
-				return null;
-			}
-			
-			return _nextTestIndex[ _nextTestIndex ] as ITest;
-		}
-		
-		/**
-		 * @inheritDoc
-		 */
-		public function get currentTestMethodModel():MethodModel {
-			if ( currentTest is TestSuite ) {
-				return ( currentTest as TestSuite ).currentTestMethodModel;
-			} else if ( currentTest is TestCase ) {
-				return ( currentTest as TestCase ).currentTestMethodModel;
-			} else {
-				return null;
-			}
-		}
-		
-		/**
-		 * @inheritDoc
+		 * Convenience method.
 		 */
 		public function get testCount():int {
-			return _testCount;
+			return _tests.length;
 		}
 		
 		/**
-		 * Returns all <code>ITest</code> objects in this suite.
+		 * Array of objects defining testable methods.
 		 */
 		public function get tests():Array {
 			return _tests;
@@ -132,44 +81,20 @@ package reflexunit.framework {
 		 * Helper methods
 		 */
 		
-		private function runNextTest():void {
-			
-			// Once no more tests are left to run, alert the RunNotifier and return.
-			// The container ITest (or Runner) will take things from here.
-			if ( _nextTestIndex >= _tests.length ) {
-				_runNotifier.allTestsCompleted();
-				
-				return;
+		private function initTests( testsAndTestSuites:Array ):void {
+			if ( testsAndTestSuites ) {
+				for ( var index:int = 0; index < testsAndTestSuites.length; index++ ) {
+					var testOrTestSuite:* = testsAndTestSuites[ index ];
+					
+					if ( testOrTestSuite is TestSuite ) {
+						addTestSuite( testOrTestSuite as TestSuite );
+					} else if ( testOrTestSuite is Class ) {
+						addTest( new testOrTestSuite() );
+					} else {
+						addTest( testOrTestSuite );
+					}
+				}
 			}
-			
-			var runNotifier:RunNotifier = new RunNotifier();
-			runNotifier.addEventListener( RunEvent.ALL_TESTS_COMPLETED, onAllTestsCompleted, false, 0, true );
-			runNotifier.addEventListener( RunEvent.TEST_COMPLETED, onTestCompleted, false, 0, true );
-			runNotifier.addEventListener( RunEvent.TEST_STARTING, onTestStarting, false, 0, true );
-			
-			var test:ITest = _tests[ _nextTestIndex ] as ITest;
-			
-			// Increment before calling run() (in case the current ITest is completely synchronous).
-			_nextTestIndex++;
-			
-			test.run( _result, runNotifier );
-			
-		}
-		
-		/*
-		 * Event handlers
-		 */
-		
-		private function onAllTestsCompleted( event:RunEvent ):void {
-			runNextTest();
-		}
-		
-		private function onTestCompleted( event:RunEvent ):void {
-			_runNotifier.testCompleted( event.methodModel );
-		}
-		
-		private function onTestStarting( event:RunEvent ):void {
-			_runNotifier.testStarting( event.methodModel );
 		}
 	}
 }

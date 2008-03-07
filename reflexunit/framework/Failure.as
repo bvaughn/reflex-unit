@@ -2,16 +2,13 @@ package reflexunit.framework {
 	import reflexunit.introspection.model.MethodModel;
 	
 	/**
-	 * Relates a <code>TestCase</code> and an error or failure.
 	 * 
-	 * The test framework distinguishes between failures and errors.
-	 * A failure is anticipated and checked for with assertions.
-	 * Errors are unanticipated problems like an RangeError.
 	 */
 	public class Failure implements IStatus {
 		
 		private var _error:Error;
 		private var _methodModel:MethodModel;
+		private var _numAsserts:int;
 		
 		/*
 		 * Initialization
@@ -20,9 +17,10 @@ package reflexunit.framework {
 		/**
 		 * Constructor.
 		 */
-		public function Failure( methodModelIn:MethodModel, errorIn:Error ) {
+		public function Failure( methodModelIn:MethodModel, errorIn:Error, numAssertsIn:int = 0 ) {
 			_error = errorIn;
 			_methodModel = methodModelIn;
+			_numAsserts = numAssertsIn;
 		}
 		
 		/*
@@ -63,15 +61,22 @@ package reflexunit.framework {
 		/**
 		 * @inheritDoc
 		 */
+		public function get numAsserts():int {
+			return _numAsserts;
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
 		public function get status():String {
 			return isFailure ? 'failure' : 'error';
 		}
 		
 		/**
-		 * <code>TestCase</code> object running when failure occurred.
+		 * @inheritDoc
 		 */
-		public function get testCase():TestCase {
-			return _methodModel.thisObject as TestCase;
+		public function get test():* {
+			return _methodModel.thisObject;
 		}
 	}
 }

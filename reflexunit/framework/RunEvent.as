@@ -26,8 +26,8 @@ package reflexunit.framework {
 			_methodModel = value;
 		}
 		
-		public function get test():ITest {
-			return _methodModel ? _methodModel.thisObject as ITest : null;
+		public function get test():* {
+			return _methodModel ? _methodModel.thisObject : null;
 		}
 	}
 }

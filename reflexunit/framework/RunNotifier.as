@@ -4,9 +4,18 @@ package reflexunit.framework {
 	import reflexunit.introspection.model.MethodModel;
 	
 	/**
-	 * Used to signify certain <code>ITest</code> events or actions.
+	 * TODO
+	 * 
+	 * @see reflexunit.framework.RunEvent
 	 */
 	public class RunNotifier extends EventDispatcher implements ITestWatcher {
+		
+		public function forceSerialExecutionReached():void {
+		}
+		
+		/*
+		 * ITestWatcher methods
+		 */
 		
 		/**
 		 * @inheritDoc
