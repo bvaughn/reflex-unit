@@ -39,7 +39,7 @@ package reflexunit.framework {
 		                                failureMessageFunctionArgs:Array = null ):Function {
 			
 			var asyncronousAssertion:AsynchronousAssertion =
-				new AsynchronousAssertion( eventHandler timeout, failureMessageFunction, failureMessageFunctionArgs );
+				new AsynchronousAssertion( this, eventHandler, timeout, failureMessageFunction, failureMessageFunctionArgs );
 			
 			_asynchronousAssertions.push( asyncronousAssertion );
 			
@@ -61,14 +61,14 @@ package reflexunit.framework {
 		/**
 		 * Returns an <code>AsyncronousAssertion</code> representing each call to <code>addAsync</code> made by the previous executed test method.
 		 */
-		public final static function get asynchronousAssertions():Array {
+		public static function get asynchronousAssertions():Array {
 			return _asynchronousAssertions;
 		}
 		
 		/**
 		 * Convenience method.
 		 */
-		public final static function get asynchronousAssertionsCount():int {
+		public static function get asynchronousAssertionsCount():int {
 			return _asynchronousAssertions.length;
 		}
 		

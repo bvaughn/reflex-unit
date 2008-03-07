@@ -83,8 +83,8 @@ package reflexunit.framework {
 				
 			} else {
 				for each ( var asynchronousAssertion:AsynchronousAssertion in _asynchronousAssertions ) {
-					asyncronousAssertion.addEventListener( ErrorEvent.ERROR, onAsynchronousAssertionError );
-					asyncronousAssertion.addEventListener( Event.COMPLETE, onAsynchronousAssertionComplete );
+					asynchronousAssertion.addEventListener( ErrorEvent.ERROR, onAsynchronousAssertionError );
+					asynchronousAssertion.addEventListener( Event.COMPLETE, onAsynchronousAssertionComplete );
 				}
 			}
 		}
@@ -104,7 +104,9 @@ package reflexunit.framework {
 				for each ( var argModel:ArgModel in _methodModel.metaDataModel.argModels ) {
 					if ( argModel.key == '' ) {
 						if ( argModel.value == '' ) {
-							return true;
+							
+							// Even if the test has specified that it must execute in isolation, this only holds if it is asynchronous.
+							return isAsync;
 						}
 						
 						break;
@@ -119,7 +121,7 @@ package reflexunit.framework {
 		 * Method currently executing has made one or more asynchronous assertions. 
 		 */
 		public function get isAsync():Boolean {
-			_asynchronousAssertions.length > 0;
+			return _asynchronousAssertions.length > 0;
 		}
 		
 		public function get methodModel():MethodModel {
@@ -198,7 +200,7 @@ package reflexunit.framework {
 		}
 		
 		private function onAsynchronousAssertionError( event:ErrorEvent ):void {
-			var asynchronousAssertion = event.currentTarget as AsynchronousAssertion;
+			var asynchronousAssertion:AsynchronousAssertion = event.currentTarget as AsynchronousAssertion;
 			
 			finalizedAsynchronousAssertion( asynchronousAssertion );
 			

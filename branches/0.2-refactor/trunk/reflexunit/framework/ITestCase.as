@@ -10,13 +10,11 @@ package reflexunit.framework {
 		 * Called before each testable method is run.
 		 * This method is responsible for initializing all common, pre-test settings.
 		 */
-		function setupTest():void {
-		}
+		function setupTest():void;
 		
 		/**
 		 * Called after each testable method has run and all asserts have completed.
 		 */
-		function tearDownTest():void {
-		}
+		function tearDownTest():void;
 	}
 }

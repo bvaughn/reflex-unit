@@ -44,10 +44,10 @@ package reflexunit.framework {
 		}
 		
 		/**
-		 * <code>TestCase</code> object running when failure occurred.
+		 * @inheritDoc
 		 */
-		public function get testCase():TestCase {
-			return _methodModel.thisObject as TestCase;
+		public function get test():* {
+			return _methodModel.thisObject;
 		}
 	}
 }

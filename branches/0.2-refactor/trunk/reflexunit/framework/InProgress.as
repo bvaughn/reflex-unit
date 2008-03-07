@@ -40,7 +40,7 @@ package reflexunit.framework {
 		/**
 		 * @inheritDoc
 		 */
-		public function get testCase():* {
+		public function get test():* {
 			return _methodModel.thisObject;
 		}
 	}

@@ -5,8 +5,6 @@ package reflexunit.framework {
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
-	import reflexunit.introspection.model.MethodModel;
-	
 	/**
 	 * Wrapper class used to contain a single test method call to <code>TestCase.addAsync</code>.
 	 * 
@@ -20,7 +18,7 @@ package reflexunit.framework {
 		private var _eventHandler:Function;
 		private var _failureMessageFunction:Function;
 		private var _failureMessageFunctionArgs:Array;
-		private var _methodModel:MethodModel;
+		private var _thisObject:*;
 		private var _timer:Timer;
 		private var _timeout:int;
 		
@@ -28,7 +26,7 @@ package reflexunit.framework {
 		 * Initialization
 		 */
 		
-		public function AsynchronousAssertion( methodModel:MethodModel,
+		public function AsynchronousAssertion( thisObject:*,
 		                                       eventHandler:Function,
 		                                       timeout:int = 1000,
 		                                       failureMessageFunction:Function = null,
@@ -37,7 +35,7 @@ package reflexunit.framework {
 			_eventHandler = eventHandler;
 			_failureMessageFunction = failureMessageFunction;
 			_failureMessageFunctionArgs = failureMessageFunctionArgs;
-			_methodModel = methodModel;
+			_thisObject = thisObject;
 			_timeout = timeout;
 			
 			_timer = new Timer( timeout, 1 );
@@ -85,7 +83,7 @@ package reflexunit.framework {
 			
 			// Errors (including AssertFailedErrors) can occur in asynchronous handlers too; be sure to catch them.
 			try {
-				_eventHandler.call( _methodModel.thisObject, event );
+				_eventHandler.call( _thisObject, event );
 			} catch ( error:Error ) {
 				_error = error;
 			}
@@ -109,7 +107,7 @@ package reflexunit.framework {
 			
 			// If a failure handler has been provided, use its custom message.
 			if ( _failureMessageFunction != null ) {
-				errorMessage = _failureMessageFunction.apply( _methodModel.thisObject, _failureMessageFunctionArgs ) as String;
+				errorMessage = _failureMessageFunction.apply( _thisObject, _failureMessageFunctionArgs ) as String;
 			}
 			
 			_error = new AssertFailedError( errorMessage );
