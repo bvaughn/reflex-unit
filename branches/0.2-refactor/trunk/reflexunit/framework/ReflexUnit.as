@@ -1,4 +1,6 @@
 package reflexunit.framework {
+	import reflexunit.introspection.model.MethodModel;
+	
 	
 	/**
 	 * This class is responsible for the high-level management of test execution.
@@ -19,6 +21,9 @@ package reflexunit.framework {
 	 */
 	public class ReflexUnit {
 		
+		private var _currentDescriptionIndex:int;
+		private var _currentMethodModelIndex:int;
+		private var _recipe:Recipe;
 		private var _result:Result;
 		private var _runNotifier:RunNotifier;
 		private var _testSuite:TestSuite;
@@ -28,6 +33,7 @@ package reflexunit.framework {
 		 */
 		
 		public function ReflexUnit( testSuiteIn:TestSuite ) {
+			_recipe = new Recipe( testSuiteIn );
 			_testSuite = testSuiteIn;
 			
 			_result = new Result();
@@ -46,6 +52,9 @@ package reflexunit.framework {
 		public function run( resultViewers:Array, runNotifier:RunNotifier = null ):Result {
 			_runNotifier = runNotifier ? runNotifier : new RunNotifier();
 			
+			_currentDescriptionIndex = 0;
+			_currentMethodModelIndex = 0;
+			
 			for ( var index:int = 0; index < resultViewers; index++ ) {
 				var resultViewer:IResultViewer = resultViewers[ index ] as IResultViewer;
 				
@@ -56,7 +65,7 @@ package reflexunit.framework {
 				resultViewer.runNotifier = _runNotifier;
 			}
 			
-			// TODO: Execute tests.
+			runNextSeriesOfTests();
 			
 			return _result;
 		}
@@ -71,6 +80,32 @@ package reflexunit.framework {
 		
 		public function get testSuite():TestSuite {
 			return _testSuite;
+		}
+		
+		/*
+		 * Helper methods
+		 */
+		
+		private function runNextSeriesOfTests():void {
+			if ( _currentMethodModelIndex >= description.methodModels.length ) {
+				_currentMethodModelIndex = 0;
+				
+				_currentDescriptionIndex++;
+			}
+			
+			if ( _currentDescriptionIndex >= _recipe.descriptions.length ) {
+				// TODO: Mark as completed (provided no tests are pending).
+			}
+			
+			var description:Description = _recipe.descriptions[ _currentDescriptionIndex ] as Description;
+			var methodModel:MethodModel = description.methodModels[ _currentMethodModelIndex ] as MethodModel;
+			
+			var wrapper:Wrapper = new Wrapper( methodModel );
+			wrapper.run( _result );
+			
+			// TODO: Check for serialization.
+			
+			// TODO: Check for completion. (This should be factored into helper methods).
 		}
 	}
 }

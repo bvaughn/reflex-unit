@@ -13,7 +13,7 @@ package reflexunit.framework {
 	 *   <li>Catching synchronous and asynchronous runtime errors</li>
 	 * </ul>
 	 * 
-	 * The execution of a testable method will result in one of the following:
+	 * The execution of a testable method will result in one of the following being added to the provided <code>Result</code>:
 	 * <ul>
 	 *   <li>Failure: one or more tests defined in this method failed due to a runtime <code>Error</code> or an invalid assertion</li>
 	 *   <li>Success: all tests defined in this method have executed successfully</li>
@@ -45,15 +45,18 @@ package reflexunit.framework {
 		}
 		
 		/**
-		 * 
+		 * Executes the test method wrapped by this class.
 		 */
 		public function run( runNotifier:RunNotifier ):void {
+			_runNotifier = runNotifier;
+			
 			setupTest();
 			
 			// Be sure to catch Errors (including AssertionFailedErrors) that occur synchronously.
 			try {
 				_methodModel.method.call( methodModel.thisObject );
 				
+				// Grab these values now; they're static and if another test is begun while this one is executing their values will be reset.
 				_asynchronousAssertions = TestCase.asynchronousAssertions;
 				_numAsserts = Assert.numAsserts;
 				
