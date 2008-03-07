@@ -39,7 +39,6 @@ package reflexunit.framework {
 			_result = resultIn;
 			
 			_asynchronousAssertions = new Array();
-			_numAsserts = 0;
 			
 			// TODO: Should we be using a brand new instance of the test-class for each test?
 		}
@@ -58,22 +57,29 @@ package reflexunit.framework {
 				
 				// Grab these values now; they're static and if another test is begun while this one is executing their values will be reset.
 				_asynchronousAssertions = TestCase.asynchronousAssertions;
+				
 				_numAsserts = Assert.numAsserts;
 				
 			} catch ( error:Error ) {
+				
+				// Assertions may have occurred before the Error so retrieve them as well.
+				_numAsserts = Assert.numAsserts;
+				
 				if ( error is AssertFailedError ) {
 					
 					// At this point, we must decide if the failure was expected.
 					// If not then we should store the current failure as a failure a
 					if ( !isFailureExpected() ) {
-						_result.addFailure( _methodModel, error as AssertFailedError );
+						_result.addFailure( _methodModel, error as AssertFailedError, _numAsserts );
 					}
 					
 				} else {
-					_result.addError( _methodModel, error );
+					_result.addError( _methodModel, error, _numAsserts );
 				}
 				
 				tearDownTest();
+				
+				return;
 			}
 			
 			// If no AsynchronousAssertions were defined and no Error thrown then our test has succeeded.
@@ -168,6 +174,8 @@ package reflexunit.framework {
 				( _methodModel.thisObject as ITestCase ).setupTest();
 			}
 			
+			_numAsserts = 0;
+			
 			Assert.resetNumAsserts();
 			
 			TestCase.resetStaticTestVars();
@@ -190,7 +198,11 @@ package reflexunit.framework {
 		 */
 		
 		private function onAsynchronousAssertionComplete( event:Event ):void {
-			finalizedAsynchronousAssertion( event.currentTarget as AsynchronousAssertion );
+			var asynchronousAssertion:AsynchronousAssertion = event.currentTarget as AsynchronousAssertion;
+			
+			finalizedAsynchronousAssertion( asynchronousAssertion );
+			
+			_numAsserts += asynchronousAssertion.numAsserts;
 			
 			// If no more asynchronous assertions remain then the test has succeeded; Result should be updated with a Success
 			if ( _asynchronousAssertions.length == 0 ) {
@@ -205,18 +217,20 @@ package reflexunit.framework {
 			
 			finalizedAsynchronousAssertion( asynchronousAssertion );
 			
+			_numAsserts += asynchronousAssertion.numAsserts;
+			
 			if ( asynchronousAssertion.error is AssertFailedError ) {
 				
 				// At this point, we must decide if the failure was expected.
 				// If not then we should store the current failure as a failure a
 				if ( !isFailureExpected() ) {
-					_result.addFailure( _methodModel, asynchronousAssertion.error as AssertFailedError );
+					_result.addFailure( _methodModel, asynchronousAssertion.error as AssertFailedError, _numAsserts );
 				} else {
 					_result.addSuccess( _methodModel, _numAsserts );
 				}
 				
 			} else {
-				_result.addError( _methodModel, asynchronousAssertion.error );
+				_result.addError( _methodModel, asynchronousAssertion.error, _numAsserts );
 			}
 			
 			tearDownTest();

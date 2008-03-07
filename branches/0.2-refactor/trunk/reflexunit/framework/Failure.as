@@ -8,6 +8,7 @@ package reflexunit.framework {
 		
 		private var _error:Error;
 		private var _methodModel:MethodModel;
+		private var _numAsserts:int;
 		
 		/*
 		 * Initialization
@@ -16,9 +17,10 @@ package reflexunit.framework {
 		/**
 		 * Constructor.
 		 */
-		public function Failure( methodModelIn:MethodModel, errorIn:Error ) {
+		public function Failure( methodModelIn:MethodModel, errorIn:Error, numAssertsIn:int = 0 ) {
 			_error = errorIn;
 			_methodModel = methodModelIn;
+			_numAsserts = numAssertsIn;
 		}
 		
 		/*
@@ -54,6 +56,13 @@ package reflexunit.framework {
 		 */
 		public function get methodModel():MethodModel {
 			return _methodModel;
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function get numAsserts():int {
+			return _numAsserts;
 		}
 		
 		/**

@@ -13,6 +13,11 @@ package reflexunit.framework {
 		function get methodModel():MethodModel;
 		
 		/**
+		 * Number of assertions (including those that failed) made by the associated <code>test</code>.
+		 */
+		function get numAsserts():int;
+		
+		/**
 		 * Lowercase string defining the status this class represents (e.g. failure, success, error, etc.).
 		 */
 		function get status():String;
