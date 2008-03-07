@@ -7,6 +7,7 @@ package reflexunit.framework.views {
 	import reflexunit.framework.Failure;
 	import reflexunit.framework.IStatus;
 	import reflexunit.framework.InProgress;
+	import reflexunit.framework.Recipe;
 	import reflexunit.framework.Result;
 	import reflexunit.framework.Success;
 	import reflexunit.introspection.model.MethodModel;
@@ -18,6 +19,7 @@ package reflexunit.framework.views {
 		private var _initialized:Boolean;
 		private var _numAssertsTotal:int;
 		private var _test:*;
+		private var _recipe:Recipe;
 		private var _result:Result;
 		private var _view:FlexViewer;
 		
@@ -53,7 +55,7 @@ package reflexunit.framework.views {
 			// Remove the InProgress status and add the completed status.
 			_view.dataProvider.removeItemAt( _view.dataProvider.length - 1 );
 			
-			_view.progressBar.width = ( _view.progressBarContainer.width * ( _currentTestNum / _test.testCount ) );
+			_view.progressBar.width = ( _view.progressBarContainer.width * ( _currentTestNum / _recipe.testCount ) );
 			
 			if ( _result.errorCount > 0 && ( _result.errors[ _result.errorCount - 1 ] as Failure ).methodModel.method == methodModel.method ) {
 				_view.dataProvider.addItem( _result.errors[ _result.errorCount - 1 ] as Failure );
@@ -70,7 +72,7 @@ package reflexunit.framework.views {
 			// Update all test labels to indicate progress.
 			_view.numErrorsLabel.text = 'Errors: ' + _result.errorCount.toString();
 			_view.numFailuresLabel.text = 'Failures: ' + _result.failureCount.toString();
-			_view.numTestsLabel.text = 'Tests: ' + ( _currentTestNum + '/' + _test.testCount ) + ', Asserts: ' + _numAssertsTotal;
+			_view.numTestsLabel.text = 'Tests: ' + ( _currentTestNum + '/' + _recipe.testCount ) + ', Asserts: ' + _numAssertsTotal;
 		}
 		
 		/**
@@ -87,6 +89,13 @@ package reflexunit.framework.views {
 		/*
 		 * Getter / setter methods
 		 */
+		
+		/**
+		 * @see reflexunit.framework.IResultViewer#recipe
+		 */
+		public function set recipe( value:Recipe ):void {
+			_recipe = value;
+		}
 		
 		/**
 		 * @see reflexunit.framework.IResultViewer#result
