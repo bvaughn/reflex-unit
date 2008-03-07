@@ -1,4 +1,4 @@
-package reflexunit.framework.runners {
+package reflexunit.framework.views {
 	import flash.utils.getQualifiedClassName;
 	
 	import mx.controls.dataGridClasses.DataGridColumn;
@@ -6,27 +6,28 @@ package reflexunit.framework.runners {
 	
 	import reflexunit.framework.Failure;
 	import reflexunit.framework.IStatus;
-	import reflexunit.framework.ITest;
 	import reflexunit.framework.InProgress;
+	import reflexunit.framework.Recipe;
 	import reflexunit.framework.Result;
 	import reflexunit.framework.Success;
 	import reflexunit.introspection.model.MethodModel;
 	
-	public class GUIRunnerController {
+	public class FlexViewerController {
 		
 		private var _currentStatus:IStatus;
 		private var _currentTestNum:int;
 		private var _initialized:Boolean;
 		private var _numAssertsTotal:int;
-		private var _test:ITest;
+		private var _test:*;
+		private var _recipe:Recipe;
 		private var _result:Result;
-		private var _view:GUIRunner;
+		private var _view:FlexViewer;
 		
 		/*
 		 * Initialization
 		 */
 		
-		public function GUIRunnerController( view:GUIRunner ) {
+		public function FlexViewerController( view:FlexViewer ) {
 			_view = view;
 			
 			_currentTestNum = 0;
@@ -50,18 +51,34 @@ package reflexunit.framework.runners {
 		 * @see reflexunit.framework.IResultViewer#testCompleted
 		 */
 		public function testCompleted( methodModel:MethodModel ):void {
+			var failure:Failure;
+			var success:Success;
 			
 			// Remove the InProgress status and add the completed status.
-			_view.dataProvider.removeItemAt( _view.dataProvider.length - 1 );
+			removeInProgress( methodModel );
 			
-			_view.progressBar.width = ( _view.progressBarContainer.width * ( _currentTestNum / _test.testCount ) );
+			_view.progressBar.width = ( _view.progressBarContainer.width * ( _currentTestNum / _recipe.testCount ) );
 			
-			if ( _result.errorCount > 0 && ( _result.errors[ _result.errorCount - 1 ] as Failure ).methodModel.method == methodModel.method ) {
-				_view.dataProvider.addItem( _result.errors[ _result.errorCount - 1 ] as Failure );
-			} else if ( _result.failureCount > 0 && ( _result.failures[ _result.failureCount - 1 ] as Failure ).methodModel.method == methodModel.method ) {
-				_view.dataProvider.addItem( _result.failures[ _result.failureCount - 1 ] as Failure );
+			if ( _result.errorCount > 0 &&
+			     ( _result.errors[ _result.errorCount - 1 ] as Failure ).methodModel.method == methodModel.method ) {
+				
+				failure = _result.errors[ _result.errorCount - 1 ] as Failure;
+				
+				_numAssertsTotal += failure.numAsserts;
+				
+				_view.dataProvider.addItem( failure );
+				
+			} else if ( _result.failureCount > 0 &&
+			            ( _result.failures[ _result.failureCount - 1 ] as Failure ).methodModel.method == methodModel.method ) {
+				
+				failure = _result.failures[ _result.failureCount - 1 ] as Failure;
+				
+				_numAssertsTotal += failure.numAsserts;
+				
+				_view.dataProvider.addItem( failure );
+				
 			} else {
-				var success:Success = _result.successes[ _result.successCount - 1 ] as Success;
+				success = _result.successes[ _result.successCount - 1 ] as Success;
 				
 				_numAssertsTotal += success.numAsserts;
 				
@@ -71,7 +88,7 @@ package reflexunit.framework.runners {
 			// Update all test labels to indicate progress.
 			_view.numErrorsLabel.text = 'Errors: ' + _result.errorCount.toString();
 			_view.numFailuresLabel.text = 'Failures: ' + _result.failureCount.toString();
-			_view.numTestsLabel.text = 'Tests: ' + ( _currentTestNum + '/' + _test.testCount ) + ', Asserts: ' + _numAssertsTotal;
+			_view.numTestsLabel.text = 'Tests: ' + ( _currentTestNum + '/' + _recipe.testCount ) + ', Asserts: ' + _numAssertsTotal;
 		}
 		
 		/**
@@ -90,6 +107,13 @@ package reflexunit.framework.runners {
 		 */
 		
 		/**
+		 * @see reflexunit.framework.IResultViewer#recipe
+		 */
+		public function set recipe( value:Recipe ):void {
+			_recipe = value;
+		}
+		
+		/**
 		 * @see reflexunit.framework.IResultViewer#result
 		 */
 		public function set result( value:Result ):void {
@@ -99,12 +123,12 @@ package reflexunit.framework.runners {
 		/**
 		 * @see reflexunit.framework.IResultViewer#test
 		 */
-		public function set test( value:ITest ):void {
+		public function set test( value:* ):void {
 			_test = value;
 		}
 		
 		/*
-		 * Helper methods
+		 * View helper methods
 		 */
 		
 		public static function getMessage( data:Object, dataGridColumn:DataGridColumn = null ):String {
@@ -121,6 +145,22 @@ package reflexunit.framework.runners {
 		
 		public static function getTestName( data:Object, dataGridColumn:DataGridColumn ):String {
 			return ( data as IStatus ).methodModel.name;
+		}
+		
+		/*
+		 * Internal helper methods
+		 */
+		
+		private function removeInProgress( methodModel:MethodModel ):void {
+			for ( var index:int = 0; index < _view.dataProvider.source.length; index++ ) {
+				var status:IStatus = _view.dataProvider.source[ index ] as IStatus;
+				
+				if ( status.methodModel.method == methodModel.method ) {
+					_view.dataProvider.removeItemAt( index );
+					
+					break;
+				}
+			}
 		}
 		
 		/*

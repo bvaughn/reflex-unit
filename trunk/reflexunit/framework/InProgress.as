@@ -1,6 +1,9 @@
 package reflexunit.framework {
 	import reflexunit.introspection.model.MethodModel;
 	
+	/**
+	 * 
+	 */
 	public class InProgress implements IStatus {
 		
 		private var _methodModel:MethodModel;
@@ -30,15 +33,22 @@ package reflexunit.framework {
 		/**
 		 * @inheritDoc
 		 */
+		public function get numAsserts():int {
+			return 0;
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
 		public function get status():String {
 			return 'in progress';
 		}
 		
 		/**
-		 * <code>TestCase</code> object running when failure occurred.
+		 * @inheritDoc
 		 */
-		public function get testCase():TestCase {
-			return _methodModel.thisObject as TestCase;
+		public function get test():* {
+			return _methodModel.thisObject;
 		}
 	}
 }

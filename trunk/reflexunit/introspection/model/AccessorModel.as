@@ -14,6 +14,11 @@ package reflexunit.introspection.model {
 		 */
 		public static const RETURN_TYPE_VOID:* = null;
 		
+		/**
+		 * Since the <code>undefined</code> type is not a Class, this constant represents it.
+		 */
+		public static const RETURN_TYPE_UNDEFINED:* = null;
+		
 		private var _metaDataModel:MetaDataModel;
 		private var _methodDefinedBy:Class;
 		private var _name:String;
@@ -36,22 +41,24 @@ package reflexunit.introspection.model {
 		 *   <accessor name="description" access="readonly" type="reflexunit.framework::Description" declaredBy="reflexunit.framework::TestCase" />
 		 * </code>
 		 */
-		public function fromXML( methodXML:XML ):void {
-			_methodDefinedBy = getDefinitionByName( methodXML.@declaredBy.toString() ) as Class;
-			_name = methodXML.@name.toString();
-			_readOnly = methodXML.@access.toString() == 'readonly';
-			_writeOnly = methodXML.@access.toString() == 'writeonly';
+		public function fromXML( accessorXML:XML ):void {
+			_methodDefinedBy = getDefinitionByName( accessorXML.@declaredBy.toString() ) as Class;
+			_name = accessorXML.@name.toString();
+			_readOnly = accessorXML.@access.toString() == 'readonly';
+			_writeOnly = accessorXML.@access.toString() == 'writeonly';
 			
 			// Not all accessors have metadata.
-			if ( methodXML.metadata.length() > 0 ) {
+			if ( accessorXML.metadata.length() > 0 ) {
 				_metaDataModel = new MetaDataModel();
-				_metaDataModel.fromXML( methodXML.metadata[0] as XML );
+				_metaDataModel.fromXML( accessorXML.metadata[0] as XML );
 			}
 			
-			// A return type of 'void' is a special case.
-			// It can't be cast to a Class and so must be indicated by 'null'.
-			if ( methodXML.@type.toString() != 'void' ) {
-				_type = getDefinitionByName( methodXML.@type.toString() ) as Class;
+			// Return types of 'void' or '*' (undefined) are special cases.
+			// They can't be cast to a Class and so much be indicated using the constants defined by this class.
+			if ( accessorXML.@type.toString() != '*' &&
+			     accessorXML.@type.toString() != 'void' ) {
+				
+				_type = getDefinitionByName( accessorXML.@type.toString() ) as Class;
 			}
 		}
 		
