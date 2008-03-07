@@ -3,27 +3,47 @@ package reflexunit.framework {
 	import reflexunit.introspection.util.IntrospectionUtil;
 	
 	/**
-	 * Describes a single test class and its set of testable methods.
-	 * This class is responsible for analyzing the specified class to determine which methods are testable.
-	 * Each testable method is bundled into a single <code>MethodModel</code> for later use. 
+	 * Describes a single class and the testable methods it defines.
 	 * 
-	 * @see reflexunit.framework.TestCase
+	 * A <code>Description</code> analyzes the provided class to determine which methods are considered testable (see below).
+	 * Each testable method is bundled into a <code>MethodModel</code> for later use.
+	 * 
+	 * There are several possible ways for a method to be determined testable:
+	 * 
+	 * The first way is for the provided test class to define a static accessor named <code>testableMethods</code>.
+	 * Such a method should return an <code>Array</code> of <code>Function</code> references.
+	 * That <code>Array</code> then defines the entire set of testable methods.
+	 * 
+	 * If such an accessor is not defined, the provided test will be analyzed using the <code>IntrospectionUtil</code>.
+	 * In this case all methods meeting one of the following conditions will be considered testable:
+	 * <ul>
+	 *   <li>Method name begins with "test", accepts no parameters, and has a return type of <code>void</code></li>
+	 *   <li>Method is markd with the <code>metadata</code> tag "Test"</li>
+	 * </ul>
+	 * 
+	 * @see reflexunit.introspection.model.MethodModel
 	 */
 	public class Description {
 		
-		private static const TEST_METHOD_NAME_REGEXP:RegExp = /^test/;
+		private static const TESTABLE_METHODS_ACCESSOR_NAME:String = 'testableMethods';
+		private static const TESTABLE_METHOD_METADATA_NAME:String = 'Test';
+		private static const TESTABLE_METHOD_NAME_REGEXP:RegExp = /^test/;
 		
 		private var _introspectionUtil:IntrospectionUtil;
 		private var _methodModels:Array;
 		
+		/*
+		 * Initialization
+		 */
+		
 		/**
 		 * Constructor.
 		 */
-		public function Description( testCaseIn:TestCase ) {
-			_introspectionUtil = new IntrospectionUtil( testCaseIn );
+		public function Description( testIn:* ) {
+			_introspectionUtil = new IntrospectionUtil( testIn );
 			_methodModels = new Array();
 			
-			collectTestCaseInfo();
+			initMethodModels();
 		}
 		
 		/*
@@ -31,16 +51,15 @@ package reflexunit.framework {
 		 */
 		
 		/**
-		 * Array containing <code>MethodModel</code> objects describing all test functions for the related <code>testCase</code>.
+		 * Array containing <code>MethodModel</code> objects describing all testable functions for the provided test class.
 		 */
 		public function get methodModels():Array {
 			return _methodModels;
 		}
 		
-		public function get testCase():TestCase {
-			return _introspectionUtil.classModel.instance as TestCase;
-		}
-		
+		/**
+		 * Convenience method.
+		 */
 		public function get testCount():int {
 			return _methodModels.length;
 		}
@@ -49,12 +68,16 @@ package reflexunit.framework {
 		 * Helper methods
 		 */
 		
-		private function collectTestCaseInfo():void {
+		private function initMethodModels():void {
 			var explicitTestMethods:Array;
 			
 			// If an explicit set of test methods have been defined then use that set only.
-			if ( _introspectionUtil.classModel.type.hasOwnProperty( 'testMethods' ) ) {
-				explicitTestMethods = ( _introspectionUtil.classModel.type['testMethods'] as Function ).apply( new Object() );
+			if ( _introspectionUtil.classModel.type.hasOwnProperty( TESTABLE_METHODS_ACCESSOR_NAME ) ) {
+				if ( _introspectionUtil.classModel.type[ TESTABLE_METHODS_ACCESSOR_NAME ] is Function ) {
+					explicitTestMethods = ( _introspectionUtil.classModel.type[ TESTABLE_METHODS_ACCESSOR_NAME ] as Function ).apply( new Object() );
+				} else {
+					explicitTestMethods = _introspectionUtil.classModel.type[ TESTABLE_METHODS_ACCESSOR_NAME ] as Array;
+				}
 			}
 			
 			for each ( var methodModel:MethodModel in _introspectionUtil.classModel.methodModels ) {
@@ -62,33 +85,26 @@ package reflexunit.framework {
 					if ( explicitTestMethods.indexOf( methodModel.method ) >= 0 ) {
 						_methodModels.push( methodModel );
 					}
-				} else if ( isTestMethod( methodModel ) ) {
+					
+				} else if ( isTestableMethod( methodModel ) ) {
 					_methodModels.push( methodModel );
 				}
 			}
 		}
 		
 		/**
-		 * Returns TRUE if the specified method is a valid test method.
-		 * 
-		 * A method is considered valid if:
-		 * <ul>
-		 *   <li>name starts with "test"</li>
-		 *   <li>accepts no parameters</li>
-		 *   <li>return type of "void"</li>
-		 * </ul>
+		 * Returns TRUE if the specified method is a testable method.
+		 * See class documentation for more information.
 		 */
-		protected static function isTestMethod( methodModel:MethodModel ):Boolean {
+		protected static function isTestableMethod( methodModel:MethodModel ):Boolean {
 			
 			// If the MetaData keyword 'Test' has been provided, support it.
-			if ( methodModel.metaDataModel ) {
-				if ( methodModel.metaDataModel.name == TestCase.METADATA_TEST ) {
-					return true;
-				}
+			if ( methodModel.metaDataModel && methodModel.metaDataModel.name == TESTABLE_METHOD_METADATA_NAME ) {
+				return true;
 			}
 			
-			// Ignore any public methods with names not beginning with "test".
-			if ( methodModel.name.search( TEST_METHOD_NAME_REGEXP ) < 0 ) {
+			// Ignore any public methods with names that do not match our required format.
+			if ( methodModel.name.search( TESTABLE_METHOD_NAME_REGEXP ) < 0 ) {
 				return false;
 			}
 			
@@ -98,8 +114,7 @@ package reflexunit.framework {
 			}
 			
 			// Ignore any public methods with a non-void return type.
-			// (Remember that a MethodModel.returnType value of 'null' is the same as 'void'.)
-			if ( methodModel.returnType ) {
+			if ( methodModel.returnType != MethodModel.RETURN_TYPE_VOID ) {
 				return false;
 			}
 			
