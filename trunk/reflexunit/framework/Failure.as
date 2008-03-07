@@ -1,0 +1,73 @@
+package reflexunit.framework {
+	import reflexunit.introspection.model.MethodModel;
+	
+	/**
+	 * 
+	 */
+	public class Failure implements IStatus {
+		
+		private var _error:Error;
+		private var _methodModel:MethodModel;
+		
+		/*
+		 * Initialization
+		 */
+		
+		/**
+		 * Constructor.
+		 */
+		public function Failure( methodModelIn:MethodModel, errorIn:Error ) {
+			_error = errorIn;
+			_methodModel = methodModelIn;
+		}
+		
+		/*
+		 * Getter / setter methods
+		 */
+		
+		/**
+		 * Error describing the runtime issue encountered by the related <code>TestCase</code>.
+		 */
+		public function get error():Error {
+			return _error;
+		}
+		
+		/**
+		 * Error message string.
+		 * 
+		 * If <code>isFailure</code> is TRUE, this value may be unique to the failed test (or it may be generic).
+		 */
+		public function get errorMessage():String {
+			return _error.message;
+		}
+		
+		/**
+		 * Instance contains a <code>failure</code> not an <code>error</code>.
+		 * See class comments for more.
+		 */
+		public function get isFailure():Boolean {
+			return _error is AssertFailedError;
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function get methodModel():MethodModel {
+			return _methodModel;
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function get status():String {
+			return isFailure ? 'failure' : 'error';
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function get test():* {
+			return _methodModel.thisObject;
+		}
+	}
+}
