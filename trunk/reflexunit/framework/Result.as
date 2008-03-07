@@ -33,15 +33,15 @@ package reflexunit.framework {
 		/**
 		 * Adds an error to the list of errors.
 		 */
-		public function addError( methodModel:MethodModel, error:Error ):void {
-			_errors.push( new Failure( methodModel, error ) );
+		public function addError( methodModel:MethodModel, error:Error, numAsserts:int = 0 ):void {
+			_errors.push( new Failure( methodModel, error, numAsserts ) );
 		}
 		
 		/**
 		 * Adds a failure to the list of failures.
 		 */
-		public function addFailure( methodModel:MethodModel, error:AssertFailedError ):void {
-			_failures.push( new Failure( methodModel, error ) );
+		public function addFailure( methodModel:MethodModel, error:AssertFailedError, numAsserts:int = 0 ):void {
+			_failures.push( new Failure( methodModel, error, numAsserts ) );
 		}
 		
 		/**

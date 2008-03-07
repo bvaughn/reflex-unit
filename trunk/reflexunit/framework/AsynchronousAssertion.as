@@ -18,6 +18,7 @@ package reflexunit.framework {
 		private var _eventHandler:Function;
 		private var _failureMessageFunction:Function;
 		private var _failureMessageFunctionArgs:Array;
+		private var _numAsserts:int;
 		private var _thisObject:*;
 		private var _timer:Timer;
 		private var _timeout:int;
@@ -38,6 +39,8 @@ package reflexunit.framework {
 			_thisObject = thisObject;
 			_timeout = timeout;
 			
+			_numAsserts = 0;
+			
 			_timer = new Timer( timeout, 1 );
 			_timer.addEventListener( TimerEvent.TIMER_COMPLETE, onTimerComplete );
 			_timer.start();
@@ -53,6 +56,13 @@ package reflexunit.framework {
 		 */
 		public function get error():Error {
 			return _error;
+		}
+		
+		/**
+		 * Number of assertions made by the asynchronous <code>Event</code> handler.
+		 */
+		public function get numAsserts():int {
+			return _numAsserts;
 		}
 		
 		/**
@@ -84,7 +94,10 @@ package reflexunit.framework {
 			
 			// Errors (including AssertFailedErrors) can occur in asynchronous handlers too; be sure to catch them.
 			try {
+				Assert.resetNumAsserts();
+				
 				_eventHandler.call( _thisObject, event );
+				
 			} catch ( error:Error ) {
 				_error = error;
 				
@@ -92,6 +105,8 @@ package reflexunit.framework {
 				
 				return;
 			}
+			
+			_numAsserts = Assert.numAsserts;
 			
 			dispatchEvent( new Event( Event.COMPLETE ) );
 		}

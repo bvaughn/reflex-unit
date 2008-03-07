@@ -30,7 +30,7 @@ package reflexunit.framework {
 		}
 		
 		/**
-		 * 
+		 * @inheritDoc
 		 */
 		public function get numAsserts():int {
 			return _numAsserts;

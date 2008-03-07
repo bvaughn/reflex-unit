@@ -33,6 +33,13 @@ package reflexunit.framework {
 		/**
 		 * @inheritDoc
 		 */
+		public function get numAsserts():int {
+			return 0;
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
 		public function get status():String {
 			return 'in progress';
 		}

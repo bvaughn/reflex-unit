@@ -51,18 +51,34 @@ package reflexunit.framework.views {
 		 * @see reflexunit.framework.IResultViewer#testCompleted
 		 */
 		public function testCompleted( methodModel:MethodModel ):void {
+			var failure:Failure;
+			var success:Success;
 			
 			// Remove the InProgress status and add the completed status.
 			removeInProgress( methodModel );
 			
 			_view.progressBar.width = ( _view.progressBarContainer.width * ( _currentTestNum / _recipe.testCount ) );
 			
-			if ( _result.errorCount > 0 && ( _result.errors[ _result.errorCount - 1 ] as Failure ).methodModel.method == methodModel.method ) {
-				_view.dataProvider.addItem( _result.errors[ _result.errorCount - 1 ] as Failure );
-			} else if ( _result.failureCount > 0 && ( _result.failures[ _result.failureCount - 1 ] as Failure ).methodModel.method == methodModel.method ) {
-				_view.dataProvider.addItem( _result.failures[ _result.failureCount - 1 ] as Failure );
+			if ( _result.errorCount > 0 &&
+			     ( _result.errors[ _result.errorCount - 1 ] as Failure ).methodModel.method == methodModel.method ) {
+				
+				failure = _result.errors[ _result.errorCount - 1 ] as Failure;
+				
+				_numAssertsTotal += failure.numAsserts;
+				
+				_view.dataProvider.addItem( failure );
+				
+			} else if ( _result.failureCount > 0 &&
+			            ( _result.failures[ _result.failureCount - 1 ] as Failure ).methodModel.method == methodModel.method ) {
+				
+				failure = _result.failures[ _result.failureCount - 1 ] as Failure;
+				
+				_numAssertsTotal += failure.numAsserts;
+				
+				_view.dataProvider.addItem( failure );
+				
 			} else {
-				var success:Success = _result.successes[ _result.successCount - 1 ] as Success;
+				success = _result.successes[ _result.successCount - 1 ] as Success;
 				
 				_numAssertsTotal += success.numAsserts;
 				
