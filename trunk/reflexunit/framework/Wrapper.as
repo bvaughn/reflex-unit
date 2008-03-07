@@ -76,6 +76,7 @@ package reflexunit.framework {
 				tearDownTest();
 			}
 			
+			// If no AsynchronousAssertions were defined and no Error thrown then our test has succeeded.
 			if ( !isAsync ) {
 				_result.addSuccess( _methodModel, _numAsserts );
 				
@@ -210,6 +211,8 @@ package reflexunit.framework {
 				// If not then we should store the current failure as a failure a
 				if ( !isFailureExpected() ) {
 					_result.addFailure( _methodModel, asynchronousAssertion.error as AssertFailedError );
+				} else {
+					_result.addSuccess( _methodModel, _numAsserts );
 				}
 				
 			} else {

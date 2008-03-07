@@ -71,6 +71,7 @@ package reflexunit.framework {
 		 * If the function returned by this method executes before the specified Timer handler then our test was a success.
 		 */
 		private function onEvent( event:Event ):void {
+			event.currentTarget.removeEventListener( event.type, onEvent );
 			
 			// Do not pass through to the wrapped function if the assertion has already failed (ie. timed-out).
 			if ( !_timer.running ) {
@@ -86,6 +87,10 @@ package reflexunit.framework {
 				_eventHandler.call( _thisObject, event );
 			} catch ( error:Error ) {
 				_error = error;
+				
+				dispatchEvent( new ErrorEvent( ErrorEvent.ERROR ) );
+				
+				return;
 			}
 			
 			dispatchEvent( new Event( Event.COMPLETE ) );
@@ -99,15 +104,20 @@ package reflexunit.framework {
 		private function onTimerComplete( event:TimerEvent ):void {
 			
 			// Remove strong event reference.
-			// TODO: Should we *also* remove the original (external) function/handler at this point?
-			// We would have to require its eventType or something, via addAsync so perhaps not.
+			// We don't need to remove the original listener; we don't pass the Event through once the Timer stops 
 			event.currentTarget.removeEventListener( TimerEvent.TIMER_COMPLETE, wrapperFunction );
 			
-			var errorMessage:String = 'Asynchronous function was not executed in ' + _timeout + 'ms';
+			var errorMessage:String;
 			
 			// If a failure handler has been provided, use its custom message.
 			if ( _failureMessageFunction != null ) {
-				errorMessage = _failureMessageFunction.apply( _thisObject, _failureMessageFunctionArgs ) as String;
+				try {
+					errorMessage = _failureMessageFunction.apply( _thisObject, _failureMessageFunctionArgs ) as String;
+				} catch ( error:Error ) {}
+			}
+			
+			if ( !errorMessage ) {
+				errorMessage = 'Asynchronous function was not executed in ' + _timeout + 'ms';
 			}
 			
 			_error = new AssertFailedError( errorMessage );

@@ -53,7 +53,7 @@ package reflexunit.framework.views {
 		public function testCompleted( methodModel:MethodModel ):void {
 			
 			// Remove the InProgress status and add the completed status.
-			_view.dataProvider.removeItemAt( _view.dataProvider.length - 1 );
+			removeInProgress( methodModel );
 			
 			_view.progressBar.width = ( _view.progressBarContainer.width * ( _currentTestNum / _recipe.testCount ) );
 			
@@ -112,7 +112,7 @@ package reflexunit.framework.views {
 		}
 		
 		/*
-		 * Helper methods
+		 * View helper methods
 		 */
 		
 		public static function getMessage( data:Object, dataGridColumn:DataGridColumn = null ):String {
@@ -129,6 +129,22 @@ package reflexunit.framework.views {
 		
 		public static function getTestName( data:Object, dataGridColumn:DataGridColumn ):String {
 			return ( data as IStatus ).methodModel.name;
+		}
+		
+		/*
+		 * Internal helper methods
+		 */
+		
+		private function removeInProgress( methodModel:MethodModel ):void {
+			for ( var index:int = 0; index < _view.dataProvider.source.length; index++ ) {
+				var status:IStatus = _view.dataProvider.source[ index ] as IStatus;
+				
+				if ( status.methodModel.method == methodModel.method ) {
+					_view.dataProvider.removeItemAt( index );
+					
+					break;
+				}
+			}
 		}
 		
 		/*

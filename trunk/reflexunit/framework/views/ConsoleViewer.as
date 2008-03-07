@@ -3,6 +3,7 @@ package reflexunit.framework.views {
 	import reflexunit.framework.IResultViewer;
 	import reflexunit.framework.Recipe;
 	import reflexunit.framework.Result;
+	import reflexunit.framework.Success;
 	import reflexunit.introspection.model.MethodModel;
 	
 	/**
@@ -58,7 +59,7 @@ package reflexunit.framework.views {
 		 * @inheritDoc
 		 */
 		public function testCompleted( methodModel:MethodModel ):void {
-			trace( '+ completed: ' + methodModel.name );
+			trace( '+ completed: ' + methodModel.name + ' => ' + getTestStatus( methodModel ) );
 		}
 		
 		/**
@@ -84,6 +85,34 @@ package reflexunit.framework.views {
 		 */
 		public function set result( value:Result ):void {
 			_result = value;
+		}
+		
+		/*
+		 * Helper methods
+		 */
+		
+		private function getTestStatus( methodModel:MethodModel ):String {
+			var failure:Failure;
+			
+			for each ( failure in _result.errors ) {
+				if ( failure.methodModel == methodModel ) {
+					return failure.status;
+				}
+			}
+			
+			for each ( failure in _result.failures ) {
+				if ( failure.methodModel == methodModel ) {
+					return failure.status;
+				}
+			}
+			
+			for each ( var success:Success in _result.successes ) {
+				if ( success.methodModel == methodModel ) {
+					return success.status;
+				}
+			}
+			
+			return 'unknown';
 		}
 	}
 }
