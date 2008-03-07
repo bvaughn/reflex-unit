@@ -10,6 +10,7 @@ package reflexunit.framework {
 	public class Recipe {
 		
 		private var _descriptions:Array;
+		private var _testCount:int;
 		
 		/*
 		 * Initialization
@@ -22,6 +23,7 @@ package reflexunit.framework {
 		 */
 		public function Recipe( testSuite:TestSuite ) {
 			_descriptions = new Array();
+			_testCount = 0;
 			
 			initDescriptions( testSuite );
 		}
@@ -39,6 +41,10 @@ package reflexunit.framework {
 			return _descriptions;
 		}
 		
+		public function get testCount():int {
+			return _testCount;
+		}
+		
 		/*
 		 * Helper methods
 		 */
@@ -48,7 +54,11 @@ package reflexunit.framework {
 		 */
 		private function initDescriptions( testSuite:TestSuite ):void {
 			for each ( var test:* in testSuite.tests ) {
-				_descriptions.push( new Description( test ) );
+				var description:Description = new Description( test );
+				
+				_descriptions.push( description );
+				
+				_testCount += description.testCount;
 			}
 		}
 	}

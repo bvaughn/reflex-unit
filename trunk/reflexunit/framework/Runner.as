@@ -1,4 +1,6 @@
 package reflexunit.framework {
+	import flash.events.EventDispatcher;
+	
 	import reflexunit.introspection.model.MethodModel;
 	
 	/**
@@ -64,6 +66,7 @@ package reflexunit.framework {
 					throw new TypeError( 'Expected IResultViewer instance' );
 				}
 				
+				resultViewer.recipe = _recipe;
 				resultViewer.result = _result;
 			}
 			
@@ -155,7 +158,11 @@ package reflexunit.framework {
 					break;
 				}
 				
-				wrapper.run( _runNotifier );
+				var runNotifier:RunNotifier = new RunNotifier();
+				runNotifier.addEventListener( RunEvent.TEST_COMPLETED, onTestCompleted );
+				runNotifier.addEventListener( RunEvent.TEST_STARTING, onTestStarting );
+				
+				wrapper.run( runNotifier );
 				
 				_currentMethodModels.push( methodModel );
 				
@@ -171,6 +178,8 @@ package reflexunit.framework {
 		 */
 		
 		private function onTestCompleted( event:RunEvent ):void {
+			( event.currentTarget as EventDispatcher ).removeEventListener( RunEvent.TEST_COMPLETED, onTestCompleted );
+			
 			alertTestCompleted( event.methodModel );
 			
 			finalizeMethodModel( event.methodModel );
@@ -181,6 +190,8 @@ package reflexunit.framework {
 		}
 		
 		private function onTestStarting( event:RunEvent ):void {
+			( event.currentTarget as EventDispatcher ).removeEventListener( RunEvent.TEST_STARTING, onTestStarting );
+			
 			alertTestStarting( event.methodModel );
 		}
 	}

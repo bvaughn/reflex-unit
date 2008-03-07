@@ -1,6 +1,7 @@
 package reflexunit.framework.views {
 	import reflexunit.framework.Failure;
 	import reflexunit.framework.IResultViewer;
+	import reflexunit.framework.Recipe;
 	import reflexunit.framework.Result;
 	import reflexunit.introspection.model.MethodModel;
 	
@@ -9,6 +10,7 @@ package reflexunit.framework.views {
 	 */
 	public class ConsoleViewer implements IResultViewer {
 		
+		private var _recipe:Recipe;
 		private var _result:Result;
 		
 		/*
@@ -69,6 +71,13 @@ package reflexunit.framework.views {
 		/*
 		 * Getter / setter methods
 		 */
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function set recipe( value:Recipe ):void {
+			_recipe = value;
+		}
 		
 		/**
 		 * @inheritDoc

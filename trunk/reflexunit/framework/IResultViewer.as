@@ -8,6 +8,11 @@ package reflexunit.framework {
 	public interface IResultViewer extends ITestWatcher {
 		
 		/**
+		 * @see reflexunit.framework.Recipe
+		 */
+		function set recipe( value:Recipe ):void;
+		
+		/**
 		 * <code>Result</code> containig information pertaining to the related test.
 		 */
 		function set result( value:Result ):void;
