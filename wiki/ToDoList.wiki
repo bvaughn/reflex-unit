@@ -2,18 +2,19 @@
 
 == Flex Framework ==
 
-=== Get !JavaDoc output generated ===
- * Settle on a format and get those docs posted!
-
 === Write more and better unit tests ===
  * Test all of the reflection explicitly; (no tests should fail as a sign of success)
  * Test all metadata
  * Test parallel execution
 
 === !FlexMock style support available for all dynamic classes ===
+  * *Seems unlikely that this will be possible; explored all routes I could think of*
   * Offer rails-style .all, .new_instances, .exactly_once, .at_least_once, etc.
   * Implement this using getter methods that return a reference to the Class (or singleton) itself but also mark Boolean flags inside to check
   * Wrap specified functions in dynamically declared functions to ensure execution
+
+=== Get !JavaDoc output generated ===
+ * ~~Settle on a format and get those docs posted!~~
 
 === Remove requirement for tests to extend !TestCase ===
   * ~~Create new !TestRunner class that wraps test and handles running~~
