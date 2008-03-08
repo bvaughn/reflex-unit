@@ -2,6 +2,24 @@
 
 == Flex Framework ==
 
+=== Get !JavaDoc output generated ===
+ * Settle on a format and get those docs posted!
+
+=== Write more and better unit tests ===
+ * Test all of the reflection explicitly; (no tests should fail as a sign of success)
+ * Test all metadata
+ * Test parallel execution
+
+=== !FlexMock style support available for all dynamic classes ===
+  * Offer rails-style .all, .new_instances, .exactly_once, .at_least_once, etc.
+  * Implement this using getter methods that return a reference to the Class (or singleton) itself but also mark Boolean flags inside to check
+  * Wrap specified functions in dynamically declared functions to ensure execution
+
+=== Remove requirement for tests to extend !TestCase ===
+  * ~~Create new !TestRunner class that wraps test and handles running~~
+  * ~~Make methods in !TestCase public-static and able to be _called by_ tests, (perhaps multiple tests in parallel)~~
+  * ~~Get rid of the concept of an ITest?~~
+
 === Expand metadata to support the following ===
   * ~~!TestCase - _methods not beginning with 'test' may still be designated as tests with this meta tag_~~
   * ~~shouldFail = true|false - _this test is expected to result in a `failure` (not an `error`)_~~
@@ -13,22 +31,5 @@
   * ~~Queue up a series of strong event listeners such that (potentially) all asynchronous tests within a !TestCase can execute in parallel~~
   * ~~This must defer to the optional _forceSerialExecution_ metadata arg~~
 
-
-=== !FlexMock style support available for all dynamic classes ===
-
-  * Offer rails-style .all, .new_instances, .exactly_once, .at_least_once, etc.
-  * Implement this using getter methods that return a reference to the Class (or singleton) itself but also mark Boolean flags inside to check
-  * Wrap specified functions in dynamically declared functions to ensure execution
-
-=== Remove requirement for tests to extend !TestCase ===
-
-  * ~~Create new !TestRunner class that wraps test and handles running~~
-  * ~~Make methods in !TestCase public-static and able to be _called by_ tests, (perhaps multiple tests in parallel)~~
-  * ~~Get rid of the concept of an ITest?~~
-
-=== Write more and better unit tests ===
- * Test all of the reflection explicitly; (no tests should fail as a sign of success)
- * Test all metadata
- * Test parallel execution
 
 == Eclipse Plugin ==
