@@ -109,8 +109,8 @@ package reflexunit.framework {
 		public function get forceSerialExecution():Boolean {
 			if ( _methodModel.metaDataModel ) {
 				for each ( var argModel:ArgModel in _methodModel.metaDataModel.argModels ) {
-					if ( argModel.key == '' ) {
-						if ( argModel.value == '' ) {
+					if ( argModel.key == TestCase.METADATA_ARG_FORCE_SERIAL_EXECUTION ) {
+						if ( argModel.value == 'true' ) {
 							
 							// Even if the test has specified that it must execute in isolation, this only holds if it is asynchronous.
 							return isAsync;
@@ -129,6 +129,22 @@ package reflexunit.framework {
 		 */
 		public function get isAsync():Boolean {
 			return _asynchronousAssertions.length > 0;
+		}
+		
+		/**
+		 * The current test method is expected to fail.
+		 * In this case, an <code>AssertFailedError</code> should actually result in a <code>Success</code>.
+		 */
+		public function isFailureExpected():Boolean {
+			if ( _methodModel.metaDataModel ) {
+				for each ( var argModel:ArgModel in _methodModel.metaDataModel.argModels ) {
+					if ( argModel.key == TestCase.METADATA_ARG_SHOULD_FAIL && argModel.value.toString() == 'true' ) {
+						return true;
+					}
+				}
+			}
+			
+			return false;
 		}
 		
 		public function get methodModel():MethodModel {
@@ -155,18 +171,6 @@ package reflexunit.framework {
 					break;
 				}
 			}
-		}
-		
-		protected function isFailureExpected():Boolean {
-			if ( _methodModel.metaDataModel ) {
-				for each ( var argModel:ArgModel in _methodModel.metaDataModel.argModels ) {
-					if ( argModel.key == TestCase.METADATA_ARG_SHOULD_FAIL && argModel.value.toString() == 'true' ) {
-						return true;
-					}
-				}
-			}
-			
-			return false;
 		}
 		
 		protected function setupTest():void {
