@@ -83,6 +83,20 @@ package reflexunit.introspection.model {
 		}
 		
 		/**
+		 * Returns a <code>MethodModel</code> for the method specified.
+		 * If no such method is defined (or <code>public</code>) then null is returned.
+		 */
+		public function getMethodModelByName( methodName:String ):MethodModel {
+			for each ( var methodModel:MethodModel in _methodModels ) {
+				if ( methodModel.name == methodName ) {
+					return methodModel;
+				}
+			}
+			
+			return null;
+		}
+		
+		/**
 		 * public function exampleFunction():void {} [SampleClass]
 		 */
 		public function toString():String {

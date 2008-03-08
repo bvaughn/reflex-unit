@@ -32,14 +32,16 @@ package reflexunit.framework {
 		 * @param timeout The maximum allowable time (in ms) the event may not fire before it is considered a failure
 		 * @param failureMessageFunction Optional method to provide a custom error message in the event of a failure
 		 * @param failureMessageFunctionArgs Optional argumetns to pass to the failureMessageFunction
+		 * @param failureThisObject Optional scope to execute failureMessageFunction within
 		 */
-		public final function addAsync( eventHandler:Function,
-		                                timeout:int = 1000,
-		                                failureMessageFunction:Function = null,
-		                                failureMessageFunctionArgs:Array = null ):Function {
+		public static function addAsync( eventHandler:Function,
+		                                 timeout:int = 1000,
+		                                 failureMessageFunction:Function = null,
+		                                 failureMessageFunctionArgs:Array = null,
+		                                 failureThisObject:* = null ):Function {
 			
 			var asyncronousAssertion:AsynchronousAssertion =
-				new AsynchronousAssertion( this, eventHandler, timeout, failureMessageFunction, failureMessageFunctionArgs );
+				new AsynchronousAssertion( failureThisObject, eventHandler, timeout, failureMessageFunction, failureMessageFunctionArgs );
 			
 			_asynchronousAssertions.push( asyncronousAssertion );
 			

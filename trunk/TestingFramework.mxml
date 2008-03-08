@@ -10,6 +10,7 @@
 			import reflexunit.framework.Runner;
 			import reflexunit.framework.RunNotifier;
 			import reflexunit.framework.tests.FrameworkTest;
+			import reflexunit.framework.tests.metadata.MetaDataTest;
 			import reflexunit.framework.TestSuite;
 			import reflexunit.framework.views.ConsoleViewer;
 			import reflexunit.introspection.tests.IntrospectionTest;
@@ -18,7 +19,7 @@
 			
 			private function onInitialize( event:FlexEvent ):void {
 				var resultViewers:Array = [ flexViewer, new ConsoleViewer() ];
-				var testSuite:TestSuite = new TestSuite( [ FrameworkTest, IntrospectionTest ] );
+				var testSuite:TestSuite = new TestSuite( [ FrameworkTest, IntrospectionTest, MetaDataTest ] );
 				
 				Runner.create( testSuite, resultViewers );
 			}

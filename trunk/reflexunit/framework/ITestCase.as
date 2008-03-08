@@ -1,7 +1,7 @@
 package reflexunit.framework {
 	
 	/**
-	 * Optional interface to be implemented by any class defining one or mote testable method.
+	 * Optional interface to be implemented by any class defining one or mote testable methods.
 	 * If implemented, an <code>ITestCase</code> will be notified before and after each test method has finished executing. 
 	 */
 	public interface ITestCase {
