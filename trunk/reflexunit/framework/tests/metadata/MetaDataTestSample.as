@@ -5,9 +5,10 @@ package reflexunit.framework.tests.metadata {
 	
 	import reflexunit.framework.TestCase;
 	
-	public class MeteDataTestSample {
+	public class MetaDataTestSample {
 		
-		public function MeteDataTestSample() {
+		[Test]
+		public function shouldBeTest():void {
 		}
 		
 		[Test(shouldFail="true")]
@@ -22,7 +23,7 @@ package reflexunit.framework.tests.metadata {
 		public function forceSerialExecutionTrue():void {
 			var timer:Timer = new Timer( 10, 1 );
 			timer.addEventListener( TimerEvent.TIMER_COMPLETE,
-			                        TestCase.addAsync( function():void {}, 100 ) );
+			                        TestCase.addAsync( function():void {}, 1000 ) );
 			timer.start();
 		}
 		

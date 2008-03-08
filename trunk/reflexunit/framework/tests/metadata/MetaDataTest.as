@@ -1,7 +1,9 @@
 package reflexunit.framework.tests.metadata {
+	import reflexunit.framework.Recipe;
 	import reflexunit.framework.Result;
 	import reflexunit.framework.RunNotifier;
 	import reflexunit.framework.TestCase;
+	import reflexunit.framework.TestSuite;
 	import reflexunit.framework.Wrapper;
 	import reflexunit.introspection.model.MethodModel;
 	import reflexunit.introspection.util.IntrospectionUtil;
@@ -11,7 +13,7 @@ package reflexunit.framework.tests.metadata {
 		private var _introspectionUtil:IntrospectionUtil;
 		
 		public function MetaDataTest() {
-			_introspectionUtil = new IntrospectionUtil( new MeteDataTestSample() );
+			_introspectionUtil = new IntrospectionUtil( new MetaDataTestSample() );
 		}
 		
 		private function createAndRunWrapperForMethod( methodName:String ):Wrapper {
@@ -21,6 +23,21 @@ package reflexunit.framework.tests.metadata {
 			wrapper.run( new RunNotifier() );
 			
 			return wrapper;
+		}
+		
+		public function testIncludesTestMetaDataMethods():void {
+			var recipe:Recipe = new Recipe( new TestSuite( [ MetaDataTestSample ] ) );
+			var methodFound:Boolean;
+			
+			for each ( var methodModel:MethodModel in _introspectionUtil.classModel.methodModels ) {
+				if ( methodModel.name == 'shouldBeTest' ) {
+					methodFound = true;
+					
+					break;
+				}
+			}
+			
+			assertTrue( methodFound );
 		}
 		
 		public function testShouldFailTrue():void {
