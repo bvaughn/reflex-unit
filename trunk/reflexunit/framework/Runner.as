@@ -179,6 +179,11 @@ package reflexunit.framework {
 					alertTestCompleted( methodModel );
 				}
 			}
+			
+			// If all tests in the current Description were synchronous then immediately run the next Description's tests.
+			if ( _currentMethodModels.length == 0 ) {
+				runNextSeriesOfTests();
+			}
 		}
 		
 		/*
