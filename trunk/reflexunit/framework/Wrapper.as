@@ -15,11 +15,12 @@ package reflexunit.framework {
 	 * 
 	 * The execution of a testable method will result in one of the following being added to the provided <code>Result</code>:
 	 * <ul>
-	 *   <li>Failure: one or more tests defined in this method failed due to a runtime <code>Error</code> or an invalid assertion</li>
-	 *   <li>Success: all tests defined in this method have executed successfully</li>
+	 *   <li><code>Failure</code>: one or more tests defined in this method failed due to a runtime <code>Error</code> or an invalid assertion</li>
+	 *   <li><code>Success</code>: all tests defined in this method have executed successfully</li>
 	 * </ul>
 	 *
 	 * @see reflexunit.framework.Failure
+	 * @see reflexunit.framework.Result
 	 * @see reflexunit.framework.Success
 	 */
 	public class Wrapper {
@@ -34,6 +35,12 @@ package reflexunit.framework {
 		 * Initialization
 		 */
 		
+		/**
+		 * Constructor
+		 * 
+		 * @param methodModelIn Test method to monitor and execute.
+		 * @param resultIn Result object to add test status to
+		 */
 		public function Wrapper( methodModelIn:MethodModel, resultIn:Result ) {
 			_methodModel = methodModelIn;
 			_result = resultIn;

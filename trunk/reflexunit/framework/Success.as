@@ -1,6 +1,9 @@
 package reflexunit.framework {
 	import reflexunit.introspection.model.MethodModel;
 	
+	/**
+	 * Indicates that all assertions made by the assocated test method were accurate and no runtime errors occured.
+	 */
 	public class Success implements IStatus {
 		
 		private var _methodModel:MethodModel;

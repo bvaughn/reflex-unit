@@ -4,7 +4,6 @@ package reflexunit.framework {
 	 * Contains a set of all available/runnable test classes and methods.
 	 * Each runnable method is defined by a <code>Description</code> object.
 	 * 
-	 * 
 	 * @see reflexunit.framework.Description
 	 */
 	public class Recipe {

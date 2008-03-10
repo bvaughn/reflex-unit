@@ -2,8 +2,10 @@ package reflexunit.introspection.model {
 	
 	/**
 	 * Represents an (optional) metadata argument.
+	 * An <code>ArgModel</code> belongs to a <code>MetaDataModel</code>.
 	 * 
 	 * @see reflexunit.introspection.util.IntrospectionUtil
+	 * @see reflexunit.introspection.util.MetaDataModel
 	 */
 	public class ArgModel {
 		
@@ -22,6 +24,8 @@ package reflexunit.introspection.model {
 		 * <code>
 		 *   <arg key="attribute" value="value" />
 		 * </code>
+		 *  
+		 * @see flash.utils.describeType
 		 */
 		public function fromXML( argXML:XML ):void {
 			_key = argXML.@key.toString();

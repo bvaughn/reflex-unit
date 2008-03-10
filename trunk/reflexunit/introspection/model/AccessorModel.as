@@ -4,7 +4,9 @@ package reflexunit.introspection.model {
 	
 	/**
 	 * Represents a public getter, setter, or getter/setter pair.
+	 * An <code>AccessorModel</code> belongs to a <code>ClassModel</code>.
 	 * 
+	 * @see reflexunit.introspection.util.ClassModel
 	 * @see reflexunit.introspection.util.IntrospectionUtil
 	 */
 	public class AccessorModel {
@@ -40,6 +42,8 @@ package reflexunit.introspection.model {
 		 * <code>
 		 *   <accessor name="description" access="readonly" type="reflexunit.framework::Description" declaredBy="reflexunit.framework::TestCase" />
 		 * </code>
+		 *  
+		 * @see flash.utils.describeType
 		 */
 		public function fromXML( accessorXML:XML ):void {
 			_methodDefinedBy = getDefinitionByName( accessorXML.@declaredBy.toString() ) as Class;

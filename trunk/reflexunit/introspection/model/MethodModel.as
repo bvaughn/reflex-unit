@@ -4,7 +4,9 @@ package reflexunit.introspection.model {
 	
 	/**
 	 * Represents a public instance method.
+	 * A <code>MethodModel</code> belongs to a <code>ClassModel</code>.
 	 * 
+	 * @see reflexunit.introspection.util.ClassModel
 	 * @see reflexunit.introspection.util.IntrospectionUtil
 	 */
 	public class MethodModel {
@@ -48,6 +50,8 @@ package reflexunit.introspection.model {
 		 *     <parameter index="2" type="Boolean" optional="true"/>
 		 *   </method>
 		 * </code>
+		 *  
+		 * @see flash.utils.describeType
 		 */
 		public function fromXML( methodXML:XML ):void {
 			_methodDefinedBy = getDefinitionByName( methodXML.@declaredBy.toString() ) as Class;

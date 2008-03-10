@@ -7,6 +7,10 @@ package reflexunit.introspection.tests {
 	import reflexunit.introspection.tests.mocks.StaticClass;
 	import reflexunit.introspection.util.IntrospectionUtil;
 	
+	/**
+	 * Tests the <code>IntrospectionUtil</code> and its models.
+	 */
+	[ExcludeClass]
 	public class IntrospectionTest extends TestCase {
 		
 		private var _introspectionUtil:IntrospectionUtil;

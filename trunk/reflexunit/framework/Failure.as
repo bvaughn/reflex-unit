@@ -2,7 +2,13 @@ package reflexunit.framework {
 	import reflexunit.introspection.model.MethodModel;
 	
 	/**
-	 * 
+	 * The provided test method has failed.
+	 * The cause of this could be one of several things:
+	 * <ul>
+	 *   <li>An invalid test assertion</li>
+	 *   <li>An asynchronous method did not execute within the specified timeout</li>
+	 *   <li>A runtime error occurred during test execution</li>
+	 * </ul>
 	 */
 	public class Failure implements IStatus {
 		

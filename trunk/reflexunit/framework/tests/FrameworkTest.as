@@ -4,6 +4,7 @@ package reflexunit.framework.tests {
 	
 	import reflexunit.framework.TestCase;
 	
+	[ExcludeClass]
 	public class FrameworkTest extends TestCase {
 		
 		/*

@@ -4,8 +4,19 @@ package reflexunit.introspection.model {
 	
 	/**
 	 * Represents a class.
+	 * A <code>ClassModel</code> may contain objects of the following type:
+	 * <ul>
+	 *   <li><code>AccessorModel</code></li>
+	 *   <li><code>MetaDataModel</code></li>
+	 *   <li><code>MethodModel</code></li>
+	 *   <li><code>VariableModel</code></li>
+	 * </ul>
 	 * 
+	 * @see reflexunit.introspection.util.AccessorModel
 	 * @see reflexunit.introspection.util.IntrospectionUtil
+	 * @see reflexunit.introspection.util.MetaDataModel
+	 * @see reflexunit.introspection.util.MethodModel
+	 * @see reflexunit.introspection.util.VariableModel
 	 */
 	public class ClassModel {
 		
@@ -42,6 +53,8 @@ package reflexunit.introspection.model {
 		 *     <extendsClass type="Object" />
 		 *   </type>
 		 * </code>
+		 *  
+		 * @see flash.utils.describeType
 		 */
 		public function fromXML( classXML:XML ):void {
 			_isDynamic = classXML.@isDynamic.toString() == 'true';

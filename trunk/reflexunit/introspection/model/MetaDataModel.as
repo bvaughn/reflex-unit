@@ -1,9 +1,17 @@
 package reflexunit.introspection.model {
 	
 	/**
-	 * Represents additional descriptive/behavioral data related to a <code>ClassModel</code>, <code>MethodModel</code>, or <code>AccessorModel</code>.
+	 * Represents additional descriptive/behavioral data related to the following types of data:
+	 * <ul>
+	 *   <li><code>AccessorModel</code></li>
+	 *   <li><code>ClassModel</code></li>
+	 *   <li><code>MethodModel</code></li>
+	 * </ul>
 	 * 
+	 * @see reflexunit.introspection.util.AccessorModel
+	 * @see reflexunit.introspection.util.ClassModel
 	 * @see reflexunit.introspection.util.IntrospectionUtil
+	 * @see reflexunit.introspection.util.MethodModel
 	 */
 	public class MetaDataModel {
 		
@@ -25,6 +33,8 @@ package reflexunit.introspection.model {
 		 *     <arg key="attribute" value="value" />
 		 *   </metadata>
 		 * </code>
+		 *  
+		 * @see flash.utils.describeType
 		 */
 		public function fromXML( metaDataXML:XML ):void {
 			_name = metaDataXML.@name.toString();

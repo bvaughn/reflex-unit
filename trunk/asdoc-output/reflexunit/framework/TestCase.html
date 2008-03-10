@@ -43,12 +43,12 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr>
 <td class="classHeaderTableLabel">Implements</td><td><a href="ITestCase.html">ITestCase</a></td>
 </tr>
-<tr>
-<td class="classHeaderTableLabel">Subclasses</td><td><a href="tests/FrameworkTest.html">FrameworkTest</a>, <a href="../introspection/tests/IntrospectionTest.html">IntrospectionTest</a></td>
-</tr>
 </table>
 <p></p>
+  Classes defining testable methods may extend this class for convenience (but are not required to do so).
   
+  <p>Since <code>TestCase</code> extends <code>Assert</code> it automatically provides access to all of the related assertion methods.
+  This calss also defines a method for testing asynchronous code (see <code>addAsync</code> for more).</p> 
   <p></p>
 <br>
 <hr>
@@ -110,8 +110,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#addAsync()">addAsync</a>(eventHandler:Function, timeout:int = 1000, failureMessageFunction:Function = null, failureMessageFunctionArgs:Array = null):Function</div>
-<div class="summaryTableDescription">
+<a class="signatureLink" href="#addAsync()">addAsync</a>(eventHandler:Function, timeout:int = 1000, failureMessageFunction:Function = null, failureMessageFunctionArgs:Array = null, failureThisObject:* = null):Function</div>
+<div class="summaryTableDescription">[static]
    Add an asynchronous check point to the test.</div>
 </td><td class="summaryTableOwnerCol">TestCase</td>
 </tr>
@@ -294,11 +294,18 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public final function addAsync(eventHandler:Function, timeout:int = 1000, failureMessageFunction:Function = null, failureMessageFunctionArgs:Array = null):Function</code><p>
+<code>public static function addAsync(eventHandler:Function, timeout:int = 1000, failureMessageFunction:Function = null, failureMessageFunctionArgs:Array = null, failureThisObject:* = null):Function</code><p>
    Add an asynchronous check point to the test.
    This method will return an event handler function.
    
-   </p><span class="label">Parameters</span>
+   </p><p>An example of using this method is as follows:</p>
+   <p><code>
+   var timer:Timer = new Timer( 100, 1 );
+   timer.addEventListener( TimerEvent.TIMER_COMPLETE, addAsync( function( event:TimerEvent ):void {}, 10 ) );
+   timer.start();
+   </code></p>
+   
+   <span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">eventHandler</span>:Function</code> &mdash; The Function to execute once the related event has successfully occurred
@@ -323,6 +330,13 @@ showHideInherited();
 </tr>
 <tr>
 <td width="20px"></td><td><code><span class="label">failureMessageFunctionArgs</span>:Array</code> (default = <code>null</code>)<code></code> &mdash; Optional argumetns to pass to the failureMessageFunction
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">failureThisObject</span>:*</code> (default = <code>null</code>)<code></code> &mdash; Optional scope to execute failureMessageFunction within
    </td>
 </tr>
 </table>

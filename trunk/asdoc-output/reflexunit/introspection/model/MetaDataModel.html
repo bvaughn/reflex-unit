@@ -39,15 +39,20 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 </table>
 <p></p>
-  Represents additional descriptive/behavioral data related to a <code>ClassModel</code>, <code>MethodModel</code>, or <code>AccessorModel</code>.
+  Represents additional descriptive/behavioral data related to the following types of data:
+  <ul>
+    <li><code>AccessorModel</code></li>
+    <li><code>ClassModel</code></li>
+    <li><code>MethodModel</code></li>
+  </ul>
   
   <p></p>
 <p>
 <span class="classHeaderTableLabel">See also</span>
 </p>
-<div class="seeAlso">
+<div class="seeAlso">reflexunit.introspection.util.AccessorModel<br>reflexunit.introspection.util.ClassModel<br>
 <a href="../util/IntrospectionUtil.html" target="">reflexunit.introspection.util.IntrospectionUtil</a>
-</div>
+<br>reflexunit.introspection.util.MethodModel</div>
 <br>
 <hr>
 </div>
@@ -94,6 +99,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
        <arg key="attribute" value="value" />
      </metadata>
    </code>
+    
    </div>
 </td><td class="summaryTableOwnerCol">MetaDataModel</td>
 </tr>
@@ -175,12 +181,17 @@ showHideInherited();
        <arg key="attribute" value="value" />
      </metadata>
    </code>
+    
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">metaDataXML</span>:XML</code></td>
 </tr>
 </table>
+<p>
+<span class="label">See also</span>
+</p>
+<div class="seeAlso">flash.utils.describeType</div>
 </div>
 <a name="toString()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">

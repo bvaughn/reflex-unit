@@ -4,7 +4,9 @@ package reflexunit.introspection.model {
 	
 	/**
 	 * Represents a public instance variable.
+	 * A <code>VariableModel</code> belongs to a <code>ClassModel</code>.
 	 * 
+	 * @see reflexunit.introspection.util.ClassModel
 	 * @see reflexunit.introspection.util.IntrospectionUtil
 	 */
 	public class VariableModel {
@@ -29,6 +31,8 @@ package reflexunit.introspection.model {
 		 * <code>
 		 *   <variable name="boolean" type="Boolean"/>
 		 * </code>
+		 *  
+		 * @see flash.utils.describeType
 		 */
 		public function fromXML( variableXML:XML ):void {
 			_name = variableXML.@name.toString();

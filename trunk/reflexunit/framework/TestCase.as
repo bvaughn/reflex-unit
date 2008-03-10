@@ -1,7 +1,10 @@
 package reflexunit.framework {
 	
 	/**
+	 * Classes defining testable methods may extend this class for convenience (but are not required to do so).
 	 * 
+	 * <p>Since <code>TestCase</code> extends <code>Assert</code> it automatically provides access to all of the related assertion methods.
+	 * This calss also defines a method for testing asynchronous code (see <code>addAsync</code> for more).</p> 
 	 */
 	public class TestCase extends Assert implements ITestCase {
 		
@@ -27,6 +30,13 @@ package reflexunit.framework {
 		/**
 		 * Add an asynchronous check point to the test.
 		 * This method will return an event handler function.
+		 * 
+		 * <p>An example of using this method is as follows:</p>
+		 * <p><code>
+		 * var timer:Timer = new Timer( 100, 1 );
+		 * timer.addEventListener( TimerEvent.TIMER_COMPLETE, addAsync( function( event:TimerEvent ):void {}, 10 ) );
+		 * timer.start();
+		 * </code></p>
 		 * 
 		 * @param eventHandler The Function to execute once the related event has successfully occurred
 		 * @param timeout The maximum allowable time (in ms) the event may not fire before it is considered a failure
