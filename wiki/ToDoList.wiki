@@ -1,13 +1,18 @@
 #summary Checklist of features currently (or soon-to-be) under development
 
-== Flex Framework ==
+= Flex Framework =
 
-=== Write more and better unit tests ===
+== Write more and better unit tests ==
  * Test all of the reflection explicitly; (no tests should fail as a sign of success)
  * Test all meta-data
  * Test parallel execution thoroughly
 
-=== Better test runner ===
+== Better test runner ==
  * View drives creation of Runner (and !TestSuite)
 
-== Eclipse Plugin ==
+= Eclipse Plugin =
+ * Scan project folder for tests files
+  * Folder and file naming conventions
+  * Optionally parse class metadata
+ * Define socket communication protocol
+ * Hot-link to failed unit tests
