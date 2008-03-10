@@ -2,6 +2,7 @@ package reflexunit.framework {
 	import flash.events.ErrorEvent;
 	import flash.events.Event;
 	
+	import reflexunit.framework.constants.TestConstants;
 	import reflexunit.introspection.models.ArgModel;
 	import reflexunit.introspection.models.MethodModel;
 	
@@ -108,30 +109,6 @@ package reflexunit.framework {
 		 */
 		
 		/**
-		 * Method defined in the provided <code>MethodModel</code> has elected to force serial execution.
-		 * 
-		 * No other tests should be run until this method has completed its assertions.
-		 * All previously executed asynchronous tests should be allowed to complete before this method is started.
-		 */
-		public function get forceSerialExecution():Boolean {
-			if ( _methodModel.metaDataModel ) {
-				for each ( var argModel:ArgModel in _methodModel.metaDataModel.argModels ) {
-					if ( argModel.key == TestCase.METADATA_ARG_FORCE_SERIAL_EXECUTION ) {
-						if ( argModel.value == 'true' ) {
-							
-							// Even if the test has specified that it must execute in isolation, this only holds if it is asynchronous.
-							return isAsync;
-						}
-						
-						break;
-					}
-				}
-			}
-			
-			return false;
-		}
-		
-		/**
 		 * Method currently executing has made one or more asynchronous assertions. 
 		 */
 		public function get isAsync():Boolean {
@@ -145,7 +122,7 @@ package reflexunit.framework {
 		public function isFailureExpected():Boolean {
 			if ( _methodModel.metaDataModel ) {
 				for each ( var argModel:ArgModel in _methodModel.metaDataModel.argModels ) {
-					if ( argModel.key == TestCase.METADATA_ARG_SHOULD_FAIL && argModel.value.toString() == 'true' ) {
+					if ( argModel.key == TestConstants.METADATA_ARG_SHOULD_FAIL && argModel.value.toString() == 'true' ) {
 						return true;
 					}
 				}

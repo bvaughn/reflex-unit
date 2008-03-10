@@ -1,4 +1,6 @@
 package reflexunit.framework {
+	import reflexunit.framework.constants.TestConstants;
+	import reflexunit.introspection.models.ArgModel;
 	import reflexunit.introspection.models.MethodModel;
 	import reflexunit.introspection.util.IntrospectionUtil;
 	
@@ -25,10 +27,6 @@ package reflexunit.framework {
 	 */
 	public class Description {
 		
-		private static const TESTABLE_METHODS_ACCESSOR_NAME:String = 'testableMethods';
-		private static const TESTABLE_METHOD_METADATA_NAME:String = 'Test';
-		private static const TESTABLE_METHOD_NAME_REGEXP:RegExp = /^test/;
-		
 		private var _introspectionUtil:IntrospectionUtil;
 		private var _methodModels:Array;
 		
@@ -49,6 +47,24 @@ package reflexunit.framework {
 		/*
 		 * Getter / setter methods
 		 */
+		
+		/**
+		 * Current test has elected to allow parallel execution of its asynchronous test methods.
+		 * 
+		 * If FALSE, no other tests should be run until this method has completed its assertions.
+		 * (In that event all previously executed asynchronous tests should be allowed to complete before this method is started.)
+		 */
+		public function get allowParallelAsynchronousTests():Boolean {
+			if ( _introspectionUtil.classModel.metaDataModel ) {
+				for each ( var argModel:ArgModel in _introspectionUtil.classModel.metaDataModel.argModels ) {
+					if ( argModel.key == TestConstants.METADATA_ARG_ALLOW_PARALLEL_ASYNCHRONOUS_TESTS ) {
+						return ( argModel.value == 'true' );
+					}
+				}
+			}
+			
+			return false;
+		}
 		
 		/**
 		 * Array containing <code>MethodModel</code> objects describing all testable functions for the provided test class.
@@ -72,11 +88,11 @@ package reflexunit.framework {
 			var explicitTestMethods:Array;
 			
 			// If an explicit set of test methods have been defined then use that set only.
-			if ( _introspectionUtil.classModel.type.hasOwnProperty( TESTABLE_METHODS_ACCESSOR_NAME ) ) {
-				if ( _introspectionUtil.classModel.type[ TESTABLE_METHODS_ACCESSOR_NAME ] is Function ) {
-					explicitTestMethods = ( _introspectionUtil.classModel.type[ TESTABLE_METHODS_ACCESSOR_NAME ] as Function ).apply( new Object() );
+			if ( _introspectionUtil.classModel.type.hasOwnProperty( TestConstants.TESTABLE_METHODS_ACCESSOR_NAME ) ) {
+				if ( _introspectionUtil.classModel.type[ TestConstants.TESTABLE_METHODS_ACCESSOR_NAME ] is Function ) {
+					explicitTestMethods = ( _introspectionUtil.classModel.type[ TestConstants.TESTABLE_METHODS_ACCESSOR_NAME ] as Function ).apply( new Object() );
 				} else {
-					explicitTestMethods = _introspectionUtil.classModel.type[ TESTABLE_METHODS_ACCESSOR_NAME ] as Array;
+					explicitTestMethods = _introspectionUtil.classModel.type[ TestConstants.TESTABLE_METHODS_ACCESSOR_NAME ] as Array;
 				}
 			}
 			
@@ -99,12 +115,12 @@ package reflexunit.framework {
 		protected static function isTestableMethod( methodModel:MethodModel ):Boolean {
 			
 			// If the MetaData keyword 'Test' has been provided, support it.
-			if ( methodModel.metaDataModel && methodModel.metaDataModel.name == TESTABLE_METHOD_METADATA_NAME ) {
+			if ( methodModel.metaDataModel && methodModel.metaDataModel.name == TestConstants.METADATA_TEST ) {
 				return true;
 			}
 			
 			// Ignore any public methods with names that do not match our required format.
-			if ( methodModel.name.search( TESTABLE_METHOD_NAME_REGEXP ) < 0 ) {
+			if ( methodModel.name.search( TestConstants.TESTABLE_METHOD_NAME_REGEXP ) < 0 ) {
 				return false;
 			}
 			

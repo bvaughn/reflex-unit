@@ -48,17 +48,5 @@ package reflexunit.framework.tests.metadata {
 		public function testShouldFailFalse():void {
 			assertFalse( createAndRunWrapperForMethod( 'shouldFailFalse' ).isFailureExpected() );
 		}
-		
-		public function testForceSerialExecutionTrue():void {
-			assertTrue( createAndRunWrapperForMethod( 'forceSerialExecutionTrue' ).forceSerialExecution );
-		}
-		
-		public function testForceSerialExecutionFalseIfNoAsync():void {
-			assertFalse( createAndRunWrapperForMethod( 'forceSerialExecutionFalseIfNoAsync' ).forceSerialExecution );
-		}
-		
-		public function testForceSerialExecutionFalse():void {
-			assertFalse( createAndRunWrapperForMethod( 'forceSerialExecutionFalse' ).forceSerialExecution );
-		}
 	}
 }

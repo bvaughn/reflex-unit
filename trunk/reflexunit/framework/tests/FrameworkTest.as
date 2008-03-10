@@ -29,71 +29,25 @@ package reflexunit.framework.tests {
 			timer.start();
 		}
 		
-		public function testAssertEquals():void {
-			assertEquals( 1, 1 );
-		}
-		
-		public function testAssertFalse():void {
-			assertFalse( false );
-		}
-		
-		public function testAssertNotEquals():void {
-			assertNotEquals( 1, 2 );
-		}
-		
-		public function testAssertNotNull():void {
-			assertNotNull(  new Object() );
-		}
-		
-		public function testAssertNull():void {
-			assertNull( null );
-		}
-		
-		public function testAssertTrue():void {
-			assertTrue( true );
-		}
-		
-		[TestCase(shouldFail="true")]
-		public function testFailureExpected():void {
-			assertTrue( false );
-		}
-		
 		/*
 		 * Test that invalid values make our assert methods fail.
 		 * TODO: Wrap these tests in an "expects-failure" block somehow.
 		 */
 		
-		public function testAssertEqualsFails():void {
-			assertEquals( 1, 2 );
-		}
-		
-		public function testAssertFalseFails():void {
-			assertFalse( true );
-		}
-		
-		public function testAssertNotEqualsFails():void {
-			assertNotEquals( 1, 1 );
-		}
-		
-		public function testAssertNotNullFails():void {
-			assertNotNull(  null );
-		}
-		
-		public function testAssertNullFails():void {
-			assertNull( new Object() );
-		}
-		
-		public function testAssertTrueFails():void {
-			assertTrue( false );
-		}
-		
-		[TestCase(shouldFail="true")]	// Note that a 'failure' is not the same as an 'error'; this test should still fail.
+		/**
+		 * Note that a 'failure' is not the same as an 'error'; this test should still result in an error.
+		 * 
+		 * @internal
+		 * TODO: Wrap this somehow so that the error doesn't display in the test runner
+		 */
+		[Test(shouldFail="true")]
 		public function testAddAsyncError():void {
 			var timer:Timer = new Timer( 100, 1 );
 			timer.addEventListener( TimerEvent.TIMER_COMPLETE, addAsync( onTimerCompleteWithError, 1000 ) );
 			timer.start();
 		}
 		
+		[Test(shouldFail="true")]
 		public function testAddAsyncFails():void {
 			var timer:Timer = new Timer( 100, 1 );
 			timer.addEventListener( TimerEvent.TIMER_COMPLETE, addAsync( onTimerComplete, 10 ) );

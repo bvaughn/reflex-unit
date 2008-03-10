@@ -11,9 +11,6 @@ package reflexunit.framework {
 	 */
 	public class RunNotifier extends EventDispatcher implements ITestWatcher {
 		
-		public function forceSerialExecutionReached():void {
-		}
-		
 		/*
 		 * ITestWatcher methods
 		 */
