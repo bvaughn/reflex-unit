@@ -1,7 +1,10 @@
 package reflexunit.framework {
 	
 	/**
-	 * Contains a collection of: (a) test classes and/or (b) other <code>TestSuite</code> objects.
+	 * Contains a collection of test classes and/or other <code>TestSuite</code> objects.
+	 * A <code>TestSuite</code> is passed to a <code>Runner</code> in order to execute the tests contained.
+	 * 
+	 * @see reflexunit.framework.Runner
 	 */
 	public class TestSuite {
 		

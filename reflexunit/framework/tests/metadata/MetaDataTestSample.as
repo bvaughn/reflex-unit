@@ -5,6 +5,7 @@ package reflexunit.framework.tests.metadata {
 	
 	import reflexunit.framework.TestCase;
 	
+	[ExcludeClass]
 	public class MetaDataTestSample {
 		
 		[Test]

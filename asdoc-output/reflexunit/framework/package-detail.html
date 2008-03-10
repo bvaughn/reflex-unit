@@ -48,7 +48,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Pa
 </tr>
 <tr class="prow1">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableSecondCol"><i><a href="ITestCase.html">ITestCase</a></i></td><td class="summaryTableLastCol">
-  Optional interface to be implemented by any class defining one or mote testable method.</td>
+  Optional interface to be implemented by any class defining one or mote testable methods.</td>
 </tr>
 <tr class="prow0">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableSecondCol"><i><a href="ITestWatcher.html">ITestWatcher</a></i></td><td class="summaryTableLastCol">
@@ -78,10 +78,12 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Pa
   Describes a single class and the testable methods it defines.</td>
 </tr>
 <tr class="prow1">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableSecondCol"><a href="Failure.html">Failure</a></td><td class="summaryTableLastCol">&nbsp;</td>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableSecondCol"><a href="Failure.html">Failure</a></td><td class="summaryTableLastCol">
+  The provided test method has failed.</td>
 </tr>
 <tr class="prow0">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableSecondCol"><a href="InProgress.html">InProgress</a></td><td class="summaryTableLastCol">&nbsp;</td>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableSecondCol"><a href="InProgress.html">InProgress</a></td><td class="summaryTableLastCol">
+  Wrapper class used by some <code>IResultViewer</code> objects to indicate a test method that has not completed execution.</td>
 </tr>
 <tr class="prow1">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableSecondCol"><a href="Recipe.html">Recipe</a></td><td class="summaryTableLastCol">
@@ -92,7 +94,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Pa
   Used to collect and describe the results of running an <code>ITest</code>.</td>
 </tr>
 <tr class="prow1">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableSecondCol"><a href="RunEvent.html">RunEvent</a></td><td class="summaryTableLastCol">&nbsp;</td>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableSecondCol"><a href="RunEvent.html">RunEvent</a></td><td class="summaryTableLastCol">
+  Dispatched by a <code>RunNotifier</code> to indicate a significant test event.</td>
 </tr>
 <tr class="prow0">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableSecondCol"><a href="Runner.html">Runner</a></td><td class="summaryTableLastCol">
@@ -100,19 +103,19 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Pa
 </tr>
 <tr class="prow1">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableSecondCol"><a href="RunNotifier.html">RunNotifier</a></td><td class="summaryTableLastCol">
-  TODO
-  
-  </td>
+  A <code>RunNotifier</code> is used by several of the testing framework classes to monitor the status of executing tests.</td>
 </tr>
 <tr class="prow0">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableSecondCol"><a href="Success.html">Success</a></td><td class="summaryTableLastCol">&nbsp;</td>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableSecondCol"><a href="Success.html">Success</a></td><td class="summaryTableLastCol">
+  Indicates that all assertions made by the assocated test method were accurate and no runtime errors occured.</td>
 </tr>
 <tr class="prow1">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableSecondCol"><a href="TestCase.html">TestCase</a></td><td class="summaryTableLastCol">&nbsp;</td>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableSecondCol"><a href="TestCase.html">TestCase</a></td><td class="summaryTableLastCol">
+  Classes defining testable methods may extend this class for convenience (but are not required to do so).</td>
 </tr>
 <tr class="prow0">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableSecondCol"><a href="TestSuite.html">TestSuite</a></td><td class="summaryTableLastCol">
-  Contains a collection of: (a) test classes and/or (b) other <code>TestSuite</code> objects.</td>
+  Contains a collection of test classes and/or other <code>TestSuite</code> objects.</td>
 </tr>
 <tr class="prow1">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableSecondCol"><a href="Wrapper.html">Wrapper</a></td><td class="summaryTableLastCol">

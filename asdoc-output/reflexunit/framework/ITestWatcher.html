@@ -61,21 +61,24 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("In
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="#allTestsCompleted()">allTestsCompleted</a>():void</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   All tests in the current <code>TestSuite</code> have been executed.</div>
 </td><td class="summaryTableOwnerCol">ITestWatcher</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="#testCompleted()">testCompleted</a>(methodModel:<a href="../introspection/model/MethodModel.html">MethodModel</a>):void</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   The specified test method has completed execution.</div>
 </td><td class="summaryTableOwnerCol">ITestWatcher</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="#testStarting()">testStarting</a>(methodModel:<a href="../introspection/model/MethodModel.html">MethodModel</a>):void</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   The specified test method is about to be run.</div>
 </td><td class="summaryTableOwnerCol">ITestWatcher</td>
 </tr>
 </table>
@@ -94,8 +97,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function allTestsCompleted():void</code>
-</div>
+<code>public function allTestsCompleted():void</code><p>
+   All tests in the current <code>TestSuite</code> have been executed.
+   </p></div>
 <a name="testCompleted()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -103,7 +107,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function testCompleted(methodModel:<a href="../introspection/model/MethodModel.html">MethodModel</a>):void</code><span class="label">Parameters</span>
+<code>public function testCompleted(methodModel:<a href="../introspection/model/MethodModel.html">MethodModel</a>):void</code><p>
+   The specified test method has completed execution.
+   </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">methodModel</span>:<a href="../introspection/model/MethodModel.html">MethodModel</a></code></td>
@@ -117,7 +123,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function testStarting(methodModel:<a href="../introspection/model/MethodModel.html">MethodModel</a>):void</code><span class="label">Parameters</span>
+<code>public function testStarting(methodModel:<a href="../introspection/model/MethodModel.html">MethodModel</a>):void</code><p>
+   The specified test method is about to be run.
+   </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
 <td width="20px"></td><td><code><span class="label">methodModel</span>:<a href="../introspection/model/MethodModel.html">MethodModel</a></code></td>

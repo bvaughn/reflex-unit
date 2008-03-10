@@ -4,10 +4,10 @@ package reflexunit.introspection.model {
 	
 	/**
 	 * Represents a function parameter.
-	 * This type of object belongs to a <code>MethodModel</code>.
+	 * A <code>ParameterModel</code> belongs to a <code>MethodModel</code>.
 	 * 
-	 * @see reflexunit.introspection.model.MethodModel
 	 * @see reflexunit.introspection.util.IntrospectionUtil
+	 * @see reflexunit.introspection.model.MethodModel
 	 */
 	public class ParameterModel {
 		
@@ -32,6 +32,8 @@ package reflexunit.introspection.model {
 		 * <code>
 		 *   <parameter index="2" type="Boolean" optional="true"/>
 		 * </code>
+		 *  
+		 * @see flash.utils.describeType
 		 */
 		public function fromXML( parameterXML:XML ):void {
 			_index = int( parameterXML.@index );

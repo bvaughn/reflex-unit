@@ -39,13 +39,13 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 </table>
 <p></p>
-  Analyzes an instance object and describes its public instance variables and methods.
+  Analyzes an object instance and describes its public instance accessors, methods, and variables.
   
   <p></p>
 <p>
 <span class="classHeaderTableLabel">See also</span>
 </p>
-<div class="seeAlso">
+<div class="seeAlso">flash.utils.describeType<br>
 <a href="../model/MethodModel.html" target="">reflexunit.introspection.model.MethodModel</a>
 <br>
 <a href="../model/ParameterModel.html" target="">reflexunit.introspection.model.ParameterModel</a>
@@ -80,7 +80,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="#IntrospectionUtil()">IntrospectionUtil</a>(instance:Object)</div>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Constructor.</div>
 </td><td class="summaryTableOwnerCol">IntrospectionUtil</td>
 </tr>
 <tr class="">
@@ -124,10 +125,14 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function IntrospectionUtil(instance:Object)</code><span class="label">Parameters</span>
+<code>public function IntrospectionUtil(instance:Object)</code><p>
+   Constructor.
+   
+   </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">instance</span>:Object</code></td>
+<td width="20px"></td><td><code><span class="label">instance</span>:Object</code> &mdash; Object to analyze and describe
+   </td>
 </tr>
 </table>
 </div>

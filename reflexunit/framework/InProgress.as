@@ -2,7 +2,11 @@ package reflexunit.framework {
 	import reflexunit.introspection.model.MethodModel;
 	
 	/**
+	 * Wrapper class used by some <code>IResultViewer</code> objects to indicate a test method that has not completed execution.
+	 * Once completed, an <code>InProgress</code> object will be replaced with a <code>Success</code> or a <code>Failure</code>.
 	 * 
+	 * @see reflexunit.framework.Failure
+	 * @see reflexunit.framework.Success
 	 */
 	public class InProgress implements IStatus {
 		

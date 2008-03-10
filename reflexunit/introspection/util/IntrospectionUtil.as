@@ -4,8 +4,9 @@ package reflexunit.introspection.util {
 	import reflexunit.introspection.model.ClassModel;
 	
 	/**
-	 * Analyzes an instance object and describes its public instance variables and methods.
+	 * Analyzes an object instance and describes its public instance accessors, methods, and variables.
 	 * 
+	 * @see flash.utils.describeType
 	 * @see reflexunit.introspection.model.MethodModel
 	 * @see reflexunit.introspection.model.ParameterModel
 	 * @see reflexunit.introspection.model.VariableModel
@@ -18,6 +19,11 @@ package reflexunit.introspection.util {
 		 * Initialization
 		 */
 		
+		/**
+		 * Constructor.
+		 * 
+		 * @param instance Object to analyze and describe
+		 */
 		public function IntrospectionUtil( instance:Object ) {
 			_classModel = new ClassModel( instance );
 			_classModel.fromXML( describeType( instance ) );

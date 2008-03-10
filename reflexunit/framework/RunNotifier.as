@@ -4,7 +4,8 @@ package reflexunit.framework {
 	import reflexunit.introspection.model.MethodModel;
 	
 	/**
-	 * TODO
+	 * A <code>RunNotifier</code> is used by several of the testing framework classes to monitor the status of executing tests.
+	 * It is typically passed as a parameter to a <code>run</code> method and listened to by the caller class for events.
 	 * 
 	 * @see reflexunit.framework.RunEvent
 	 */

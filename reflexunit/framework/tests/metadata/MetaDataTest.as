@@ -8,6 +8,7 @@ package reflexunit.framework.tests.metadata {
 	import reflexunit.introspection.model.MethodModel;
 	import reflexunit.introspection.util.IntrospectionUtil;
 	
+	[ExcludeClass]
 	public class MetaDataTest extends TestCase {
 		
 		private var _introspectionUtil:IntrospectionUtil;
