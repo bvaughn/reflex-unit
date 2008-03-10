@@ -1,5 +1,5 @@
 package reflexunit.framework {
-	import reflexunit.introspection.model.MethodModel;
+	import reflexunit.introspection.models.MethodModel;
 	
 	/**
 	 * The provided test method has failed.

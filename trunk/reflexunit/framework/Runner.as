@@ -1,7 +1,7 @@
 package reflexunit.framework {
 	import flash.events.EventDispatcher;
 	
-	import reflexunit.introspection.model.MethodModel;
+	import reflexunit.introspection.models.MethodModel;
 	
 	/**
 	 * This class is responsible for the high-level management of test execution.

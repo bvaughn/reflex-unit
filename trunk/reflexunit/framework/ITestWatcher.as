@@ -1,5 +1,5 @@
 package reflexunit.framework {
-	import reflexunit.introspection.model.MethodModel;
+	import reflexunit.introspection.models.MethodModel;
 	
 	/**
 	 * Defines a collection of methods to be implemented by classes that monitor the progress of an test.

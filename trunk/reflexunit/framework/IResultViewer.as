@@ -1,5 +1,5 @@
 package reflexunit.framework {
-	import reflexunit.introspection.model.MethodModel;
+	import reflexunit.introspection.models.MethodModel;
 	
 	/**
 	 * An <code>IResultViewer</code> relates the status of a test as it is executed.

@@ -1,5 +1,5 @@
 package reflexunit.framework {
-	import reflexunit.introspection.model.MethodModel;
+	import reflexunit.introspection.models.MethodModel;
 	
 	/**
 	 * Used to collect and describe the results of running an <code>ITest</code>.

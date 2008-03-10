@@ -16,7 +16,7 @@
 			import reflexunit.framework.Recipe;
 			import reflexunit.framework.Result;
 			import reflexunit.framework.views.FlexViewerController;
-			import reflexunit.introspection.model.MethodModel;
+			import reflexunit.introspection.models.MethodModel;
 			
 			/*
 			 * Variables

@@ -5,7 +5,7 @@ package reflexunit.framework.tests.metadata {
 	import reflexunit.framework.TestCase;
 	import reflexunit.framework.TestSuite;
 	import reflexunit.framework.Wrapper;
-	import reflexunit.introspection.model.MethodModel;
+	import reflexunit.introspection.models.MethodModel;
 	import reflexunit.introspection.util.IntrospectionUtil;
 	
 	[ExcludeClass]

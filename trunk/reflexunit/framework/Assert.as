@@ -2,7 +2,7 @@ package reflexunit.framework {
 	
 	/**
 	 * Defines various assertions that may be used to compare one or more values.
-	 * Dispatches <code>AssertFailedError</code> to indicate a failed assertion.
+	 * Throws <code>AssertFailedError</code> to indicate a failed assertion.
 	 * 
 	 * @see AssertFailedError
 	 */
@@ -16,6 +16,8 @@ package reflexunit.framework {
 		
 		/**
 		 * Asserts that two values are equal.
+		 * 
+		 * @throws reflexunit.framework.AssertFailedError if two values are not equal
 		 */
 		public static function assertEquals( expected:*, actual:*, message:String = null ):void {
 			_numAsserts++;
@@ -27,6 +29,8 @@ package reflexunit.framework {
 		
 		/**
 		 * Asserts that the value specified is FALSE.
+		 * 
+		 * @throws reflexunit.framework.AssertFailedError if expression is true
 		 */
 		public static function assertFalse( expression:*, message:String = null ):void {
 			_numAsserts++;
@@ -38,6 +42,8 @@ package reflexunit.framework {
 		
 		/**
 		 * Asserts that the two values specified are not equal.
+		 * 
+		 * @throws reflexunit.framework.AssertFailedError if two values are equal
 		 */
 		public static function assertNotEquals( expected:*, actual:*, message:String = null ):void {
 			_numAsserts++;
@@ -49,6 +55,8 @@ package reflexunit.framework {
 		
 		/**
 		 * Asserts that the value specified is not NULL.
+		 * 
+		 * @throws reflexunit.framework.AssertFailedError if expression is null
 		 */
 		public static function assertNotNull( expression:*, message:String = null ):void {
 			_numAsserts++;
@@ -60,6 +68,8 @@ package reflexunit.framework {
 		
 		/**
 		 * Asserts that the value specified is NULL.
+		 * 
+		 * @throws reflexunit.framework.AssertFailedError if expression is not null
 		 */
 		public static function assertNull( expression:*, message:String = null ):void {
 			_numAsserts++;
@@ -71,6 +81,8 @@ package reflexunit.framework {
 		
 		/**
 		 * Asserts that the value specified is TRUE.
+		 * 
+		 * @throws reflexunit.framework.AssertFailedError if expression is false
 		 */
 		public static function assertTrue( expression:*, message:String = null ):void {
 			_numAsserts++;

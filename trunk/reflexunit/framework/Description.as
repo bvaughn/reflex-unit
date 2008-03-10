@@ -1,5 +1,5 @@
 package reflexunit.framework {
-	import reflexunit.introspection.model.MethodModel;
+	import reflexunit.introspection.models.MethodModel;
 	import reflexunit.introspection.util.IntrospectionUtil;
 	
 	/**
@@ -21,7 +21,7 @@ package reflexunit.framework {
 	 *   <li>Method is markd with the <code>metadata</code> tag "Test"</li>
 	 * </ul>
 	 * 
-	 * @see reflexunit.introspection.model.MethodModel
+	 * @see reflexunit.introspection.models.MethodModel
 	 */
 	public class Description {
 		

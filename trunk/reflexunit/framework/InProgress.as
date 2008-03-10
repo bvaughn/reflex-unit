@@ -1,5 +1,5 @@
 package reflexunit.framework {
-	import reflexunit.introspection.model.MethodModel;
+	import reflexunit.introspection.models.MethodModel;
 	
 	/**
 	 * Wrapper class used by some <code>IResultViewer</code> objects to indicate a test method that has not completed execution.

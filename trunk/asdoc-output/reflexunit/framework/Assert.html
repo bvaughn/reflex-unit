@@ -43,7 +43,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </table>
 <p></p>
   Defines various assertions that may be used to compare one or more values.
-  Dispatches <code>AssertFailedError</code> to indicate a failed assertion.
+  Throws <code>AssertFailedError</code> to indicate a failed assertion.
   
   <p></p>
 <p>
@@ -166,6 +166,7 @@ showHideInherited();
 <div class="detailBody">
 <code>public static function assertEquals(expected:*, actual:*, message:String = null):void</code><p>
    Asserts that two values are equal.
+   
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
@@ -182,6 +183,14 @@ showHideInherited();
 </tr>
 <tr>
 <td width="20px"></td><td><code><span class="label">message</span>:String</code> (default = <code>null</code>)<code></code></td>
+</tr>
+</table>
+<br>
+<span class="label">Throws</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code><a href="../framework/AssertFailedError.html">AssertFailedError</a> </code> &mdash; if two values are not equal
+   </td>
 </tr>
 </table>
 </div>
@@ -194,6 +203,7 @@ showHideInherited();
 <div class="detailBody">
 <code>public static function assertFalse(expression:*, message:String = null):void</code><p>
    Asserts that the value specified is FALSE.
+   
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
@@ -206,6 +216,14 @@ showHideInherited();
 <td width="20px"></td><td><code><span class="label">message</span>:String</code> (default = <code>null</code>)<code></code></td>
 </tr>
 </table>
+<br>
+<span class="label">Throws</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code><a href="../framework/AssertFailedError.html">AssertFailedError</a> </code> &mdash; if expression is true
+   </td>
+</tr>
+</table>
 </div>
 <a name="assertNotEquals()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -216,6 +234,7 @@ showHideInherited();
 <div class="detailBody">
 <code>public static function assertNotEquals(expected:*, actual:*, message:String = null):void</code><p>
    Asserts that the two values specified are not equal.
+   
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
@@ -234,6 +253,14 @@ showHideInherited();
 <td width="20px"></td><td><code><span class="label">message</span>:String</code> (default = <code>null</code>)<code></code></td>
 </tr>
 </table>
+<br>
+<span class="label">Throws</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code><a href="../framework/AssertFailedError.html">AssertFailedError</a> </code> &mdash; if two values are equal
+   </td>
+</tr>
+</table>
 </div>
 <a name="assertNotNull()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
@@ -244,6 +271,7 @@ showHideInherited();
 <div class="detailBody">
 <code>public static function assertNotNull(expression:*, message:String = null):void</code><p>
    Asserts that the value specified is not NULL.
+   
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
@@ -254,6 +282,14 @@ showHideInherited();
 </tr>
 <tr>
 <td width="20px"></td><td><code><span class="label">message</span>:String</code> (default = <code>null</code>)<code></code></td>
+</tr>
+</table>
+<br>
+<span class="label">Throws</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code><a href="../framework/AssertFailedError.html">AssertFailedError</a> </code> &mdash; if expression is null
+   </td>
 </tr>
 </table>
 </div>
@@ -266,6 +302,7 @@ showHideInherited();
 <div class="detailBody">
 <code>public static function assertNull(expression:*, message:String = null):void</code><p>
    Asserts that the value specified is NULL.
+   
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
@@ -276,6 +313,14 @@ showHideInherited();
 </tr>
 <tr>
 <td width="20px"></td><td><code><span class="label">message</span>:String</code> (default = <code>null</code>)<code></code></td>
+</tr>
+</table>
+<br>
+<span class="label">Throws</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code><a href="../framework/AssertFailedError.html">AssertFailedError</a> </code> &mdash; if expression is not null
+   </td>
 </tr>
 </table>
 </div>
@@ -288,6 +333,7 @@ showHideInherited();
 <div class="detailBody">
 <code>public static function assertTrue(expression:*, message:String = null):void</code><p>
    Asserts that the value specified is TRUE.
+   
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
@@ -298,6 +344,14 @@ showHideInherited();
 </tr>
 <tr>
 <td width="20px"></td><td><code><span class="label">message</span>:String</code> (default = <code>null</code>)<code></code></td>
+</tr>
+</table>
+<br>
+<span class="label">Throws</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code><a href="../framework/AssertFailedError.html">AssertFailedError</a> </code> &mdash; if expression is false
+   </td>
 </tr>
 </table>
 </div>
