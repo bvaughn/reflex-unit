@@ -8,11 +8,6 @@ package reflexunit.framework {
 	 */
 	public class TestCase extends Assert implements ITestCase {
 		
-		public static const METADATA_ARG_FORCE_SERIAL_EXECUTION:String = 'forceSerialExecution';
-		public static const METADATA_ARG_SHOULD_FAIL:String = 'shouldFail';
-		public static const METADATA_TEST:String = 'Test';
-		public static const METADATA_TEST_CASE:String = 'TestCase';
-		
 		private static var _asynchronousAssertions:Array;
 		
 		/*

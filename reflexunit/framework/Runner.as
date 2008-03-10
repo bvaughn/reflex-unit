@@ -148,15 +148,7 @@ package reflexunit.framework {
 			// Run tests until: (a) we run out of them for this Description or (b) we reach a blocking test
 			while ( _currentDescription.methodModels.length > 0 ) {
 				var methodModel:MethodModel = _currentDescription.methodModels.shift() as MethodModel;
-				
 				var wrapper:Wrapper = new Wrapper( methodModel, _result );
-				
-				// If current test has asked to run in isolation, do not run it if other tests are executing.
-				if ( wrapper.forceSerialExecution && _currentMethodModels.length > 0 ) {
-					_currentDescription.methodModels.unshift( methodModel );
-					
-					break;
-				}
 				
 				// No need to listen for a starting event; we are starting the test explicitly
 				alertTestStarting( methodModel );
@@ -170,8 +162,9 @@ package reflexunit.framework {
 					
 					runNotifier.addEventListener( RunEvent.TEST_COMPLETED, onTestCompleted );
 					
-					// If current test has asked to run in isolation, prevent other tests from running until it has completed.
-					if ( wrapper.forceSerialExecution ) {
+					// By default, test methods are not run in parallel.
+					// If our test has not enabled this feature then we should pause until the current method has completed execution.
+					if ( ! _currentDescription.allowParallelAsynchronousTests ) {
 						break;
 					}
 					
