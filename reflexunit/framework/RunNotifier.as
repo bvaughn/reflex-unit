@@ -1,7 +1,7 @@
 package reflexunit.framework {
 	import flash.events.EventDispatcher;
 	
-	import reflexunit.introspection.model.MethodModel;
+	import reflexunit.introspection.models.MethodModel;
 	
 	/**
 	 * A <code>RunNotifier</code> is used by several of the testing framework classes to monitor the status of executing tests.

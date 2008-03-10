@@ -1,7 +1,7 @@
 package reflexunit.framework {
 	import flash.events.Event;
 	
-	import reflexunit.introspection.model.MethodModel;
+	import reflexunit.introspection.models.MethodModel;
 	
 	/**
 	 * Dispatched by a <code>RunNotifier</code> to indicate a significant test event.

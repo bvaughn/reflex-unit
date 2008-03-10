@@ -4,7 +4,7 @@ package reflexunit.framework.views {
 	import reflexunit.framework.Recipe;
 	import reflexunit.framework.Result;
 	import reflexunit.framework.Success;
-	import reflexunit.introspection.model.MethodModel;
+	import reflexunit.introspection.models.MethodModel;
 	
 	/**
 	 * Used to log summary test statistics to the console.

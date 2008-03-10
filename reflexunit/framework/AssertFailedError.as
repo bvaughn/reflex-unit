@@ -1,7 +1,7 @@
 package reflexunit.framework {
 	
 	/**
-	 * Dispatched by an instance of <code>Assert</codEe> to indicate assertion failures.
+	 * Dispatched by the <code>Assert</code> class to indicate assertion failures.
 	 * 
 	 * @see reflexunit.framework.Assert
 	 */

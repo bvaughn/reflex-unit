@@ -4,22 +4,22 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
-<meta content="VariableModel,reflexunit.introspection.models.VariableModel,RETURN_TYPE_UNSPECIFIED,name,type,fromXML,toString" name="keywords">
-<title>reflexunit.introspection.models.VariableModel</title>
+<meta content="ParameterModel,reflexunit.introspection.models.ParameterModel,RETURN_TYPE_UNSPECIFIED,index,optional,type,fromXML,toString" name="keywords">
+<title>reflexunit.introspection.models.ParameterModel</title>
 </head>
 <body>
 <script type="text/javascript" language="javascript" src="../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../cookies.js"></script><script type="text/javascript" language="javascript">
 <!--
-				asdocTitle = 'VariableModel - API Documentation';
+				asdocTitle = 'ParameterModel - API Documentation';
 				var baseRef = '../../../';
 				window.onload = configPage;
 			--></script>
 <table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
 <tr>
-<td align="left" class="titleTableTitle">API Documentation</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../index-list.html')" href="../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../index.html?reflexunit/introspection/model/VariableModel.html&amp;reflexunit/introspection/model/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../images/logo.jpg"></td>
+<td align="left" class="titleTableTitle">API Documentation</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../index-list.html')" href="../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../index.html?reflexunit/introspection/models/ParameterModel.html&amp;reflexunit/introspection/models/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../images/logo.jpg"></td>
 </tr>
 <tr class="titleTableRow2">
-<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;VariableModel</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a>&nbsp;| <a href="#constantSummary">Constants</a></td>
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;ParameterModel</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a>&nbsp;| <a href="#constantSummary">Constants</a></td>
 </tr>
 <tr class="titleTableRow3">
 <td colspan="2">&nbsp;</td>
@@ -27,26 +27,28 @@
 </table>
 <script type="text/javascript" language="javascript">
 <!--
-if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class VariableModel"); titleBar_setSubNav(true,true,false,false,false,false,true,false,false,false,false,false,false,false);}
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class ParameterModel"); titleBar_setSubNav(true,true,false,false,false,false,true,false,false,false,false,false,false,false);}
 --></script>
 <div class="MainContent">
 <table cellspacing="0" cellpadding="0" class="classHeaderTable">
 <tr>
-<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">reflexunit.introspection.model</a></td>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">reflexunit.introspection.models</a></td>
 </tr>
 <tr>
-<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class VariableModel</td>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class ParameterModel</td>
 </tr>
 </table>
 <p></p>
-  Represents a public instance variable.
-  A <code>VariableModel</code> belongs to a <code>ClassModel</code>.
+  Represents a function parameter.
+  A <code>ParameterModel</code> belongs to a <code>MethodModel</code>.
   
   <p></p>
 <p>
 <span class="classHeaderTableLabel">See also</span>
 </p>
-<div class="seeAlso">reflexunit.introspection.models.ClassModel<br>
+<div class="seeAlso">
+<a href="../models/MethodModel.html" target="">reflexunit.introspection.models.MethodModel</a>
+<br>
 <a href="../util/IntrospectionUtil.html" target="">reflexunit.introspection.util.IntrospectionUtil</a>
 </div>
 <br>
@@ -60,13 +62,17 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#name">name</a> : String<div class="summaryTableDescription">[read-only]</div>
-</td><td class="summaryTableOwnerCol">VariableModel</td>
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#index">index</a> : int<div class="summaryTableDescription">[read-only]</div>
+</td><td class="summaryTableOwnerCol">ParameterModel</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#optional">optional</a> : Boolean<div class="summaryTableDescription">[read-only]</div>
+</td><td class="summaryTableOwnerCol">ParameterModel</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#type">type</a> : Class<div class="summaryTableDescription">[read-only]
    A <code>RETURN_TYPE_UNSPECIFIED</code> value for <code>type</code> indicates that the type is unspecified or <code>/code>.</div>
-</td><td class="summaryTableOwnerCol">VariableModel</td>
+</td><td class="summaryTableOwnerCol">ParameterModel</td>
 </tr>
 </table>
 </div>
@@ -80,31 +86,31 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#VariableModel()">VariableModel</a>()</div>
+<a class="signatureLink" href="#ParameterModel()">ParameterModel</a>()</div>
 <div class="summaryTableDescription"></div>
-</td><td class="summaryTableOwnerCol">VariableModel</td>
+</td><td class="summaryTableOwnerCol">ParameterModel</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#fromXML()">fromXML</a>(variableXML:XML):void</div>
+<a class="signatureLink" href="#fromXML()">fromXML</a>(parameterXML:XML):void</div>
 <div class="summaryTableDescription">
    Expects XML in the following format:
    <code>
-     <variable name="boolean" type="Boolean"/>
+     <parameter index="2" type="Boolean" optional="true"/>
    </code>
     
    </div>
-</td><td class="summaryTableOwnerCol">VariableModel</td>
+</td><td class="summaryTableOwnerCol">ParameterModel</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
 <a class="signatureLink" href="#toString()">toString</a>():String</div>
 <div class="summaryTableDescription">
-   public var exampleVariable():Object;
+   1:Boolean = null
    </div>
-</td><td class="summaryTableOwnerCol">VariableModel</td>
+</td><td class="summaryTableOwnerCol">ParameterModel</td>
 </tr>
 </table>
 </div>
@@ -117,8 +123,8 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#RETURN_TYPE_UNSPECIFIED">RETURN_TYPE_UNSPECIFIED</a> : * = null<div class="summaryTableDescription">[static]
-   Since the <code>void</code> type is not a Class, this constant represents it.</div>
-</td><td class="summaryTableOwnerCol">VariableModel</td>
+   Since the <code>/code> (unspecified) type is not a Class, this constant represents it.</div>
+</td><td class="summaryTableOwnerCol">ParameterModel</td>
 </tr>
 </table>
 </div>
@@ -129,16 +135,28 @@ showHideInherited();
 <div class="MainContent">
 <a name="propertyDetail"></a>
 <div class="detailSectionHeader">Property detail</div>
-<a name="name"></a>
+<a name="index"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
-<td class="detailHeaderName">name</td><td class="detailHeaderType">property</td>
+<td class="detailHeaderName">index</td><td class="detailHeaderType">property</td>
 </tr>
 </table>
 <div class="detailBody">
-<code>name:String</code>&nbsp;&nbsp;[read-only]<span class="label">Implementation</span>
+<code>index:int</code>&nbsp;&nbsp;[read-only]<span class="label">Implementation</span>
 <br>
-<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get name():String</code>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get index():int</code>
+<br>
+</div>
+<a name="optional"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">optional</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>optional:Boolean</code>&nbsp;&nbsp;[read-only]<span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get optional():Boolean</code>
 <br>
 </div>
 <a name="type"></a>
@@ -157,14 +175,14 @@ showHideInherited();
 </div>
 <a name="constructorDetail"></a>
 <div class="detailSectionHeader">Constructor detail</div>
-<a name="VariableModel()"></a>
+<a name="ParameterModel()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
-<td class="detailHeaderName">VariableModel</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+<td class="detailHeaderName">ParameterModel</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
 </tr>
 </table>
 <div class="detailBody">
-<code>public function VariableModel()</code>
+<code>public function ParameterModel()</code>
 </div>
 <a name="methodDetail"></a>
 <div class="detailSectionHeader">Method detail</div>
@@ -175,16 +193,16 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function fromXML(variableXML:XML):void</code><p>
+<code>public function fromXML(parameterXML:XML):void</code><p>
    Expects XML in the following format:
    <code>
-     <variable name="boolean" type="Boolean"/>
+     <parameter index="2" type="Boolean" optional="true"/>
    </code>
     
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">variableXML</span>:XML</code></td>
+<td width="20px"></td><td><code><span class="label">parameterXML</span>:XML</code></td>
 </tr>
 </table>
 <p>
@@ -200,7 +218,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function toString():String</code><p>
-   public var exampleVariable():Object;
+   1:Boolean = null
    </p><p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
@@ -219,7 +237,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public static const RETURN_TYPE_UNSPECIFIED:* = null</code><p>
-   Since the <code>void</code> type is not a Class, this constant represents it.
+   Since the <code>/code> (unspecified) type is not a Class, this constant represents it.
    </p></div>
 <br>
 <br>

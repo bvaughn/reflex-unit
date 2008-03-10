@@ -1,5 +1,5 @@
 package reflexunit.framework {
-	import reflexunit.introspection.model.MethodModel;
+	import reflexunit.introspection.models.MethodModel;
 	
 	/**
 	 * Describes the status of a single test method.

@@ -2,8 +2,8 @@ package reflexunit.framework {
 	import flash.events.ErrorEvent;
 	import flash.events.Event;
 	
-	import reflexunit.introspection.model.ArgModel;
-	import reflexunit.introspection.model.MethodModel;
+	import reflexunit.introspection.models.ArgModel;
+	import reflexunit.introspection.models.MethodModel;
 	
 	/**
 	 * Wraps a testable method as it is executed.

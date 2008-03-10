@@ -1,8 +1,8 @@
 package reflexunit.introspection.tests {
 	import reflexunit.framework.TestCase;
-	import reflexunit.introspection.model.AccessorModel;
-	import reflexunit.introspection.model.MethodModel;
-	import reflexunit.introspection.model.VariableModel;
+	import reflexunit.introspection.models.AccessorModel;
+	import reflexunit.introspection.models.MethodModel;
+	import reflexunit.introspection.models.VariableModel;
 	import reflexunit.introspection.tests.mocks.DynamicClass;
 	import reflexunit.introspection.tests.mocks.StaticClass;
 	import reflexunit.introspection.util.IntrospectionUtil;
