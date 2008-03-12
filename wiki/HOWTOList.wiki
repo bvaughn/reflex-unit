@@ -1,0 +1,8 @@
+#summary Basic list of how-to items that may be helpful for developers using Reflex Unit
+#labels howto,help,tips
+
+= Generating/Updating Documentation =
+Simply run the following terminal command:
+{{{
+asdoc -source-path . -doc-sources . -output docs -exclude-classes TestingFramework
+}}}
