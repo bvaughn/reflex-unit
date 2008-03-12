@@ -5,6 +5,10 @@
          xmlns:flexviewer="reflexunit.framework.display.flexviewer.*"
          xmlns:mx="http://www.adobe.com/2006/mxml">
 	
+	<mx:Metadata>
+		[ExcludeClass]
+	</mx:Metadata>
+	
 	<mx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;
