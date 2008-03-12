@@ -1,6 +1,13 @@
 package reflexunit.framework {
 	import flash.events.EventDispatcher;
 	
+	import reflexunit.framework.display.IResultViewer;
+	import reflexunit.framework.events.RunEvent;
+	import reflexunit.framework.models.Description;
+	import reflexunit.framework.models.Recipe;
+	import reflexunit.framework.models.Result;
+	import reflexunit.framework.models.Wrapper;
+	import reflexunit.framework.statuses.IStatus;
 	import reflexunit.introspection.models.MethodModel;
 	
 	/**
@@ -12,8 +19,8 @@ package reflexunit.framework {
 	 *   <li>Inform a given set of <code>IResultViewer</code> objects of its progress by way of a <code>RunNotifier</code> method</li>
 	 * </ol>
 	 * 
-	 * @see reflexunit.framework.IResultViewer
-	 * @see reflexunit.framework.Recipe
+	 * @see reflexunit.framework.display.IResultViewer
+	 * @see reflexunit.framework.models.Recipe
 	 * @see reflexunit.framework.RunNotifier
 	 * @see reflexunit.framework.TestSuite
 	 */

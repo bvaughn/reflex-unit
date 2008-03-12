@@ -1,13 +1,15 @@
 package reflexunit.framework {
 	import flash.events.EventDispatcher;
 	
+	import reflexunit.framework.events.RunEvent;
+	import reflexunit.framework.statuses.IStatus;
 	import reflexunit.introspection.models.MethodModel;
 	
 	/**
 	 * A <code>RunNotifier</code> is used by several of the testing framework classes to monitor the status of executing tests.
 	 * It is typically passed as a parameter to a <code>run</code> method and listened to by the caller class for events.
 	 * 
-	 * @see reflexunit.framework.RunEvent
+	 * @see reflexunit.framework.events.RunEvent
 	 */
 	public class RunNotifier extends EventDispatcher implements ITestWatcher {
 		

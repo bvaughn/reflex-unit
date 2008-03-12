@@ -1,10 +1,12 @@
 package reflexunit.framework {
+	import reflexunit.framework.errors.AssertFailedError;
+	
 	
 	/**
 	 * Defines various assertions that may be used to compare one or more values.
 	 * Throws <code>AssertFailedError</code> to indicate a failed assertion.
 	 * 
-	 * @see AssertFailedError
+	 * @see reflexunit.framework.errors.AssertFailedError
 	 */
 	public class Assert {
 		
