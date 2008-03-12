@@ -1,10 +1,10 @@
 package reflexunit.framework.tests.metadata {
-	import reflexunit.framework.Recipe;
-	import reflexunit.framework.Result;
 	import reflexunit.framework.RunNotifier;
 	import reflexunit.framework.TestCase;
 	import reflexunit.framework.TestSuite;
-	import reflexunit.framework.Wrapper;
+	import reflexunit.framework.models.Recipe;
+	import reflexunit.framework.models.Result;
+	import reflexunit.framework.models.Wrapper;
 	import reflexunit.introspection.models.MethodModel;
 	import reflexunit.introspection.util.IntrospectionUtil;
 	

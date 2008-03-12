@@ -1,4 +1,7 @@
 package reflexunit.framework {
+	import reflexunit.framework.errors.AssertFailedError;
+	import reflexunit.framework.models.AsynchronousAssertion;
+	
 	
 	/**
 	 * Classes defining testable methods may extend this class for convenience but are not required to do so.

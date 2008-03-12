@@ -1,4 +1,5 @@
 package reflexunit.framework {
+	import reflexunit.framework.statuses.IStatus;
 	import reflexunit.introspection.models.MethodModel;
 	
 	/**
