@@ -7,9 +7,6 @@
  * Test all meta-data
  * Test parallel execution thoroughly
 
-== Better test runner ==
- * View drives creation of Runner (and !TestSuite)
-
 = Eclipse Plugin =
  * Scan project folder for tests files
   * Folder and file naming conventions
