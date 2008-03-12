@@ -15,8 +15,11 @@ package reflexunit.framework {
 		
 		/**
 		 * The specified test method has completed execution.
+		 * 
+		 * @param methodModel Test method that has been executed
+		 * @param status Resulting IStatus of test method
 		 */
-		function testCompleted( methodModel:MethodModel ):void;
+		function testCompleted( methodModel:MethodModel, status:IStatus ):void;
 		
 		/**
 		 * The specified test method is about to be run.

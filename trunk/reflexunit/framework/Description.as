@@ -1,4 +1,4 @@
-package reflexunit.framework {
+	package reflexunit.framework {
 	import reflexunit.framework.constants.TestConstants;
 	import reflexunit.introspection.models.ArgModel;
 	import reflexunit.introspection.models.MethodModel;
@@ -23,6 +23,9 @@ package reflexunit.framework {
 	 *   <li>Method is markd with the <code>metadata</code> tag "Test"</li>
 	 * </ul>
 	 * 
+	 * <p>A <code>Description</code> may only be run (ie. tested) once.
+	 * Because of this, a <code>Description</code> should in most cases be cloned before being passed to a <code>Runner</code>.</p>
+	 * 
 	 * @see reflexunit.introspection.models.MethodModel
 	 */
 	public class Description {
@@ -36,12 +39,28 @@ package reflexunit.framework {
 		
 		/**
 		 * Constructor.
+		 * 
+		 * @param testIn Object containing one or more testable methods
+		 * @param explicitMethodNamesIn Complete set of test method names (ie. Strings) that define the resulting test
 		 */
-		public function Description( testIn:* ) {
+		public function Description( testIn:*, explicitMethodNamesIn:Array = null ) {
 			_introspectionUtil = new IntrospectionUtil( testIn );
 			_methodModels = new Array();
 			
-			initMethodModels();
+			initMethodModels( explicitMethodNamesIn );
+		}
+		
+		/**
+		 * Creates and returns a duplicate copy of the current <code>Description</code>.
+		 */
+		public function clone():Description {
+			var methodNames:Array = new Array();
+			
+			for each ( var methodModel:MethodModel in _methodModels ) {
+				methodNames.push( methodModel.name );
+			}
+			
+			return new Description( _introspectionUtil.classModel.instance, methodNames );
 		}
 		
 		/*
@@ -67,6 +86,13 @@ package reflexunit.framework {
 		}
 		
 		/**
+		 * <code>IntrospectionUtil</code> object used to describe the contained test.
+		 */
+		public function get introspectionUtil():IntrospectionUtil {
+			return _introspectionUtil;
+		}
+		
+		/**
 		 * Array containing <code>MethodModel</code> objects describing all testable functions for the provided test class.
 		 */
 		public function get methodModels():Array {
@@ -84,25 +110,40 @@ package reflexunit.framework {
 		 * Helper methods
 		 */
 		
-		private function initMethodModels():void {
-			var explicitTestMethods:Array;
+		private function initMethodModels( explicitMethodNames:Array = null ):void {
 			
-			// If an explicit set of test methods have been defined then use that set only.
-			if ( _introspectionUtil.classModel.type.hasOwnProperty( TestConstants.TESTABLE_METHODS_ACCESSOR_NAME ) ) {
-				if ( _introspectionUtil.classModel.type[ TestConstants.TESTABLE_METHODS_ACCESSOR_NAME ] is Function ) {
-					explicitTestMethods = ( _introspectionUtil.classModel.type[ TestConstants.TESTABLE_METHODS_ACCESSOR_NAME ] as Function ).apply( new Object() );
-				} else {
-					explicitTestMethods = _introspectionUtil.classModel.type[ TestConstants.TESTABLE_METHODS_ACCESSOR_NAME ] as Array;
+			// If no explicit method names have been provided check for a static accessor on the test class. 
+			if ( !explicitMethodNames ) {
+				if ( _introspectionUtil.classModel.type.hasOwnProperty( TestConstants.TESTABLE_METHODS_ACCESSOR_NAME ) ) {
+					if ( _introspectionUtil.classModel.type[ TestConstants.TESTABLE_METHODS_ACCESSOR_NAME ] is Function ) {
+						explicitMethodNames = ( _introspectionUtil.classModel.type[ TestConstants.TESTABLE_METHODS_ACCESSOR_NAME ] as Function ).apply( new Object() );
+					} else {
+						explicitMethodNames = _introspectionUtil.classModel.type[ TestConstants.TESTABLE_METHODS_ACCESSOR_NAME ] as Array;
+					}
 				}
 			}
 			
-			for each ( var methodModel:MethodModel in _introspectionUtil.classModel.methodModels ) {
-				if ( explicitTestMethods ) {
-					if ( explicitTestMethods.indexOf( methodModel.method ) >= 0 ) {
+			// If an explicit set of test methods have been defined then use that set only.
+			if ( explicitMethodNames ) {
+				initMethodModelsFromArray( explicitMethodNames );
+			} else {
+				initMethodModelsFromNamesAndMetaData();
+			}
+		}
+		
+		private function initMethodModelsFromArray( explicitMethodNames:Array ):void {
+			for each ( var methodName:String in explicitMethodNames ) {
+				for each ( var methodModel:MethodModel in _introspectionUtil.classModel.methodModels ) {
+					if ( methodName == methodModel.name ) {
 						_methodModels.push( methodModel );
 					}
-					
-				} else if ( isTestableMethod( methodModel ) ) {
+				}
+			}
+		}
+		
+		private function initMethodModelsFromNamesAndMetaData():void {
+			for each ( var methodModel:MethodModel in _introspectionUtil.classModel.methodModels ) {
+				if ( isTestableMethod( methodModel ) ) {
 					_methodModels.push( methodModel );
 				}
 			}

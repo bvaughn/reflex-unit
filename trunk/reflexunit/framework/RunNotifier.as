@@ -25,9 +25,10 @@ package reflexunit.framework {
 		/**
 		 * @inheritDoc
 		 */
-		public function testCompleted( methodModel:MethodModel ):void {
+		public function testCompleted( methodModel:MethodModel, status:IStatus ):void {
 			var event:RunEvent = new RunEvent( RunEvent.TEST_COMPLETED );
 			event.methodModel = methodModel;
+			event.status = status;
 			
 			dispatchEvent( event );
 		}

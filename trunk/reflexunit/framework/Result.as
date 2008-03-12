@@ -2,7 +2,7 @@ package reflexunit.framework {
 	import reflexunit.introspection.models.MethodModel;
 	
 	/**
-	 * Used to collect and describe the results of running an <code>ITest</code>.
+	 * Used to collect and describe the results of running a test (e.g. <code>ITest</code>.
 	 * 
 	 * The test framework distinguishes between failures and errors.
 	 * A failure is anticipated and checked for with assertions.
@@ -12,6 +12,7 @@ package reflexunit.framework {
 		
 		private var _errors:Array;
 		private var _failures:Array;
+		private var _numAsserts:int;
 		private var _successes:Array;
 		private var _testsRun:int;
 		
@@ -23,6 +24,8 @@ package reflexunit.framework {
 			_errors = new Array();
 			_failures = new Array();
 			_successes = new Array();
+			
+			_numAsserts = 0;
 			_testsRun = 0;
 		}
 		
@@ -33,22 +36,37 @@ package reflexunit.framework {
 		/**
 		 * Adds an error to the list of errors.
 		 */
-		public function addError( methodModel:MethodModel, error:Error, numAsserts:int = 0 ):void {
-			_errors.push( new Failure( methodModel, error, numAsserts ) );
+		public function addError( methodModel:MethodModel, error:Error, numAsserts:int = 0 ):IStatus {
+			var failure:Failure = new Failure( methodModel, error, numAsserts );
+			
+			_errors.push( failure );
+			_numAsserts += numAsserts;
+			
+			return failure;
 		}
 		
 		/**
 		 * Adds a failure to the list of failures.
 		 */
-		public function addFailure( methodModel:MethodModel, error:AssertFailedError, numAsserts:int = 0 ):void {
-			_failures.push( new Failure( methodModel, error, numAsserts ) );
+		public function addFailure( methodModel:MethodModel, error:AssertFailedError, numAsserts:int = 0 ):IStatus {
+			var failure:Failure = new Failure( methodModel, error, numAsserts );
+			
+			_failures.push( failure );
+			_numAsserts += numAsserts;
+			
+			return failure;
 		}
 		
 		/**
 		 * Adds a failure to the list of failures.
 		 */
-		public function addSuccess( methodModel:MethodModel, numAsserts:int = 0 ):void {
-			_successes.push( new Success( methodModel, numAsserts ) );
+		public function addSuccess( methodModel:MethodModel, numAsserts:int = 0 ):IStatus {
+			var success:Success = new Success( methodModel, numAsserts );
+			
+			_successes.push( success );
+			_numAsserts += numAsserts;
+			
+			return success;
 		}
 		
 		/*
@@ -81,6 +99,13 @@ package reflexunit.framework {
 		 */
 		public function get failures():Array {
 			return _failures;
+		}
+		
+		/**
+		 * Total number of assertions made by all test methods run so far.
+		 */
+		public function get numAsserts():int {
+			return _numAsserts;
 		}
 		
 		/**
