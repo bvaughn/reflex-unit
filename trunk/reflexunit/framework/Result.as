@@ -2,11 +2,12 @@ package reflexunit.framework {
 	import reflexunit.introspection.models.MethodModel;
 	
 	/**
-	 * Used to collect and describe the results of running a test (e.g. <code>ITest</code>.
+	 * Used to collect and describe the results of running a test.
+	 * In most cases, a <code>Result</code> object should only be used (ie. run) once and then discared.
 	 * 
-	 * The test framework distinguishes between failures and errors.
+	 * <p>The test framework distinguishes between failures and errors.
 	 * A failure is anticipated and checked for with assertions.
-	 * Errors are unanticipated problems like an RangeError.
+	 * Errors are unanticipated problems like an RangeError.</p>
 	 */
 	public class Result {
 		

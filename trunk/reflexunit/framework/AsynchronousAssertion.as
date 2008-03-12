@@ -8,9 +8,14 @@ package reflexunit.framework {
 	/**
 	 * Wrapper class used to contain a single test method call to <code>TestCase.addAsync</code>.
 	 * 
-	 * This class will dispatch an <code>Event.COMPLETE</code> event to indicate that the asynchronous assertion completed successfully.
-	 * It will dispatch and <code>ErrorEvent.ERROR</code> error to indicate that the assertion failed.
-	 * Failure can be due to a runtime <code>Error</code> or an <code>AssertFailedError</code>; in either case, this value will be stored in <code>error</code>.
+	 * <p>This class will dispatch an <code>Event.COMPLETE</code> event to indicate that the asynchronous assertion completed successfully.</p>
+	 * 
+	 * <p>It will dispatch and <code>ErrorEvent.ERROR</code> error to indicate that the assertion failed.
+	 * Failure can be due to a runtime <code>Error</code> or an <code>AssertFailedError</code>.
+	 * In either case, this value will be stored in <code>error</code>.</p>
+	 * 
+	 * @see flash.events.ErrorEvent
+	 * @see flash.events.Event
 	 */
 	public class AsynchronousAssertion extends EventDispatcher {
 		

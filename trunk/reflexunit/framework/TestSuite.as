@@ -3,6 +3,7 @@ package reflexunit.framework {
 	/**
 	 * Contains a collection of test classes and/or other <code>TestSuite</code> objects.
 	 * A <code>TestSuite</code> is passed to a <code>Runner</code> in order to execute the tests contained.
+	 * It is safe to use a single <code>TestSuite</code> for more than one test.
 	 * 
 	 * @see reflexunit.framework.Runner
 	 */

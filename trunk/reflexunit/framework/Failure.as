@@ -9,6 +9,8 @@ package reflexunit.framework {
 	 *   <li>An asynchronous method did not execute within the specified timeout</li>
 	 *   <li>A runtime error occurred during test execution</li>
 	 * </ul>
+	 * 
+	 * <p>This class contains an <code>isFailure</code> method to differentiate between assertion failures and runtime errors.</p>
 	 */
 	public class Failure implements IStatus {
 		

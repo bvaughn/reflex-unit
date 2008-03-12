@@ -6,27 +6,26 @@
 	
 	/**
 	 * Describes a single class and the testable methods it defines.
+	 * A <code>Description</code> may only be run (ie. tested) once.
+	 * Because of this, a <code>Description</code> should in most cases be cloned before being passed to a <code>Runner</code>.
 	 * 
-	 * A <code>Description</code> analyzes the provided class to determine which methods are considered testable (see below).
-	 * Each testable method is bundled into a <code>MethodModel</code> for later use.
+	 * <p>A <code>Description</code> analyzes the provided class to determine which methods are considered testable (see below).
+	 * Each testable method is bundled into a <code>MethodModel</code> for later use.</p>
 	 * 
-	 * There are several possible ways for a method to be determined testable:
+	 * <p>There are several possible ways for a method to be determined testable:</p>
 	 * 
-	 * The first way is for the provided test class to define a static accessor named <code>testableMethods</code>.
-	 * Such a method should return an <code>Array</code> of <code>Function</code> references.
-	 * That <code>Array</code> then defines the entire set of testable methods.
+	 * <p>The first way is for the provided test class to define a static accessor named <code>testMethodNames</code>.
+	 * Such a method should return an <code>Array</code> of function names (ie. Strings) defining the complete set of all test methods.</p>
 	 * 
-	 * If such an accessor is not defined, the provided test will be analyzed using the <code>IntrospectionUtil</code>.
+	 * <p>If such an accessor is not defined, the provided test will be analyzed using the <code>IntrospectionUtil</code>.
 	 * In this case all methods meeting one of the following conditions will be considered testable:
 	 * <ul>
 	 *   <li>Method name begins with "test", accepts no parameters, and has a return type of <code>void</code></li>
 	 *   <li>Method is markd with the <code>metadata</code> tag "Test"</li>
-	 * </ul>
-	 * 
-	 * <p>A <code>Description</code> may only be run (ie. tested) once.
-	 * Because of this, a <code>Description</code> should in most cases be cloned before being passed to a <code>Runner</code>.</p>
+	 * </ul></p>
 	 * 
 	 * @see reflexunit.introspection.models.MethodModel
+	 * @see reflexunit.introspection.util.IntrospectionUtil
 	 */
 	public class Description {
 		
