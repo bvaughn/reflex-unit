@@ -13,6 +13,6 @@ package reflexunit.framework.constants {
 		
 		public static const TESTABLE_METHOD_NAME_REGEXP:RegExp = /^test/;
 		
-		public static const TESTABLE_METHODS_ACCESSOR_NAME:String = 'testableMethods';
+		public static const TESTABLE_METHODS_ACCESSOR_NAME:String = 'testMethodNames';
 	}
 }

@@ -32,6 +32,7 @@ package reflexunit.framework {
 		 */
 		
 		private var _methodModel:MethodModel;
+		private var _status:IStatus;
 		
 		/*
 		 * Initialization
@@ -50,6 +51,13 @@ package reflexunit.framework {
 		}
 		public function set methodModel( value:MethodModel ):void {
 			_methodModel = value;
+		}
+		
+		public function get status():IStatus {
+			return _status;
+		}
+		public function set status( value:IStatus ):void {
+			_status = value;
 		}
 		
 		/**

@@ -5,6 +5,9 @@ package reflexunit.framework.tests {
 	
 	[ExcludeClass]
 	public class AssertTest extends TestCase {
+		
+		public function testNoAssertsMade():void {
+		}
 
 		/*
 		 * Test that all assertion methods work.

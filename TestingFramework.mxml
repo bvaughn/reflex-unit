@@ -2,27 +2,25 @@
 <mx:Application width="100%" height="100%" layout="absolute"
                 backgroundColor="0xFFFFFF" backgroundGradientColors="[ 0xFFFFFF, 0xFFFFFF ]"
                 initialize="onInitialize( event )"
-                xmlns:framework="reflexunit.framework.views.*"
+                xmlns:framework="reflexunit.framework.viewers.flexviewer.*"
                 xmlns:mx="http://www.adobe.com/2006/mxml">
 	
 	<mx:Script>
 		<![CDATA[
-			import reflexunit.framework.Runner;
-			import reflexunit.framework.RunNotifier;
+			import reflexunit.framework.Recipe;
 			import reflexunit.framework.tests.AssertTest;
 			import reflexunit.framework.tests.FrameworkTest;
 			import reflexunit.framework.tests.metadata.MetaDataTest;
 			import reflexunit.framework.TestSuite;
-			import reflexunit.framework.views.ConsoleViewer;
 			import reflexunit.introspection.tests.IntrospectionTest;
 			
 			import mx.events.FlexEvent;
 			
 			private function onInitialize( event:FlexEvent ):void {
-				var resultViewers:Array = [ flexViewer, new ConsoleViewer() ];
 				var testSuite:TestSuite = new TestSuite( [ AssertTest, FrameworkTest, IntrospectionTest, MetaDataTest ] );
+				var recipe:Recipe = new Recipe( testSuite );
 				
-				Runner.create( testSuite, resultViewers );
+				flexViewer.controller.recipe = recipe;
 			}
 		]]>
 	</mx:Script>

@@ -1,6 +1,7 @@
-package reflexunit.framework.views {
+package reflexunit.framework.viewers {
 	import reflexunit.framework.Failure;
 	import reflexunit.framework.IResultViewer;
+	import reflexunit.framework.IStatus;
 	import reflexunit.framework.Recipe;
 	import reflexunit.framework.Result;
 	import reflexunit.framework.Success;
@@ -58,8 +59,8 @@ package reflexunit.framework.views {
 		/**
 		 * @inheritDoc
 		 */
-		public function testCompleted( methodModel:MethodModel ):void {
-			trace( '+ completed: ' + methodModel.name + ' => ' + getTestStatus( methodModel ) );
+		public function testCompleted( methodModel:MethodModel, status:IStatus ):void {
+			trace( '+ completed: ' + methodModel.name + ' => ' + status.status );
 		}
 		
 		/**
@@ -85,34 +86,6 @@ package reflexunit.framework.views {
 		 */
 		public function set result( value:Result ):void {
 			_result = value;
-		}
-		
-		/*
-		 * Helper methods
-		 */
-		
-		private function getTestStatus( methodModel:MethodModel ):String {
-			var failure:Failure;
-			
-			for each ( failure in _result.errors ) {
-				if ( failure.methodModel == methodModel ) {
-					return failure.status;
-				}
-			}
-			
-			for each ( failure in _result.failures ) {
-				if ( failure.methodModel == methodModel ) {
-					return failure.status;
-				}
-			}
-			
-			for each ( var success:Success in _result.successes ) {
-				if ( success.methodModel == methodModel ) {
-					return success.status;
-				}
-			}
-			
-			return 'unknown';
 		}
 	}
 }

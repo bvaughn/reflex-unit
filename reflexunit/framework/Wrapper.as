@@ -29,6 +29,7 @@ package reflexunit.framework {
 		private var _asynchronousAssertions:Array;
 		private var _methodModel:MethodModel;
 		private var _numAsserts:int;
+		private var _previousStatus:IStatus;
 		private var _result:Result;
 		private var _runNotifier:RunNotifier;
 		
@@ -76,13 +77,15 @@ package reflexunit.framework {
 				if ( error is AssertFailedError ) {
 					
 					// At this point, we must decide if the failure was expected.
-					// If not then we should store the current failure as a failure a
+					// If not then we should store the current failure as a failure.
 					if ( !isFailureExpected() ) {
-						_result.addFailure( _methodModel, error as AssertFailedError, _numAsserts );
+						_previousStatus = _result.addFailure( _methodModel, error as AssertFailedError, _numAsserts );
+					} else {
+						_previousStatus = _result.addSuccess( _methodModel, _numAsserts );
 					}
 					
 				} else {
-					_result.addError( _methodModel, error, _numAsserts );
+					_previousStatus = _result.addError( _methodModel, error, _numAsserts );
 				}
 				
 				tearDownTest();
@@ -92,7 +95,7 @@ package reflexunit.framework {
 			
 			// If no AsynchronousAssertions were defined and no Error thrown then our test has succeeded.
 			if ( !isAsync ) {
-				_result.addSuccess( _methodModel, _numAsserts );
+				_previousStatus = _result.addSuccess( _methodModel, _numAsserts );
 				
 				tearDownTest();
 				
@@ -133,6 +136,10 @@ package reflexunit.framework {
 		
 		public function get methodModel():MethodModel {
 			return _methodModel;
+		}
+		
+		public function get previousStatus():IStatus {
+			return _previousStatus;
 		}
 		
 		public function get result():Result {
@@ -178,7 +185,7 @@ package reflexunit.framework {
 			
 			_result.testsRun++;
 			
-			_runNotifier.testCompleted( _methodModel );
+			_runNotifier.testCompleted( _methodModel, _previousStatus );
 		}
 		
 		/*
@@ -194,7 +201,7 @@ package reflexunit.framework {
 			
 			// If no more asynchronous assertions remain then the test has succeeded; Result should be updated with a Success
 			if ( _asynchronousAssertions.length == 0 ) {
-				_result.addSuccess( _methodModel, _numAsserts );
+				_previousStatus = _result.addSuccess( _methodModel, _numAsserts );
 				
 				tearDownTest();
 			}
@@ -212,13 +219,13 @@ package reflexunit.framework {
 				// At this point, we must decide if the failure was expected.
 				// If not then we should store the current failure as a failure a
 				if ( !isFailureExpected() ) {
-					_result.addFailure( _methodModel, asynchronousAssertion.error as AssertFailedError, _numAsserts );
+					_previousStatus = _result.addFailure( _methodModel, asynchronousAssertion.error as AssertFailedError, _numAsserts );
 				} else {
-					_result.addSuccess( _methodModel, _numAsserts );
+					_previousStatus = _result.addSuccess( _methodModel, _numAsserts );
 				}
 				
 			} else {
-				_result.addError( _methodModel, asynchronousAssertion.error, _numAsserts );
+				_previousStatus = _result.addError( _methodModel, asynchronousAssertion.error, _numAsserts );
 			}
 			
 			tearDownTest();

@@ -25,24 +25,51 @@ package reflexunit.framework {
 		private var _result:Result;
 		private var _resultViewers:Array;
 		private var _runNotifier:RunNotifier;
-		private var _testSuite:TestSuite;
 		
 		/*
 		 * Initialization
 		 */
 		
-		public function Runner( testSuiteIn:TestSuite ) {
-			_testSuite = testSuiteIn;
+		/**
+		 * Construcor.
+		 * 
+		 * @param testSuiteOrRecipeIn TestSuite or custom/pre-built Recipe defining all testable methods to be executed
+		 * 
+		 * @throws ArgumentError if incoming testSuiteOrRecipeIn is neither a TestSuite nor a Recipe
+		 */
+		public function Runner( testSuiteOrRecipeIn:* ) {
+			if ( testSuiteOrRecipeIn is TestSuite ) {
+				_recipe = new Recipe( testSuiteOrRecipeIn as TestSuite );
+			} else if ( testSuiteOrRecipeIn is Recipe ) {
+				_recipe = testSuiteOrRecipeIn as Recipe;
+			} else {
+				throw ArgumentError( 'Parameter expected to be of type TestSuite or Recipe' );
+			}
 			
 			_currentMethodModels = new Array();
-			_recipe = new Recipe( _testSuite );
-			_result = new Result();
 		}
 		
-		public static function create( testSuiteIn:TestSuite, resultViewers:Array, runNotifier:RunNotifier = null ):Result {
-			var runner:Runner = new Runner( testSuiteIn );
+		/**
+		 * Convenience method for creating and executing a <code>Runner</code> instance.
+		 * This method will automatically run the newly created <code>Runner</code> and return its <code>Result</code> object.
+		 * 
+		 * @param testSuiteOrRecipeIn TestSuite or Recipe containing tests to be run
+		 * @param resultViewers Array containing IResultViewer instances to be notified of test progress
+		 * @param runNotifier (Optional) RunNotifier to use if caller wishes to be informed of progress
+		 * @param resultIn (Optional) Result to store progress in; if no value is supplied a new Result will be created
+		 * 
+		 * @return Result object in which test outcomes will be stored
+		 * 
+		 * @throws TypeError if resultsViewer contains non-IResultViewer object(s) 
+		 */
+		public static function create( testSuiteOrRecipeIn:*,
+		                               resultViewers:Array,
+		                               runNotifier:RunNotifier = null,
+		                               resultIn:Result = null ):Result {
 			
-			return runner.run( resultViewers, runNotifier );
+			var runner:Runner = new Runner( testSuiteOrRecipeIn );
+			
+			return runner.run( resultViewers, runNotifier, resultIn );
 		}
 		
 		/**
@@ -50,14 +77,20 @@ package reflexunit.framework {
 		 * 
 		 * @param resultViewers Array containing IResultViewer instances to be notified of test progress
 		 * @param runNotifier (Optional) RunNotifier to use if caller wishes to be informed of progress
+		 * @param resultIn (Optional) Result to store progress in; if no value is supplied a new Result will be created
 		 * 
 		 * @return Result object in which test outcomes will be stored
 		 * 
 		 * @throws TypeError if resultsViewer contains non-IResultViewer object(s) 
 		 */
-		public function run( resultViewers:Array, runNotifier:RunNotifier = null ):Result {
+		public function run( resultViewers:Array,
+		                     runNotifier:RunNotifier = null,
+		                     resultIn:Result = null ):Result {
+			
 			_resultViewers = resultViewers;
 			_runNotifier = runNotifier ? runNotifier : new RunNotifier();
+			
+			_result = resultIn ? resultIn : new Result();
 			
 			for ( var index:int = 0; index < _resultViewers.length; index++ ) {
 				var resultViewer:IResultViewer = resultViewers[ index ] as IResultViewer;
@@ -83,10 +116,6 @@ package reflexunit.framework {
 			return _result;
 		}
 		
-		public function get testSuite():TestSuite {
-			return _testSuite;
-		}
-		
 		/*
 		 * Helper methods
 		 */
@@ -107,11 +136,11 @@ package reflexunit.framework {
 			}
 		}
 		
-		private function alertTestCompleted( methodModel:MethodModel ):void {
-			_runNotifier.testCompleted( methodModel );
+		private function alertTestCompleted( methodModel:MethodModel, status:IStatus ):void {
+			_runNotifier.testCompleted( methodModel, status );
 			
 			for each ( var resultViewer:IResultViewer in _resultViewers ) {
-				resultViewer.testCompleted( methodModel );
+				resultViewer.testCompleted( methodModel, status );
 			}
 		}
 		
@@ -169,7 +198,7 @@ package reflexunit.framework {
 					}
 					
 				} else {
-					alertTestCompleted( methodModel );
+					alertTestCompleted( methodModel, wrapper.previousStatus );
 				}
 			}
 			
@@ -186,7 +215,7 @@ package reflexunit.framework {
 		private function onTestCompleted( event:RunEvent ):void {
 			( event.currentTarget as EventDispatcher ).removeEventListener( RunEvent.TEST_COMPLETED, onTestCompleted );
 			
-			alertTestCompleted( event.methodModel );
+			alertTestCompleted( event.methodModel, event.status );
 			
 			finalizeMethodModel( event.methodModel );
 			
