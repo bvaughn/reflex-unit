@@ -7,6 +7,19 @@
  * Test all meta-data
  * Test parallel execution thoroughly
 
+== Continuous Integration Output ==
+{{{
+<testsuites>
+  <testsuite name="package_name::ClassName">
+    <testcase name="methodName" time="0.0"/>
+    ...
+  </testsuite>
+  ...
+</testsuites>
+}}}
+
+ * What about failed tests? How much (and what type of) information is needed?
+
 = Eclipse Plugin =
  * Scan project folder for tests files
   * Folder and file naming conventions
