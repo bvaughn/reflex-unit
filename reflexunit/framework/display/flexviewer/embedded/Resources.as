@@ -2,66 +2,69 @@ package reflexunit.framework.display.flexviewer.embedded {
 	import flash.display.Bitmap;
 	
 	/**
-	 * Thanks for the icons:
-	 * http://icojoy.com/articles/19/
+	 * Thanks to the following sites for the icons!
+	 * <ul>
+	 *   <li>http://icojoy.com/articles/19/</li>
+	 *   <li>http://www.famfamfam.com/lab/icons/</li>
+	 * </ul>
 	 */
 	[ExcludeClass]
 	public class Resources {
 		
 		// 16 x 16, gif
-		[Embed(source="/data/graphics/icon_close.gif")]
-		public static var iconCloseClass:Class;
-		public static function iconClose():Bitmap {
-			return new iconCloseClass() as Bitmap;
+		[Embed(source="/data/graphics/status_error.gif")]
+		public static var statusErrorClass:Class;
+		public static function statusError():Bitmap {
+			return new statusErrorClass() as Bitmap;
 		}
 		
 		// 16 x 16, gif
-		[Embed(source="/data/graphics/icon_error.gif")]
-		public static var iconErrorClass:Class;
-		public static function iconError():Bitmap {
-			return new iconErrorClass() as Bitmap;
+		[Embed(source="/data/graphics/status_failure.gif")]
+		public static var statusFailureClass:Class;
+		public static function statusFailure():Bitmap {
+			return new statusFailureClass() as Bitmap;
 		}
 		
 		// 16 x 16, gif
-		[Embed(source="/data/graphics/icon_in_progress.gif")]
-		public static var iconInProgressClass:Class;
-		public static function iconInProgress():Bitmap {
-			return new iconInProgressClass() as Bitmap;
+		[Embed(source="/data/graphics/status_in_progress.gif")]
+		public static var statusInProgressClass:Class;
+		public static function statusInProgress():Bitmap {
+			return new statusInProgressClass() as Bitmap;
 		}
 		
 		// 16 x 16, gif
-		[Embed(source="/data/graphics/icon_info.gif")]
-		public static var iconInfoClass:Class;
-		public static function iconInfo():Bitmap {
-			return new iconInfoClass() as Bitmap;
+		[Embed(source="/data/graphics/status_success.gif")]
+		public static var statusSuccessClass:Class;
+		public static function statusSuccess():Bitmap {
+			return new statusSuccessClass() as Bitmap;
 		}
 		
 		// 16 x 16, gif
-		[Embed(source="/data/graphics/icon_new.gif")]
-		public static var iconNewClass:Class;
-		public static function iconNew():Bitmap {
-			return new iconNewClass() as Bitmap;
+		[Embed(source="/data/graphics/status_untested.gif")]
+		public static var statusUntestedClass:Class;
+		public static function statusUntested():Bitmap {
+			return new statusUntestedClass() as Bitmap;
 		}
 		
 		// 16 x 16, gif
-		[Embed(source="/data/graphics/icon_open.gif")]
-		public static var iconOpenClass:Class;
-		public static function iconOpen():Bitmap {
-			return new iconOpenClass() as Bitmap;
+		[Embed(source="/data/graphics/status_warning.gif")]
+		public static var statusWarningClass:Class;
+		public static function statusWarning():Bitmap {
+			return new statusWarningClass() as Bitmap;
 		}
 		
 		// 16 x 16, gif
-		[Embed(source="/data/graphics/icon_success.gif")]
-		public static var iconSuccessClass:Class;
-		public static function iconSuccess():Bitmap {
-			return new iconSuccessClass() as Bitmap;
+		[Embed(source="/data/graphics/tree_close.gif")]
+		public static var treeCloseClass:Class;
+		public static function treeClose():Bitmap {
+			return new treeCloseClass() as Bitmap;
 		}
 		
-		// 16 x 15, gif
-		[Embed(source="/data/graphics/icon_warning.gif")]
-		public static var iconWarningClass:Class;
-		public static function iconWarning():Bitmap {
-			return new iconWarningClass() as Bitmap;
+		// 16 x 16, gif
+		[Embed(source="/data/graphics/tree_open.gif")]
+		public static var treeOpenClass:Class;
+		public static function treeOpen():Bitmap {
+			return new treeOpenClass() as Bitmap;
 		}
 	}
 }
