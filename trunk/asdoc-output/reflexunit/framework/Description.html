@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../print.css" type="text/css" media="print">
-<meta content="Description,reflexunit.framework.Description,allowParallelAsynchronousTests,methodModels,testCount,isTestableMethod" name="keywords">
+<meta content="Description,reflexunit.framework.Description,allowParallelAsynchronousTests,introspectionUtil,methodModels,testCount,clone,isTestableMethod" name="keywords">
 <title>reflexunit.framework.Description</title>
 </head>
 <body>
@@ -57,6 +57,9 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
     <li>Method is markd with the <code>metadata</code> tag "Test"</li>
   </ul>
   
+  <p>A <code>Description</code> may only be run (ie. tested) once.
+  Because of this, a <code>Description</code> should in most cases be cloned before being passed to a <code>Runner</code>.</p>
+  
   <p></p>
 <p>
 <span class="classHeaderTableLabel">See also</span>
@@ -77,6 +80,12 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#allowParallelAsynchronousTests">allowParallelAsynchronousTests</a> : Boolean<div class="summaryTableDescription">[read-only]
    Current test has elected to allow parallel execution of its asynchronous test methods.</div>
+</td><td class="summaryTableOwnerCol">Description</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#introspectionUtil">introspectionUtil</a> : <a href="../introspection/util/IntrospectionUtil.html">IntrospectionUtil</a>
+<div class="summaryTableDescription">[read-only]
+   <code>IntrospectionUtil</code> object used to describe the contained test.</div>
 </td><td class="summaryTableOwnerCol">Description</td>
 </tr>
 <tr class="">
@@ -101,14 +110,23 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#Description()">Description</a>(testIn:*)</div>
+<a class="signatureLink" href="#Description()">Description</a>(testIn:*, explicitMethodNamesIn:Array = null)</div>
 <div class="summaryTableDescription">
    Constructor.</div>
 </td><td class="summaryTableOwnerCol">Description</td>
 </tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#clone()">clone</a>():<a href="../framework/Description.html">Description</a>
+</div>
+<div class="summaryTableDescription">
+   Creates and returns a duplicate copy of the current <code>Description</code>.</div>
+</td><td class="summaryTableOwnerCol">Description</td>
+</tr>
 </table>
 </div>
-<a name="methodSummary"></a><a name="protectedMethodSummary"></a>
+<a name="protectedMethodSummary"></a>
 <div class="summarySection">
 <div class="summaryTableTitle">Protected Methods</div>
 <table id="summaryTableProtectedMethod" class="summaryTable " cellpadding="3" cellspacing="0">
@@ -149,6 +167,20 @@ showHideInherited();
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get allowParallelAsynchronousTests():Boolean</code>
 <br>
 </div>
+<a name="introspectionUtil"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">introspectionUtil</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>introspectionUtil:<a href="../introspection/util/IntrospectionUtil.html">IntrospectionUtil</a></code>&nbsp;&nbsp;[read-only]<p>
+   <code>IntrospectionUtil</code> object used to describe the contained test.
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get introspectionUtil():<a href="../introspection/util/IntrospectionUtil.html">IntrospectionUtil</a></code>
+<br>
+</div>
 <a name="methodModels"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
@@ -186,21 +218,47 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function Description(testIn:*)</code><p>
+<code>public function Description(testIn:*, explicitMethodNamesIn:Array = null)</code><p>
    Constructor.
+   
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">testIn</span>:*</code></td>
+<td width="20px"></td><td><code><span class="label">testIn</span>:*</code> &mdash; Object containing one or more testable methods
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">explicitMethodNamesIn</span>:Array</code> (default = <code>null</code>)<code></code> &mdash; Complete set of test method names (ie. Strings) that define the resulting test
+   </td>
 </tr>
 </table>
 </div>
 <a name="methodDetail"></a>
 <div class="detailSectionHeader">Method detail</div>
+<a name="clone()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">clone</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function clone():<a href="../framework/Description.html">Description</a></code><p>
+   Creates and returns a duplicate copy of the current <code>Description</code>.
+   </p><p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code><a href="../framework/Description.html">Description</a></code></td>
+</tr>
+</table>
+</div>
 <a name="isTestableMethod()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
-<td class="detailHeaderName">isTestableMethod</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+<td class="detailHeaderName">isTestableMethod</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
 </tr>
 </table>
 <div class="detailBody">
