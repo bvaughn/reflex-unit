@@ -7,7 +7,7 @@ package reflexunit.framework {
 	 * This class is responsible for the high-level management of test execution.
 	 * That includes the following actions:
 	 * <ol>
-	 *   <li>Convert a <code>TestSuite</code> into a <code>Recipe</code> of testable methods</li>
+	 *   <li>Convert a <code>TestSuite</code>, if provided, into a <code>Recipe</code> of testable methods</li>
 	 *   <li>Execute each of those methods and store their outcome in a <code>Result</code> object</li>
 	 *   <li>Inform a given set of <code>IResultViewer</code> objects of its progress by way of a <code>RunNotifier</code> method</li>
 	 * </ol>

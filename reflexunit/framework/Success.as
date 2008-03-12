@@ -3,6 +3,7 @@ package reflexunit.framework {
 	
 	/**
 	 * Indicates that all assertions made by the assocated test method were accurate and no runtime errors occured.
+	 * (This class may also be used to indicate that an assertion failed if metadata was present to specify that a failure was expected.)
 	 */
 	public class Success implements IStatus {
 		

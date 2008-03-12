@@ -1,10 +1,12 @@
 package reflexunit.framework {
 	
 	/**
-	 * Classes defining testable methods may extend this class for convenience (but are not required to do so).
+	 * Classes defining testable methods may extend this class for convenience but are not required to do so.
 	 * 
 	 * <p>Since <code>TestCase</code> extends <code>Assert</code> it automatically provides access to all of the related assertion methods.
-	 * This calss also defines a method for testing asynchronous code (see <code>addAsync</code> for more).</p> 
+	 * This calss also defines a method for testing asynchronous code (see <code>addAsync</code> for more).</p>
+	 * 
+	 * @see reflexunit.framework.Assert
 	 */
 	public class TestCase extends Assert implements ITestCase {
 		
