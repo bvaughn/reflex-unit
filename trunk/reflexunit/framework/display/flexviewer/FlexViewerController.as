@@ -15,6 +15,7 @@ package reflexunit.framework.display.flexviewer {
 	import reflexunit.framework.statuses.Failure;
 	import reflexunit.framework.statuses.IStatus;
 	import reflexunit.framework.statuses.Success;
+	import reflexunit.framework.statuses.Untested;
 	
 	[ExcludeClass]
 	public class FlexViewerController {
@@ -49,10 +50,10 @@ package reflexunit.framework.display.flexviewer {
 			_view.runSelectedButton.addEventListener( MouseEvent.CLICK, onRunSelectedButtonClick, false, 0, true );
 			_view.tree.addEventListener( ListEvent.ITEM_CLICK, onTreeItemClick, false, 0, true );
 			
-			_view.errorIconContainer.addChild( Resources.iconError() );
-			_view.failureIconContainer.addChild( Resources.iconError() );
-			_view.successIconContainer.addChild( Resources.iconSuccess() );
-			_view.warningIconContainer.addChild( Resources.iconWarning() );
+			_view.errorIconContainer.addChild( Resources.statusError() );
+			_view.failureIconContainer.addChild( Resources.statusFailure() );
+			_view.successIconContainer.addChild( Resources.statusSuccess() );
+			_view.warningIconContainer.addChild( Resources.statusWarning() );
 			
 			_view.progressBar.mode = ProgressBarMode.MANUAL;
 		}
@@ -86,7 +87,10 @@ package reflexunit.framework.display.flexviewer {
 			Runner.create( _activeRecipe, [ new ConsoleViewer() /* TESTING */ ], _runNotifier, _result );
 		}
 		
-		private function showSummaryStats( status:IStatus = null ):void {
+		private function showSummaryStats( data:* ):void {
+			var status:IStatus = data as IStatus;
+			var testClassTreeModel:TestClassTreeModel = data as TestClassTreeModel;
+			
 			_view.messageTextArea.text = '';
 			_view.methodLabel.text = '';
 			_view.stackTraceTextArea.text = '';
@@ -105,7 +109,14 @@ package reflexunit.framework.display.flexviewer {
 					var success:Success = status as Success;
 					
 					_view.messageTextArea.text = success.numAsserts + ' asserts made';
+				} else if ( status is Untested ) {
+					_view.messageTextArea.text = 'Not tested';
 				}
+				
+			} else if ( testClassTreeModel ) {
+				_view.messageTextArea.text = 'Contains ' + testClassTreeModel.description.testCount + ' test methods';
+				_view.methodLabel.text = 'N/A';
+				_view.testCaseLabel.text = testClassTreeModel.description.introspectionUtil.classModel.name;
 			}
 		}
 		
@@ -148,7 +159,7 @@ package reflexunit.framework.display.flexviewer {
 		}
 		
 		private function onTreeItemClick( event:ListEvent ):void {
-			showSummaryStats( event.itemRenderer.data as IStatus );
+			showSummaryStats( event.itemRenderer.data );
 		}
 	}
 }

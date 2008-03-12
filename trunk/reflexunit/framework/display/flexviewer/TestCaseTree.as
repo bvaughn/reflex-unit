@@ -134,46 +134,62 @@ package reflexunit.framework.display.flexviewer {
 		 */
 		
 		private function getTreeIcon( data:* ):Class {
-			if ( data is Untested ) {
-				return Resources.iconNewClass;
-			} else if ( data is InProgress ) {
-				return Resources.iconOpenClass;
-			} else if ( data is Failure ) {
-				return Resources.iconErrorClass;
-			} else if ( data is Success ) {
-				
-				// Show a warning icon for a test that made no Asserts; (this probably is not intentional).
-				if ( ( data as Success ).numAsserts == 0 ) {
-					return Resources.iconWarningClass;					
-				} else {
-					return Resources.iconSuccessClass;
-				}
-				
+			if ( data is IStatus ) {
+				return getTreeIconForStatus( data as IStatus );
 			} else if ( data is TestClassTreeModel ) {
-				var testClassTreeModel:TestClassTreeModel = data as TestClassTreeModel;
-				var iconClass:Class;
-				
-				// If test methods have been run, then the test icon should show Success, Failure, or warning.
-				for each ( var status:IStatus in testClassTreeModel.statuses ) {
-					if ( status is Failure ) {
-						iconClass = Resources.iconErrorClass;
-						break;									// Failure/errors override all other statuses.
-					} else if ( status is Success && ( status as Success ).numAsserts == 0 ) {
-						iconClass = Resources.iconWarningClass;	// Warnings override successes but not errors.
-					} else if ( !( status is Untested ) && iconClass != Resources.iconWarningClass ) {
-						iconClass = Resources.iconSuccessClass;	// Only succeed if all other tests methods succeed.
-					}
-				}
-				
-				// If no test methods have been run, use the default tree icon.
-				if ( iconClass ) {
-					return iconClass;
-				} else {
-					return isItemOpen( data ) ? Resources.iconCloseClass : Resources.iconOpenClass; 
-				}
-				
+				return getTreeIconForTestClassTreeModel( data as TestClassTreeModel );
 			} else {
 				return null;
+			}
+		}
+		
+		private function getTreeIconForStatus( status:IStatus ):Class {
+			if ( status is InProgress ) {
+				return Resources.statusInProgressClass;
+			} else if ( status is Failure ) {
+				if ( ( status as Failure ).isFailure ) {
+					return Resources.statusFailureClass;
+				} else {
+					return Resources.statusErrorClass;	
+				}
+			} else if ( status is Success ) {
+				if ( ( status as Success ).numAsserts == 0 ) {
+					return Resources.statusWarningClass;	// Warn of test methods with no assertions.					
+				} else {
+					return Resources.statusSuccessClass;
+				}
+			} else {
+				return Resources.statusUntestedClass;
+			}
+		}
+		
+		private function getTreeIconForTestClassTreeModel( testClassTreeModel:TestClassTreeModel ):Class {
+			var iconClass:Class;
+			
+			// If test methods have been run, then the test icon should show Success, Failure, or warning.
+			for each ( var status:IStatus in testClassTreeModel.statuses ) {
+				if ( status is Failure ) {
+					if ( !( status as Failure ).isFailure ) {
+						iconClass = Resources.statusErrorClass;		// Errors override all other statuses.
+					} else if ( iconClass != Resources.statusErrorClass ){
+						iconClass = Resources.statusFailureClass;	// Failures override everything but Errors.
+					}
+				} else if ( iconClass != Resources.statusErrorClass && iconClass != Resources.statusFailureClass ) {
+					if ( status is Success && ( status as Success ).numAsserts == 0 ) {
+						iconClass = Resources.statusWarningClass;	// Warnings override Successes but not Failures/Errors.
+					} else if ( status is Success && iconClass != Resources.statusWarningClass ) {
+						iconClass = Resources.statusSuccessClass;
+					}
+				}
+			}
+			
+			// The test icon should be the highest priority icon if the test methods contained.
+			if ( iconClass ) {
+				return iconClass;
+				
+			// If no test methods have been run, use the default tree icon.
+			} else {
+				return isItemOpen( data ) ? Resources.treeCloseClass : Resources.treeOpenClass; 
 			}
 		}
 		

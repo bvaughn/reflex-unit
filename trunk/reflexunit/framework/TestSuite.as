@@ -39,16 +39,22 @@ package reflexunit.framework {
 			_tests.push( test );
 		}
 		
-		/**
-		 * Adds all tests within a <code>TestSuite</code> to the current suite.
-		 * 
-		 * @param testSuite TestSuite containing tests and/or other TestSuites
-		 */
-		public function addTestSuite( testSuite:TestSuite ):void {
-			for ( var index:int = 0; index < testSuite.testCount; index++ ) {
-				addTest( testSuite.getTestAt( index ) );
-			}
-		}
+        /**
+         * Adds all tests within a <code>TestSuite</code> to the current suite.
+         *
+         * @param testSuite TestSuite containing tests and/or other TestSuites
+         */
+        public function addTestSuite( testSuite:TestSuite ):void {
+            for ( var index:int = 0; index < testSuite.testCount; index++ ) {
+                var test:* = testSuite.getTestAt( index );
+                
+                if ( test is Class ) {
+                    addTest( new test() );
+                } else {
+                    addTest( test );
+                }
+            }
+        }
 		
 		/**
 		 * Returns the test at the given index.
