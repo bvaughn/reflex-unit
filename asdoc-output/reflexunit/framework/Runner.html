@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../print.css" type="text/css" media="print">
-<meta content="Runner,reflexunit.framework.Runner,result,testSuite,create,run" name="keywords">
+<meta content="Runner,reflexunit.framework.Runner,result,create,run" name="keywords">
 <title>reflexunit.framework.Runner</title>
 </head>
 <body>
@@ -75,11 +75,6 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summaryTableDescription">[read-only]</div>
 </td><td class="summaryTableOwnerCol">Runner</td>
 </tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#testSuite">testSuite</a> : <a href="../framework/TestSuite.html">TestSuite</a>
-<div class="summaryTableDescription">[read-only]</div>
-</td><td class="summaryTableOwnerCol">Runner</td>
-</tr>
 </table>
 </div>
 <a name="methodSummary"></a>
@@ -92,22 +87,24 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#Runner()">Runner</a>(testSuiteIn:<a href="TestSuite.html">TestSuite</a>)</div>
-<div class="summaryTableDescription"></div>
+<a class="signatureLink" href="#Runner()">Runner</a>(testSuiteOrRecipeIn:*)</div>
+<div class="summaryTableDescription">
+   Construcor.</div>
 </td><td class="summaryTableOwnerCol">Runner</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#create()">create</a>(testSuiteIn:<a href="TestSuite.html">TestSuite</a>, resultViewers:Array, runNotifier:<a href="RunNotifier.html">RunNotifier</a> = null):<a href="../framework/Result.html">Result</a>
+<a class="signatureLink" href="#create()">create</a>(testSuiteOrRecipeIn:*, resultViewers:Array, runNotifier:<a href="RunNotifier.html">RunNotifier</a> = null, resultIn:<a href="Result.html">Result</a> = null):<a href="../framework/Result.html">Result</a>
 </div>
-<div class="summaryTableDescription">[static]</div>
+<div class="summaryTableDescription">[static]
+   Convenience method for creating and executing a <code>Runner</code> instance.</div>
 </td><td class="summaryTableOwnerCol">Runner</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#run()">run</a>(resultViewers:Array, runNotifier:<a href="RunNotifier.html">RunNotifier</a> = null):<a href="../framework/Result.html">Result</a>
+<a class="signatureLink" href="#run()">run</a>(resultViewers:Array, runNotifier:<a href="RunNotifier.html">RunNotifier</a> = null, resultIn:<a href="Result.html">Result</a> = null):<a href="../framework/Result.html">Result</a>
 </div>
 <div class="summaryTableDescription">
    Executes the current test <code>Recipe</code> and returns a <code>Result</code> object.</div>
@@ -134,18 +131,6 @@ showHideInherited();
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get result():<a href="../framework/Result.html">Result</a></code>
 <br>
 </div>
-<a name="testSuite"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">testSuite</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>testSuite:<a href="../framework/TestSuite.html">TestSuite</a></code>&nbsp;&nbsp;[read-only]<span class="label">Implementation</span>
-<br>
-<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get testSuite():<a href="../framework/TestSuite.html">TestSuite</a></code>
-<br>
-</div>
 <a name="constructorDetail"></a>
 <div class="detailSectionHeader">Constructor detail</div>
 <a name="Runner()"></a>
@@ -155,10 +140,23 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function Runner(testSuiteIn:<a href="TestSuite.html">TestSuite</a>)</code><span class="label">Parameters</span>
+<code>public function Runner(testSuiteOrRecipeIn:*)</code><p>
+   Construcor.
+   
+   </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">testSuiteIn</span>:<a href="TestSuite.html">TestSuite</a></code></td>
+<td width="20px"></td><td><code><span class="label">testSuiteOrRecipeIn</span>:*</code> &mdash; TestSuite or custom/pre-built Recipe defining all testable methods to be executed
+   
+   </td>
+</tr>
+</table>
+<br>
+<span class="label">Throws</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code></code> &mdash; if incoming testSuiteOrRecipeIn is neither a TestSuite nor a Recipe
+   </td>
 </tr>
 </table>
 </div>
@@ -171,29 +169,57 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public static function create(testSuiteIn:<a href="TestSuite.html">TestSuite</a>, resultViewers:Array, runNotifier:<a href="RunNotifier.html">RunNotifier</a> = null):<a href="../framework/Result.html">Result</a></code><span class="label">Parameters</span>
+<code>public static function create(testSuiteOrRecipeIn:*, resultViewers:Array, runNotifier:<a href="RunNotifier.html">RunNotifier</a> = null, resultIn:<a href="Result.html">Result</a> = null):<a href="../framework/Result.html">Result</a></code><p>
+   Convenience method for creating and executing a <code>Runner</code> instance.
+   This method will automatically run the newly created <code>Runner</code> and return its <code>Result</code> object.
+   
+   </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">testSuiteIn</span>:<a href="TestSuite.html">TestSuite</a></code></td>
+<td width="20px"></td><td><code><span class="label">testSuiteOrRecipeIn</span>:*</code> &mdash; TestSuite or Recipe containing tests to be run
+   </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">resultViewers</span>:Array</code></td>
+<td width="20px"></td><td><code><span class="label">resultViewers</span>:Array</code> &mdash; Array containing IResultViewer instances to be notified of test progress
+   </td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">runNotifier</span>:<a href="RunNotifier.html">RunNotifier</a></code> (default = <code>null</code>)<code></code></td>
+<td width="20px"></td><td><code><span class="label">runNotifier</span>:<a href="RunNotifier.html">RunNotifier</a></code> (default = <code>null</code>)<code></code> &mdash; (Optional) RunNotifier to use if caller wishes to be informed of progress
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">resultIn</span>:<a href="Result.html">Result</a></code> (default = <code>null</code>)<code></code> &mdash; (Optional) Result to store progress in; if no value is supplied a new Result will be created
+   
+   </td>
 </tr>
 </table>
 <p></p>
 <span class="label">Returns</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20"></td><td><code><a href="../framework/Result.html">Result</a></code></td>
+<td width="20"></td><td><code><a href="../framework/Result.html">Result</a></code> &mdash; 
+                        Result object in which test outcomes will be stored
+   
+   
+                        
+                     </td>
+</tr>
+</table>
+<br>
+<span class="label">Throws</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code></code> &mdash; if resultsViewer contains non-IResultViewer object(s) 
+   </td>
 </tr>
 </table>
 </div>
@@ -204,7 +230,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function run(resultViewers:Array, runNotifier:<a href="RunNotifier.html">RunNotifier</a> = null):<a href="../framework/Result.html">Result</a></code><p>
+<code>public function run(resultViewers:Array, runNotifier:<a href="RunNotifier.html">RunNotifier</a> = null, resultIn:<a href="Result.html">Result</a> = null):<a href="../framework/Result.html">Result</a></code><p>
    Executes the current test <code>Recipe</code> and returns a <code>Result</code> object.
    
    </p><span class="label">Parameters</span>
@@ -218,6 +244,13 @@ showHideInherited();
 </tr>
 <tr>
 <td width="20px"></td><td><code><span class="label">runNotifier</span>:<a href="RunNotifier.html">RunNotifier</a></code> (default = <code>null</code>)<code></code> &mdash; (Optional) RunNotifier to use if caller wishes to be informed of progress
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">resultIn</span>:<a href="Result.html">Result</a></code> (default = <code>null</code>)<code></code> &mdash; (Optional) Result to store progress in; if no value is supplied a new Result will be created
    
    </td>
 </tr>

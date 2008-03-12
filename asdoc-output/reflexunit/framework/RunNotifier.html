@@ -76,7 +76,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#testCompleted()">testCompleted</a>(methodModel:<a href="../introspection/models/MethodModel.html">MethodModel</a>):void</div>
+<a class="signatureLink" href="#testCompleted()">testCompleted</a>(methodModel:<a href="../introspection/models/MethodModel.html">MethodModel</a>, status:<a href="IStatus.html">IStatus</a>):void</div>
 <div class="summaryTableDescription">
    The specified test method has completed execution.</div>
 </td><td class="summaryTableOwnerCol">RunNotifier</td>
@@ -115,12 +115,21 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public function testCompleted(methodModel:<a href="../introspection/models/MethodModel.html">MethodModel</a>):void</code><p>
+<code>public function testCompleted(methodModel:<a href="../introspection/models/MethodModel.html">MethodModel</a>, status:<a href="IStatus.html">IStatus</a>):void</code><p>
    The specified test method has completed execution.
+   
    </p><span class="label">Parameters</span>
 <table border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="20px"></td><td><code><span class="label">methodModel</span>:<a href="../introspection/models/MethodModel.html">MethodModel</a></code></td>
+<td width="20px"></td><td><code><span class="label">methodModel</span>:<a href="../introspection/models/MethodModel.html">MethodModel</a></code> &mdash; Test method that has been executed
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">status</span>:<a href="IStatus.html">IStatus</a></code> &mdash; Resulting IStatus of test method
+   </td>
 </tr>
 </table>
 </div>
