@@ -154,27 +154,28 @@ package reflexunit.framework.models {
 		 */
 		protected static function isTestableMethod( methodModel:MethodModel ):Boolean {
 			
-			// If the MetaData keyword 'Test' has been provided, support it.
-			if ( methodModel.metaDataModel && methodModel.metaDataModel.name == TestConstants.METADATA_TEST ) {
-				return true;
-			}
-			
-			// Ignore any public methods with names that do not match our required format.
-			if ( methodModel.name.search( TestConstants.TESTABLE_METHOD_NAME_REGEXP ) < 0 ) {
-				return false;
-			}
-			
 			// Ignore any public methods that require parameters.
+			// (This is true despite metadata.)
 			if ( methodModel.parameterModels.length > 0 ) {
 				return false;
 			}
 			
 			// Ignore any public methods with a non-void return type.
+			// (This is true despite metadata.)
 			if ( methodModel.returnType != MethodModel.RETURN_TYPE_VOID ) {
 				return false;
 			}
 			
-			return true;
+			// If the MetaData keyword 'Test' has been provided, support it.
+			if ( methodModel.metaDataModel && methodModel.metaDataModel.name == TestConstants.METADATA_TEST ) {
+				return true; 
+				
+			// Ignore any public methods with names that do not match our required format.
+			} else if ( methodModel.name.search( TestConstants.TESTABLE_METHOD_NAME_REGEXP ) >= 0 ) {
+				return true;
+			}
+			
+			return false;
 		}
 	}
 }
