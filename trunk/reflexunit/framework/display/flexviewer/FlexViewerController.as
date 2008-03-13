@@ -84,7 +84,7 @@ package reflexunit.framework.display.flexviewer {
 			
 			_view.tree.recipe = _recipe.clone();
 			
-			Runner.create( _activeRecipe, [ new ConsoleViewer() /* TESTING */ ], _runNotifier, _result );
+			Runner.create( _activeRecipe, [], _runNotifier, _result );
 		}
 		
 		private function showSummaryStats( data:* ):void {

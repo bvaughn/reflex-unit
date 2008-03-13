@@ -21,7 +21,7 @@ package reflexunit.framework.display.flexviewer {
 	
 	/**
 	 * Convert to Tree structure (Array of Objects with "children" => status, all New by default)
-	 * This dispatches events to the viewer, which updates the children as notified
+	 * This dispatches events to the viewer, which updates the children as notified.
 	 */
 	[ExcludeClass]
 	public class TestCaseTree extends Tree implements IResultViewer {
@@ -220,40 +220,28 @@ package reflexunit.framework.display.flexviewer {
 				}
 			}
 			
-/*
-			var previousOpenItems:Array = openItems as Array;
-			var newOpenItems:Array = new Array();
-*/
-			
-			dataProvider = _testClassTreeModels;
-			
-/*
-			// TODO: Re-enable this logic once a work-around is discovered for the Flex bug; currently the Tree RTEs on the third reset.
-			// Expand all previously-expanded tests after re-appyling the 'dataProvider'.
-			if ( previousOpenItems ) {
-				for each ( var oldTestClassTreeModel:TestClassTreeModel in previousOpenItems ) {
-					for each ( testClassTreeModel in _testClassTreeModels ) {
-						if ( oldTestClassTreeModel.description.introspectionUtil.classModel.name ==
-						     testClassTreeModel.description.introspectionUtil.classModel.name ) {
-							
-							newOpenItems.push( testClassTreeModel );
-						}
+			// If a 'dataProvider' has already been set, just refresh the status of all methods.
+			// Re-setting the 'dataProvider' will either (a) collapse the Tree or (b) lead to a RTE in the ListBase class.
+			// (See previous revision for more info.)
+			if ( dataProvider is ArrayCollection && ( dataProvider as ArrayCollection ).length > 0 ) {
+				for each ( description in _recipe.descriptions ) {
+					for each ( methodModel in description.methodModels ) {
+						updateStatus( methodModel, new Untested( methodModel ) );
 					}
 				}
+				
+				( dataProvider as ArrayCollection ).refresh();
+				
+				return;
+			} else {
+				dataProvider = _testClassTreeModels;
 			}
-			
-			// Force commitProperties() to be executed immediately so that the 'openItems' Array will be reset.
-			// If we reset 'openItems' before validation, the new items will be appended to the previous Array.
-			validateNow();
-			
-			openItems = newOpenItems;
-*/
 		}
 		
 		private function updateStatus( methodModel:MethodModel, replacementStatus:IStatus ):void {
 			var replacementMade:Boolean;
 			
-			for each ( var testClassTreeModel:TestClassTreeModel in _testClassTreeModels.source ) {
+			for each ( var testClassTreeModel:TestClassTreeModel in ( dataProvider as ArrayCollection ).source ) {
 				for ( var index:int = 0; index < testClassTreeModel.statuses.length; index++ ) {
 					var status:IStatus = testClassTreeModel.statuses[ index ] as IStatus;
 					
