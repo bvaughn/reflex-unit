@@ -5,20 +5,20 @@ package reflexunit.framework.display.flexviewer {
 	import mx.controls.ProgressBarMode;
 	import mx.events.ListEvent;
 	
+	import reflexunit.framework.ITestWatcher;
 	import reflexunit.framework.RunNotifier;
 	import reflexunit.framework.Runner;
-	import reflexunit.framework.display.ConsoleViewer;
 	import reflexunit.framework.display.flexviewer.embedded.Resources;
-	import reflexunit.framework.events.RunEvent;
 	import reflexunit.framework.models.Recipe;
 	import reflexunit.framework.models.Result;
 	import reflexunit.framework.statuses.Failure;
 	import reflexunit.framework.statuses.IStatus;
 	import reflexunit.framework.statuses.Success;
 	import reflexunit.framework.statuses.Untested;
+	import reflexunit.introspection.models.MethodModel;
 	
 	[ExcludeClass]
-	public class FlexViewerController {
+	public class FlexViewerController implements ITestWatcher {
 		
 		private var _activeRecipe:Recipe;
 		private var _initialized:Boolean;
@@ -35,10 +35,7 @@ package reflexunit.framework.display.flexviewer {
 		public function FlexViewerController( view:FlexViewer ) {
 			_view = view;
 			
-			_runNotifier = new RunNotifier();
-			_runNotifier.addEventListener( RunEvent.ALL_TESTS_COMPLETED, onAllTestsCompleted, false, 0, true );
-			_runNotifier.addEventListener( RunEvent.TEST_COMPLETED, onTestCompleted, false, 0, true );
-			_runNotifier.addEventListener( RunEvent.TEST_STARTING, onTestStarting, false, 0, true );
+			_runNotifier = new RunNotifier( [ this ] );
 		}
 		
 		public function initialize():void {
@@ -124,7 +121,7 @@ package reflexunit.framework.display.flexviewer {
 		 * Event handlers
 		 */
 		
-		public function onAllTestsCompleted( event:RunEvent ):void {
+		public function allTestsCompleted():void {
 			_testInProgress = false;
 			
 			_view.tree.allTestsCompleted();
@@ -142,8 +139,8 @@ package reflexunit.framework.display.flexviewer {
 			runCurrentRecipe();
 		}
 		
-		public function onTestCompleted( event:RunEvent ):void {
-			_view.tree.testCompleted( event.methodModel, event.status );
+		public function testCompleted( methodModel:MethodModel, status:IStatus ):void {
+			_view.tree.testCompleted( methodModel, status );
 			
 			_view.errorsLabel.text = _result.errorCount.toString();
 			_view.failuresLabel.text = _result.failureCount.toString();
@@ -154,8 +151,8 @@ package reflexunit.framework.display.flexviewer {
 			_view.progressBar.setProgress( _result.testsRun, _activeRecipe.testCount );
 		}
 		
-		public function onTestStarting( event:RunEvent ):void {
-			_view.tree.testStarting( event.methodModel );
+		public function testStarting( methodModel:MethodModel ):void {
+			_view.tree.testStarting( methodModel );
 		}
 		
 		private function onTreeItemClick( event:ListEvent ):void {

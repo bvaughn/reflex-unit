@@ -2,6 +2,7 @@ package reflexunit.framework.tests {
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
+	import reflexunit.framework.ITestWatcher;
 	import reflexunit.framework.RunNotifier;
 	import reflexunit.framework.Runner;
 	import reflexunit.framework.TestCase;
@@ -23,7 +24,7 @@ package reflexunit.framework.tests {
 	 * To accomplish this, this class expects all inner tests to use only synchronous assertion methods.</p>
 	 */
 	[ExcludeClass]
-	public class TestMethodExecution extends TestCase {
+	public class TestMethodExecution extends TestCase implements ITestWatcher {
 		
 		private var _inProgressTestMethodNames:Array;
 		private var _runNotifier:RunNotifier;
@@ -93,7 +94,7 @@ package reflexunit.framework.tests {
 		 */
 		
 		// Make sure all expected methods have been "started" and allowed to "complete".
-		public function onAllTestsCompleted( event:RunEvent ):void {
+		public function allTestsCompleted():void {
 			if ( _runTimeErrorStrings.length > 0 ) {
 				fail( _runTimeErrorStrings.shift() as String );
 			}
@@ -103,7 +104,7 @@ package reflexunit.framework.tests {
 		}
 		
 		// Make sure that only expected methods are "completed".
-		public function onTestCompleted( event:RunEvent ):void {
+		public function testCompleted( methodModel:MethodModel, status:IStatus ):void {
 			var testMethodName:String = _inProgressTestMethodNames.shift() as String;
 			
 			// TODO: Replace with assertions once bug fixed.
@@ -116,7 +117,7 @@ package reflexunit.framework.tests {
 		}
 		
 		// Make sure that only expected methods are "started".
-		public function onTestStarting( event:RunEvent ):void {
+		public function testStarting( methodModel:MethodModel ):void {
 			var testMethodName:String = _untestedTestMethodNames.shift() as String;
 			
 			// TODO: Replace with assertions once bug fixed.
