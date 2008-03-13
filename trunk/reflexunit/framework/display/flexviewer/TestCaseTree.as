@@ -220,7 +220,34 @@ package reflexunit.framework.display.flexviewer {
 				}
 			}
 			
+/*
+			var previousOpenItems:Array = openItems as Array;
+			var newOpenItems:Array = new Array();
+*/
+			
 			dataProvider = _testClassTreeModels;
+			
+/*
+			// TODO: Re-enable this logic once a work-around is discovered for the Flex bug; currently the Tree RTEs on the third reset.
+			// Expand all previously-expanded tests after re-appyling the 'dataProvider'.
+			if ( previousOpenItems ) {
+				for each ( var oldTestClassTreeModel:TestClassTreeModel in previousOpenItems ) {
+					for each ( testClassTreeModel in _testClassTreeModels ) {
+						if ( oldTestClassTreeModel.description.introspectionUtil.classModel.name ==
+						     testClassTreeModel.description.introspectionUtil.classModel.name ) {
+							
+							newOpenItems.push( testClassTreeModel );
+						}
+					}
+				}
+			}
+			
+			// Force commitProperties() to be executed immediately so that the 'openItems' Array will be reset.
+			// If we reset 'openItems' before validation, the new items will be appended to the previous Array.
+			validateNow();
+			
+			openItems = newOpenItems;
+*/
 		}
 		
 		private function updateStatus( methodModel:MethodModel, replacementStatus:IStatus ):void {
