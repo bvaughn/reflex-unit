@@ -7,6 +7,7 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import reflexunit.framework.tests.TestMethodExecution;
 			import reflexunit.framework.models.Recipe;
 			import reflexunit.framework.tests.AssertTest;
 			import reflexunit.framework.tests.FrameworkTest;
@@ -17,7 +18,12 @@
 			import mx.events.FlexEvent;
 			
 			private function onInitialize( event:FlexEvent ):void {
-				var testSuite:TestSuite = new TestSuite( [ AssertTest, FrameworkTest, IntrospectionTest, MetaDataTest ] );
+				var testSuite:TestSuite = new TestSuite( [ AssertTest,
+				                                           FrameworkTest,
+				                                           IntrospectionTest,
+				                                           MetaDataTest,
+				                                           TestMethodExecution ] );
+				
 				var recipe:Recipe = new Recipe( testSuite );
 				
 				flexViewer.controller.recipe = recipe;
