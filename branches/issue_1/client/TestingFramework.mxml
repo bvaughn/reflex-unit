@@ -7,22 +7,18 @@
 	
 	<mx:Script>
 		<![CDATA[
-			import reflexunit.framework.tests.TestMethodExecution;
+//			import reflexunit.framework.tests.TestMethodExecution;
 			import reflexunit.framework.models.Recipe;
-			import reflexunit.framework.tests.AssertTest;
-			import reflexunit.framework.tests.FrameworkTest;
-			import reflexunit.framework.tests.metadata.MetaDataTest;
+//			import reflexunit.framework.tests.AssertTest;
+//			import reflexunit.framework.tests.FrameworkTest;
+//			import reflexunit.framework.tests.metadata.MetaDataTest;
 			import reflexunit.framework.TestSuite;
-			import reflexunit.introspection.tests.IntrospectionTest;
+//			import reflexunit.introspection.tests.IntrospectionTest;
 			
 			import mx.events.FlexEvent;
 			
 			private function onInitialize( event:FlexEvent ):void {
-				var testSuite:TestSuite = new TestSuite( [ AssertTest,
-				                                           FrameworkTest,
-				                                           IntrospectionTest,
-				                                           MetaDataTest,
-				                                           TestMethodExecution ] );
+				var testSuite:TestSuite = new TestSuite( [ ErrorTest ] );
 				
 				var recipe:Recipe = new Recipe( testSuite );
 				

@@ -16,21 +16,21 @@ package reflexunit.framework {
 	 * <ol>
 	 *   <li>Convert a <code>TestSuite</code>, if provided, into a <code>Recipe</code> of testable methods</li>
 	 *   <li>Execute each of those methods and store their outcome in a <code>Result</code> object</li>
-	 *   <li>Inform a given set of <code>IResultViewer</code> objects of its progress by way of a <code>RunNotifier</code> method</li>
+	 *   <li>Inform a given set of <code>ITestWatcher</code> or <code>IResultViewer</code> objects of progress</li>
 	 * </ol>
 	 * 
 	 * @see reflexunit.framework.display.IResultViewer
+	 * @see reflexunit.framework.display.ITestWatcher
 	 * @see reflexunit.framework.models.Recipe
 	 * @see reflexunit.framework.RunNotifier
 	 * @see reflexunit.framework.TestSuite
 	 */
-	public class Runner {
+	public class Runner extends EventDispatcher implements ITestWatcher {
 		
 		private var _currentDescription:Description;
 		private var _currentMethodModels:Array;
 		private var _recipe:Recipe;
 		private var _result:Result;
-		private var _resultViewers:Array;
 		private var _runNotifier:RunNotifier;
 		
 		/*
@@ -61,53 +61,57 @@ package reflexunit.framework {
 		 * This method will automatically run the newly created <code>Runner</code> and return its <code>Result</code> object.
 		 * 
 		 * @param testSuiteOrRecipeIn TestSuite or Recipe containing tests to be run
-		 * @param resultViewers Array containing IResultViewer instances to be notified of test progress
+		 * @param testWatchers Array containing ITestWatcher or IResultViewer instances to be notified of test progress
 		 * @param runNotifier (Optional) RunNotifier to use if caller wishes to be informed of progress
 		 * @param resultIn (Optional) Result to store progress in; if no value is supplied a new Result will be created
 		 * 
 		 * @return Result object in which test outcomes will be stored
 		 * 
-		 * @throws TypeError if resultsViewer contains non-IResultViewer object(s) 
+		 * @throws TypeError if resultsViewer contains non-ITestWatcher object(s) 
 		 */
 		public static function create( testSuiteOrRecipeIn:*,
-		                               resultViewers:Array,
+		                               testWatchers:Array,
 		                               runNotifier:RunNotifier = null,
 		                               resultIn:Result = null ):Result {
 			
 			var runner:Runner = new Runner( testSuiteOrRecipeIn );
 			
-			return runner.run( resultViewers, runNotifier, resultIn );
+			return runner.run( testWatchers, runNotifier, resultIn );
 		}
 		
 		/**
 		 * Executes the current test <code>Recipe</code> and returns a <code>Result</code> object.
 		 * 
-		 * @param resultViewers Array containing IResultViewer instances to be notified of test progress
+		 * @param testWatchers Array containing IResultViewer or ITestWatcher instances to be notified of test progress
 		 * @param runNotifier (Optional) RunNotifier to use if caller wishes to be informed of progress
 		 * @param resultIn (Optional) Result to store progress in; if no value is supplied a new Result will be created
 		 * 
 		 * @return Result object in which test outcomes will be stored
 		 * 
-		 * @throws TypeError if resultsViewer contains non-IResultViewer object(s) 
+		 * @throws TypeError if resultsViewer contains non-ITestWatcher object(s) 
 		 */
-		public function run( resultViewers:Array,
+		public function run( testWatchers:Array,
 		                     runNotifier:RunNotifier = null,
 		                     resultIn:Result = null ):Result {
 			
-			_resultViewers = resultViewers;
+			_result = resultIn ? resultIn : new Result();
 			_runNotifier = runNotifier ? runNotifier : new RunNotifier();
 			
-			_result = resultIn ? resultIn : new Result();
-			
-			for ( var index:int = 0; index < _resultViewers.length; index++ ) {
-				var resultViewer:IResultViewer = resultViewers[ index ] as IResultViewer;
-				
-				if ( !resultViewer ) {
-					throw new TypeError( 'Expected IResultViewer instance' );
+			if ( testWatchers ) {
+				for each ( var testWatcher:* in testWatchers ) {
+					if ( !( testWatcher is ITestWatcher ) ) {
+						throw new TypeError( 'Expected ITestWatcher instance' );
+					}
+					
+					_runNotifier.addTestWatcher( testWatcher as ITestWatcher );
+					
+					if ( testWatcher is IResultViewer ) {
+						var resultViewer:IResultViewer = testWatcher as IResultViewer;
+						
+						resultViewer.recipe = _recipe;
+						resultViewer.result = _result;
+					}
 				}
-				
-				resultViewer.recipe = _recipe;
-				resultViewer.result = _result;
 			}
 			
 			runNextSeriesOfTests();
@@ -130,25 +134,28 @@ package reflexunit.framework {
 		private function alertAllTestsCompleted():void {
 			_runNotifier.allTestsCompleted();
 			
-			for each ( var resultViewer:IResultViewer in _resultViewers ) {
-				resultViewer.allTestsCompleted();
-			}
+			var event:RunEvent = new RunEvent( RunEvent.ALL_TESTS_COMPLETED );
+			
+			dispatchEvent( event );
 		}
 		
 		private function alertTestStarting( methodModel:MethodModel ):void {
 			_runNotifier.testStarting( methodModel );
 			
-			for each ( var resultViewer:IResultViewer in _resultViewers ) {
-				resultViewer.testStarting( methodModel );
-			}
+			var event:RunEvent = new RunEvent( RunEvent.ALL_TESTS_COMPLETED );
+			event.methodModel = methodModel;
+			
+			dispatchEvent( event );
 		}
 		
 		private function alertTestCompleted( methodModel:MethodModel, status:IStatus ):void {
 			_runNotifier.testCompleted( methodModel, status );
 			
-			for each ( var resultViewer:IResultViewer in _resultViewers ) {
-				resultViewer.testCompleted( methodModel, status );
-			}
+			var event:RunEvent = new RunEvent( RunEvent.ALL_TESTS_COMPLETED );
+			event.methodModel = methodModel;
+			event.status = status;
+			
+			dispatchEvent( event );
 		}
 		
 		private function finalizeMethodModel( methodModel:MethodModel ):void {
@@ -189,14 +196,12 @@ package reflexunit.framework {
 				// No need to listen for a starting event; we are starting the test explicitly
 				alertTestStarting( methodModel );
 				
-				var runNotifier:RunNotifier = new RunNotifier();
+				var runNotifier:RunNotifier = new RunNotifier( [ this ] );
 				
 				wrapper.run( runNotifier );
 				
 				if ( wrapper.isAsync ) {
 					_currentMethodModels.push( methodModel );
-					
-					runNotifier.addEventListener( RunEvent.TEST_COMPLETED, onTestCompleted );
 					
 					// By default, test methods are not run in parallel.
 					// If our test has not enabled this feature then we should pause until the current method has completed execution.
@@ -219,22 +224,21 @@ package reflexunit.framework {
 		 * Error handlers
 		 */
 		
-		private function onTestCompleted( event:RunEvent ):void {
-			( event.currentTarget as EventDispatcher ).removeEventListener( RunEvent.TEST_COMPLETED, onTestCompleted );
+		
+		public function allTestsCompleted():void {
+		}
+		
+		public function testCompleted( methodModel:MethodModel, status:IStatus ):void {
+			alertTestCompleted( methodModel, status );
 			
-			alertTestCompleted( event.methodModel, event.status );
-			
-			finalizeMethodModel( event.methodModel );
+			finalizeMethodModel( methodModel );
 			
 			if ( _currentMethodModels.length == 0 ) {
 				runNextSeriesOfTests();
 			}
 		}
 		
-		private function onTestStarting( event:RunEvent ):void {
-			( event.currentTarget as EventDispatcher ).removeEventListener( RunEvent.TEST_STARTING, onTestStarting );
-			
-			alertTestStarting( event.methodModel );
+		public function testStarting( methodModel:MethodModel ):void {
 		}
 	}
 }
