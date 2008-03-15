@@ -166,11 +166,14 @@ package reflexunit.framework.display.flexviewer {
 		private function getTreeIconForTestClassTreeModel( testClassTreeModel:TestClassTreeModel ):Class {
 			var iconClass:Class;
 			
-			// If test methods have been run, then the test icon should show Success, Failure, or warning.
+			// If tests are being run, show the InProgress icon.
+			// If running has completed then the test icon should show Success, Failure, or warning.
 			for each ( var status:IStatus in testClassTreeModel.statuses ) {
-				if ( status is Failure ) {
+				if ( status is InProgress ) {
+					iconClass = Resources.statusInProgressClass;
+				} else if ( status is Failure && !( status is InProgress ) ) {
 					if ( !( status as Failure ).isFailure ) {
-						iconClass = Resources.statusErrorClass;		// Errors override all other statuses.
+						iconClass = Resources.statusErrorClass;		// Errors override all other statuses (except in-progress).
 					} else if ( iconClass != Resources.statusErrorClass ){
 						iconClass = Resources.statusFailureClass;	// Failures override everything but Errors.
 					}

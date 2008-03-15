@@ -9,6 +9,16 @@
 		[ExcludeClass]
 	</mx:Metadata>
 	
+	<mx:Style>
+		.progressBarError,
+		.progressBarFailure {
+			barColor: #B00;
+		}
+		.progressBarSuccess {
+			barColor: #0B0;
+		}
+	</mx:Style>
+	
 	<mx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;
@@ -64,7 +74,8 @@
 				<mx:Grid width="100%">
 					<mx:GridRow width="100%">
 						<mx:GridItem width="50%" verticalAlign="middle">
-							<mx:ProgressBar id="progressBar" width="100%" labelPlacement="center"  />
+							<mx:ProgressBar id="progressBar" styleName="progressBarSuccess" width="100%"
+							                labelPlacement="center" />
 						</mx:GridItem>
 						<mx:GridItem width="50%" horizontalAlign="right">
 							<mx:Button id="runSelectedButton" label="Run Selected Tests"
