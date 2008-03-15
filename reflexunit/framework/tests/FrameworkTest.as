@@ -16,14 +16,16 @@ package reflexunit.framework.tests {
 			assertTrue( true );
 		}
 		
-		public function testAddAsync():void {
+		public function testAddAsyncSuccess():void {
 			var timer:Timer = new Timer( 100, 1 );
 			timer.addEventListener( TimerEvent.TIMER_COMPLETE, addAsync( onTimerComplete, 1000 ) );
 			timer.start();
 		}
 		
 		[Test(shouldFail="true")]
-		public function testAddAsyncFailureExpected():void {
+		public function testAddAsyncTimeoutFailureExpected():void {
+			assertTrue( true );	// This is a bit of a hack, but without any assertions we will get a warning icon.
+			
 			var timer:Timer = new Timer( 100, 1 );
 			timer.addEventListener( TimerEvent.TIMER_COMPLETE, addAsync( onTimerComplete, 10 ) );
 			timer.start();
@@ -41,16 +43,9 @@ package reflexunit.framework.tests {
 		 * TODO: Wrap this somehow so that the error doesn't display in the test runner
 		 */
 		[Test(shouldFail="true")]
-		public function testAddAsyncError():void {
+		public function testAddAsyncHandlerError():void {
 			var timer:Timer = new Timer( 100, 1 );
 			timer.addEventListener( TimerEvent.TIMER_COMPLETE, addAsync( onTimerCompleteWithError, 1000 ) );
-			timer.start();
-		}
-		
-		[Test(shouldFail="true")]
-		public function testAddAsyncFails():void {
-			var timer:Timer = new Timer( 100, 1 );
-			timer.addEventListener( TimerEvent.TIMER_COMPLETE, addAsync( onTimerComplete, 10 ) );
 			timer.start();
 		}
 		
@@ -58,9 +53,8 @@ package reflexunit.framework.tests {
 		 * Test that the test properly handles runtime errors.
 		 */
 		
-		public function testRunTimeError():void {
-			var a:Array = new Array();
-			a[1].fakeProperty;
+		public function testImmediateRunTimeError():void {
+			throw new Error( 'This error is expected; it demonstrates the interface for displaying errors' );
 		}
 		
 		/*
@@ -88,8 +82,7 @@ package reflexunit.framework.tests {
 		}
 		
 		private function onTimerCompleteWithError( event:TimerEvent ):void {
-			var obj:Object;
-			obj[0];	// Cause a RTE to be thrown to make sure the testing framework catches it.
+			throw new Error( 'This error is expected; it demonstrates the interface for displaying errors' );
 		}
 	}
 }
