@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
-<meta content="Untested,reflexunit.framework.statuses.Untested,methodModel,numAsserts,status,test,time" name="keywords">
+<meta content="Untested,reflexunit.framework.statuses.Untested,status" name="keywords">
 <title>reflexunit.framework.statuses.Untested</title>
 </head>
 <body>
@@ -38,7 +38,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <td class="classHeaderTableLabel">Class</td><td class="classSignature">public class Untested</td>
 </tr>
 <tr>
-<td class="classHeaderTableLabel">Implements</td><td><a href="IStatus.html">IStatus</a></td>
+<td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">Untested <img class="inheritArrow" alt="Inheritance" title="Inheritance" src="../../../images/inherit-arrow.gif"> reflexunit.framework.statuses.AbstractStatus</td>
 </tr>
 </table>
 <p></p>
@@ -63,34 +63,10 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
 </tr>
 <tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#methodModel">methodModel</a> : <a href="../../introspection/models/MethodModel.html">MethodModel</a>
-<div class="summaryTableDescription">[read-only]
-   
-   <code>MethodModel</code> describing the test method represented by this <code>IStatus</code> object.</div>
-</td><td class="summaryTableOwnerCol">Untested</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#numAsserts">numAsserts</a> : int<div class="summaryTableDescription">[read-only]
-   
-   Number of assertions (including those that failed) made by the associated <code>test</code>.</div>
-</td><td class="summaryTableOwnerCol">Untested</td>
-</tr>
-<tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#status">status</a> : String<div class="summaryTableDescription">[read-only]
    
+   
    Lowercase string defining the status this class represents (e.g.</div>
-</td><td class="summaryTableOwnerCol">Untested</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#test">test</a> : *<div class="summaryTableDescription">[read-only]
-   
-   Convenience method.</div>
-</td><td class="summaryTableOwnerCol">Untested</td>
-</tr>
-<tr class="">
-<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#time">time</a> : int<div class="summaryTableDescription">[read-only]
-   
-   Total time (including asynchronous assertions) required to execute the associated test method.</div>
 </td><td class="summaryTableOwnerCol">Untested</td>
 </tr>
 </table>
@@ -119,80 +95,26 @@ showHideInherited();
 <div class="MainContent">
 <a name="propertyDetail"></a>
 <div class="detailSectionHeader">Property detail</div>
-<a name="methodModel"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">methodModel</td><td class="detailHeaderType">property</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>methodModel:<a href="../../introspection/models/MethodModel.html">MethodModel</a></code>&nbsp;&nbsp;[read-only]<p>
-   
-   <code>MethodModel</code> describing the test method represented by this <code>IStatus</code> object.
-   </p><span class="label">Implementation</span>
-<br>
-<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get methodModel():<a href="../../introspection/models/MethodModel.html">MethodModel</a></code>
-<br>
-</div>
-<a name="numAsserts"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">numAsserts</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>numAsserts:int</code>&nbsp;&nbsp;[read-only]<p>
-   
-   Number of assertions (including those that failed) made by the associated <code>test</code>.
-   </p><span class="label">Implementation</span>
-<br>
-<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get numAsserts():int</code>
-<br>
-</div>
 <a name="status"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
-<td class="detailHeaderName">status</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+<td class="detailHeaderName">status</td><td class="detailHeaderType">property</td>
 </tr>
 </table>
 <div class="detailBody">
 <code>status:String</code>&nbsp;&nbsp;[read-only]<p>
    
+   
+   Lowercase string defining the status this class represents (e.g. failure, success, error, etc.).
+   
+   Lowercase string defining the status this class represents (e.g. failure, success, error, etc.).
+   
+   Lowercase string defining the status this class represents (e.g. failure, success, error, etc.).
+   
    Lowercase string defining the status this class represents (e.g. failure, success, error, etc.).
    </p><span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get status():String</code>
-<br>
-</div>
-<a name="test"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">test</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>test:*</code>&nbsp;&nbsp;[read-only]<p>
-   
-   Convenience method.
-   </p><span class="label">Implementation</span>
-<br>
-<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get test():*</code>
-<br>
-</div>
-<a name="time"></a>
-<table cellspacing="0" cellpadding="0" class="detailHeader">
-<tr>
-<td class="detailHeaderName">time</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
-</tr>
-</table>
-<div class="detailBody">
-<code>time:int</code>&nbsp;&nbsp;[read-only]<p>
-   
-   Total time (including asynchronous assertions) required to execute the associated test method.
-   This time value does not include (optional) setup or teardown operations.
-   </p><span class="label">Implementation</span>
-<br>
-<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get time():int</code>
 <br>
 </div>
 <a name="constructorDetail"></a>
