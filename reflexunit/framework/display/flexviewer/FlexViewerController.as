@@ -167,6 +167,7 @@ package reflexunit.framework.display.flexviewer {
 			_view.assertsLabel.text = _result.numAsserts.toString();
 			_view.successesLabel.text = _result.successCount.toString();	// TODO: Check for warnings.
 			_view.testProgressLabel.text = _result.testsRun.toString() + '/' + _activeRecipe.testCount;
+			_view.timeLabel.text = ( Math.round( _result.testTimes / 10 ) / 100 ) + ' secs';
 			
 			updateProgressBar();
 		}
