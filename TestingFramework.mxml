@@ -7,6 +7,7 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import reflexunit.async.tests.TestCallLaterUtil;
 			import reflexunit.framework.tests.TestMethodExecution;
 			import reflexunit.framework.models.Recipe;
 			import reflexunit.framework.tests.AssertTest;
@@ -22,6 +23,7 @@
 				                                           FrameworkTest,
 				                                           IntrospectionTest,
 				                                           MetaDataTest,
+				                                           TestCallLaterUtil,
 				                                           TestMethodExecution ] );
 				
 				var recipe:Recipe = new Recipe( testSuite );
