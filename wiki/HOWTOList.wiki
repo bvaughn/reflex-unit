@@ -12,7 +12,7 @@ In order to enable metadata support for Reflex Unit, do the following:
 You may need to clean you project after making this change in order for it to apply.
 
 = Generating/Updating Documentation =
-In order to generate project docs from a local SVN checkout simply run the following terminal command:
+In order to generate project docs from a local SVN checkout simply run the following terminal command from the root of the project:
 {{{
-asdoc -source-path . -doc-sources . -output docs -exclude-classes TestingFramework
+asdoc -source-path . -doc-sources . -output docs
 }}}
