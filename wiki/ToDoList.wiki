@@ -1,5 +1,11 @@
 #summary Checklist of features currently (or soon-to-be) under development
 
+= Google Code Resources =
+ * Write "getting started" tutorials:
+  * How to write some basic tests
+  * How to use built-in {{{IResultViewers}}}
+  * How to create your own, custom view/output
+
 = Flex Framework =
 
 == Write more and better unit tests ==
