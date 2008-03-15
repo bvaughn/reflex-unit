@@ -11,6 +11,7 @@ package reflexunit.framework.models {
 	import reflexunit.framework.statuses.IStatus;
 	import reflexunit.introspection.models.ArgModel;
 	import reflexunit.introspection.models.MethodModel;
+	import flash.utils.getTimer;
 	
 	/**
 	 * Wraps a testable method as it is executed.
@@ -38,6 +39,7 @@ package reflexunit.framework.models {
 		private var _previousStatus:IStatus;
 		private var _result:Result;
 		private var _runNotifier:RunNotifier;
+		private var _timeAtStart:int;
 		
 		/*
 		 * Initialization
@@ -66,6 +68,9 @@ package reflexunit.framework.models {
 			
 			setupTest();
 			
+			// Don't include setup time.
+			_timeAtStart = getTimer();
+			
 			// Be sure to catch Errors (including AssertionFailedErrors) that occur synchronously.
 			try {
 				_methodModel.method.call( methodModel.thisObject );
@@ -85,13 +90,13 @@ package reflexunit.framework.models {
 					// At this point, we must decide if the failure was expected.
 					// If not then we should store the current failure as a failure.
 					if ( !isFailureExpected() ) {
-						_previousStatus = _result.addFailure( _methodModel, error as AssertFailedError, _numAsserts );
+						_previousStatus = _result.addFailure( _methodModel, error as AssertFailedError, _numAsserts, runTime );
 					} else {
-						_previousStatus = _result.addSuccess( _methodModel, _numAsserts );
+						_previousStatus = _result.addSuccess( _methodModel, _numAsserts, runTime );
 					}
 					
 				} else {
-					_previousStatus = _result.addError( _methodModel, error, _numAsserts );
+					_previousStatus = _result.addError( _methodModel, error, _numAsserts, runTime );
 				}
 				
 				tearDownTest();
@@ -101,7 +106,7 @@ package reflexunit.framework.models {
 			
 			// If no AsynchronousAssertions were defined and no Error thrown then our test has succeeded.
 			if ( !isAsync ) {
-				_previousStatus = _result.addSuccess( _methodModel, _numAsserts );
+				_previousStatus = _result.addSuccess( _methodModel, _numAsserts, runTime );
 				
 				tearDownTest();
 				
@@ -150,6 +155,10 @@ package reflexunit.framework.models {
 		
 		public function get result():Result {
 			return _result;
+		}
+		
+		public function get runTime():int {
+			return getTimer() - _timeAtStart;
 		}
 		
 		/*
@@ -207,7 +216,7 @@ package reflexunit.framework.models {
 			
 			// If no more asynchronous assertions remain then the test has succeeded; Result should be updated with a Success
 			if ( _asynchronousAssertions.length == 0 ) {
-				_previousStatus = _result.addSuccess( _methodModel, _numAsserts );
+				_previousStatus = _result.addSuccess( _methodModel, _numAsserts, runTime );
 				
 				tearDownTest();
 			}
@@ -225,13 +234,13 @@ package reflexunit.framework.models {
 				// At this point, we must decide if the failure was expected.
 				// If not then we should store the current failure as a failure a
 				if ( !isFailureExpected() ) {
-					_previousStatus = _result.addFailure( _methodModel, asynchronousAssertion.error as AssertFailedError, _numAsserts );
+					_previousStatus = _result.addFailure( _methodModel, asynchronousAssertion.error as AssertFailedError, _numAsserts, runTime );
 				} else {
-					_previousStatus = _result.addSuccess( _methodModel, _numAsserts );
+					_previousStatus = _result.addSuccess( _methodModel, _numAsserts, runTime );
 				}
 				
 			} else {
-				_previousStatus = _result.addError( _methodModel, asynchronousAssertion.error, _numAsserts );
+				_previousStatus = _result.addError( _methodModel, asynchronousAssertion.error, _numAsserts, runTime );
 			}
 			
 			tearDownTest();

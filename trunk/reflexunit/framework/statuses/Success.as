@@ -21,6 +21,7 @@ package reflexunit.framework.statuses {
 		public function Success( methodModelIn:MethodModel, numAssertsIn:int = 0, time:int = 0 ) {
 			_methodModel = methodModelIn;
 			_numAsserts = numAssertsIn;
+			_time = time;
 		}
 		
 		/*
