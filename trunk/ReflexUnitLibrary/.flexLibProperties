@@ -1,6 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <flexLibProperties version="1">
-  <includeClasses/>
+  <includeClasses>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.async.CallLaterModel"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.async.CallLaterUtil"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.Assert"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.ITestCase"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.ITestWatcher"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.RunNotifier"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.Runner"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.TestCase"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.TestSuite"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.constants.TestConstants"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.display.ConsoleViewer"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.display.CruiseControlLogger"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.display.IResultViewer"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.display.flexviewer.FlexViewer"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.display.flexviewer.FlexViewerController"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.display.flexviewer.TestCaseTree"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.display.flexviewer.TestClassTreeModel"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.display.flexviewer.embedded.Resources"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.errors.AssertFailedError"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.events.RunEvent"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.models.AsynchronousAssertion"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.models.Description"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.models.Recipe"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.models.Result"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.models.Wrapper"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.statuses.AbstractStatus"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.statuses.Failure"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.statuses.IStatus"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.statuses.InProgress"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.statuses.Success"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.framework.statuses.Untested"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.introspection.models.AccessorModel"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.introspection.models.ArgModel"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.introspection.models.ClassModel"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.introspection.models.MetaDataModel"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.introspection.models.MethodModel"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.introspection.models.ParameterModel"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.introspection.models.VariableModel"/>
+    <classEntry path="[source path] reflex-unit-source-trunk/reflexunit.introspection.util.IntrospectionUtil"/>
+  </includeClasses>
   <includeResources/>
   <namespaceManifests/>
 </flexLibProperties>
