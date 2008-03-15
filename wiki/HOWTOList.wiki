@@ -1,8 +1,17 @@
 #summary Basic list of how-to items that may be helpful for developers using Reflex Unit
 #labels howto,help,tips
 
+= Enabling Metadata =
+In order to enable metadata support for Reflex Unit, do the following:
+ # Right click on the project and select "Properties"
+ # Go to the "Flex Compiler" tab
+ # In the "Additional compiler arguments" field, ensure you have the following:
+{{{
+-keep-as3-metadata+=Test,TestClass
+}}}
+
 = Generating/Updating Documentation =
-Simply run the following terminal command:
+In order to generate project docs from a local SVN checkout simply run the following terminal command:
 {{{
 asdoc -source-path . -doc-sources . -output docs -exclude-classes TestingFramework
 }}}
