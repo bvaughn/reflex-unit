@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../print.css" type="text/css" media="print">
-<meta content="ITestWatcher,reflexunit.framework.ITestWatcher,allTestsCompleted,testCompleted,testStarting" name="keywords">
+<meta content="ITestWatcher,reflexunit.framework.ITestWatcher,allTestsCompleted,testCaseCompleted,testCaseStarting,testCompleted,testStarting" name="keywords">
 <title>reflexunit.framework.ITestWatcher</title>
 </head>
 <body>
@@ -68,6 +68,22 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("In
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
+<a class="signatureLink" href="#testCaseCompleted()">testCaseCompleted</a>(description:<a href="models/Description.html">Description</a>):void</div>
+<div class="summaryTableDescription">
+   The specified test has been executed.</div>
+</td><td class="summaryTableOwnerCol">ITestWatcher</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#testCaseStarting()">testCaseStarting</a>(description:<a href="models/Description.html">Description</a>):void</div>
+<div class="summaryTableDescription">
+   The specified test is about to be executed.</div>
+</td><td class="summaryTableOwnerCol">ITestWatcher</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
 <a class="signatureLink" href="#testCompleted()">testCompleted</a>(methodModel:<a href="../introspection/models/MethodModel.html">MethodModel</a>, status:<a href="statuses/IStatus.html">IStatus</a>):void</div>
 <div class="summaryTableDescription">
    The specified test method has completed execution.</div>
@@ -100,6 +116,42 @@ showHideInherited();
 <code>public function allTestsCompleted():void</code><p>
    All tests in the current <code>TestSuite</code> have been executed.
    </p></div>
+<a name="testCaseCompleted()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">testCaseCompleted</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function testCaseCompleted(description:<a href="models/Description.html">Description</a>):void</code><p>
+   The specified test has been executed.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">description</span>:<a href="models/Description.html">Description</a></code> &mdash; Description object describes and defines the tests set of testable methods
+   </td>
+</tr>
+</table>
+</div>
+<a name="testCaseStarting()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">testCaseStarting</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function testCaseStarting(description:<a href="models/Description.html">Description</a>):void</code><p>
+   The specified test is about to be executed.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">description</span>:<a href="models/Description.html">Description</a></code> &mdash; Description object describes and defines the tests set of testable methods
+   </td>
+</tr>
+</table>
+</div>
 <a name="testCompleted()"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>

@@ -38,7 +38,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("In
 <td class="classHeaderTableLabel">Interface</td><td class="classSignature">public interface IResultViewer extends <a href="../ITestWatcher.html">ITestWatcher</a></td>
 </tr>
 <tr>
-<td class="classHeaderTableLabel">Implementors</td><td><a href="../display/ConsoleViewer.html">ConsoleViewer</a></td>
+<td class="classHeaderTableLabel">Implementors</td><td><a href="../display/ConsoleViewer.html">ConsoleViewer</a>, <a href="../display/CruiseControlLogger.html">CruiseControlLogger</a></td>
 </tr>
 </table>
 <p></p>
@@ -95,6 +95,22 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("In
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
+<a class="signatureLink" href="../ITestWatcher.html#testCaseCompleted()">testCaseCompleted</a>(description:<a href="../models/Description.html">Description</a>):void</div>
+<div class="summaryTableDescription">
+   The specified test has been executed.</div>
+</td><td class="summaryTableOwnerCol"><a href="../ITestWatcher.html">ITestWatcher</a></td>
+</tr>
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="../ITestWatcher.html#testCaseStarting()">testCaseStarting</a>(description:<a href="../models/Description.html">Description</a>):void</div>
+<div class="summaryTableDescription">
+   The specified test is about to be executed.</div>
+</td><td class="summaryTableOwnerCol"><a href="../ITestWatcher.html">ITestWatcher</a></td>
+</tr>
+<tr class="hideInheritedMethod">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
 <a class="signatureLink" href="../ITestWatcher.html#testCompleted()">testCompleted</a>(methodModel:<a href="../../introspection/models/MethodModel.html">MethodModel</a>, status:<a href="../statuses/IStatus.html">IStatus</a>):void</div>
 <div class="summaryTableDescription">
    The specified test method has completed execution.</div>
@@ -124,7 +140,8 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>recipe:<a href="../models/Recipe.html">Recipe</a></code>&nbsp;&nbsp;[write-only]<p></p><span class="label">Implementation</span>
+<code>recipe:<a href="../models/Recipe.html">Recipe</a></code>&nbsp;&nbsp;[write-only]<p>
+   </p><span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function set recipe(value:<a href="../models/Recipe.html">Recipe</a>):void</code>
 <br>

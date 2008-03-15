@@ -1,4 +1,5 @@
 package reflexunit.framework.display {
+	import reflexunit.framework.models.Description;
 	import reflexunit.framework.models.Recipe;
 	import reflexunit.framework.models.Result;
 	import reflexunit.framework.statuses.Failure;
