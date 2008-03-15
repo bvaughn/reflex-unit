@@ -100,6 +100,8 @@ package reflexunit.framework.models {
 				
 				_testCount += description.testCount;
 			}
+			
+			_descriptions.sortOn( 'testName' );
 		}
 	}
 }

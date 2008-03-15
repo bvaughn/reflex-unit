@@ -102,7 +102,14 @@ package reflexunit.framework.models {
 		 * Convenience method.
 		 */
 		public function get testCount():int {
-			return _methodModels.length;
+			return _methodModels ? _methodModels.length : 0;
+		}
+		
+		/**
+		 * Convenience method.
+		 */
+		public function get testName():String {
+			return _introspectionUtil && _introspectionUtil.classModel ? _introspectionUtil.classModel.name : null;
 		}
 		
 		/*
