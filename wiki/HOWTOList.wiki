@@ -7,8 +7,9 @@ In order to enable metadata support for Reflex Unit, do the following:
  # Go to the "Flex Compiler" tab
  # In the "Additional compiler arguments" field, ensure you have the following:
 {{{
--keep-as3-metadata+=Test,TestClass
+-keep-as3-metadata+=Test,TestCase
 }}}
+You may need to clean you project after making this change in order for it to apply.
 
 = Generating/Updating Documentation =
 In order to generate project docs from a local SVN checkout simply run the following terminal command:
