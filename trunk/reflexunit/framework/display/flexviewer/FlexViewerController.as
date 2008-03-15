@@ -16,6 +16,7 @@ package reflexunit.framework.display.flexviewer {
 	import reflexunit.framework.statuses.IStatus;
 	import reflexunit.framework.statuses.Success;
 	import reflexunit.framework.statuses.Untested;
+	import mx.controls.ProgressBar;
 	
 	[ExcludeClass]
 	public class FlexViewerController {
@@ -75,14 +76,15 @@ package reflexunit.framework.display.flexviewer {
 		 */
 		
 		private function runCurrentRecipe():void {
-			// TODO: Reset/clear Tree icons before starting the test (in case we're re-running anything).
-			
 			_testInProgress = true;
 			
 			_result = new Result();
 			_view.tree.result = _result;
 			
 			_view.tree.recipe = _recipe.clone();
+			
+			// Reset the progress bar to 0% before starting the test.
+			updateProgressBar();
 			
 			Runner.create( _activeRecipe, [], _runNotifier, _result );
 		}
@@ -120,6 +122,21 @@ package reflexunit.framework.display.flexviewer {
 			}
 		}
 		
+		private function updateProgressBar():void {
+			_view.progressBar.label = 'LOADING ' + Math.round( ( _result.testsRun / _activeRecipe.testCount ) * 100 ) + '% - ' +
+			                          _result.testsRun.toString() + '/' + _activeRecipe.testCount;
+			
+			_view.progressBar.setProgress( _result.testsRun, _activeRecipe.testCount );
+			
+			if ( _result.errorCount > 0 ) {
+				_view.progressBar.styleName = 'progressBarError';
+			} else if ( _result.failureCount > 0 ) {
+				_view.progressBar.styleName = 'progressBarFailure';
+			} else {
+				_view.progressBar.styleName = 'progressBarSuccess';
+			}
+		}
+		
 		/*
 		 * Event handlers
 		 */
@@ -151,7 +168,7 @@ package reflexunit.framework.display.flexviewer {
 			_view.successesLabel.text = _result.successCount.toString();	// TODO: Check for warnings.
 			_view.testProgressLabel.text = _result.testsRun.toString() + '/' + _activeRecipe.testCount;
 			
-			_view.progressBar.setProgress( _result.testsRun, _activeRecipe.testCount );
+			updateProgressBar();
 		}
 		
 		public function onTestStarting( event:RunEvent ):void {
