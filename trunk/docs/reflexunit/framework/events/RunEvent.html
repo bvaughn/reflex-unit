@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
-<meta content="RunEvent,reflexunit.framework.events.RunEvent,ALL_TESTS_COMPLETED,TEST_COMPLETED,TEST_STARTING,methodModel,status,test" name="keywords">
+<meta content="RunEvent,reflexunit.framework.events.RunEvent,ALL_TESTS_COMPLETED,TEST_CASE_COMPLETED,TEST_CASE_STARTING,TEST_COMPLETED,TEST_STARTING,description,methodModel,status,test" name="keywords">
 <title>reflexunit.framework.events.RunEvent</title>
 </head>
 <body>
@@ -62,13 +62,21 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
 </tr>
 <tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#description">description</a> : <a href="../models/Description.html">Description</a>
+<div class="summaryTableDescription">
+   Bundled with all <code>TEST_CASE_STARTING</code> and <code>TEST_CASE_COMPLETED</code> events.</div>
+</td><td class="summaryTableOwnerCol">RunEvent</td>
+</tr>
+<tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#methodModel">methodModel</a> : <a href="../../introspection/models/MethodModel.html">MethodModel</a>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Bundled with all <code>TEST_STARTING</code> and <code>TEST_COMPLETED</code> events.</div>
 </td><td class="summaryTableOwnerCol">RunEvent</td>
 </tr>
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#status">status</a> : <a href="../statuses/IStatus.html">IStatus</a>
-<div class="summaryTableDescription"></div>
+<div class="summaryTableDescription">
+   Bundled with all <code>TEST_COMPLETED</code> events.</div>
 </td><td class="summaryTableOwnerCol">RunEvent</td>
 </tr>
 <tr class="">
@@ -107,6 +115,16 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 </td><td class="summaryTableOwnerCol">RunEvent</td>
 </tr>
 <tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#TEST_CASE_COMPLETED">TEST_CASE_COMPLETED</a> : String = "TEST_CASE_COMPLETED"<div class="summaryTableDescription">[static]
+   A test case (ie.</div>
+</td><td class="summaryTableOwnerCol">RunEvent</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#TEST_CASE_STARTING">TEST_CASE_STARTING</a> : String = "TEST_CASE_COMPLETED"<div class="summaryTableDescription">[static]
+   A test case is starting.</div>
+</td><td class="summaryTableOwnerCol">RunEvent</td>
+</tr>
+<tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#TEST_COMPLETED">TEST_COMPLETED</a> : String = "TEST_COMPLETED"<div class="summaryTableDescription">[static]
    A single test method has completed.</div>
 </td><td class="summaryTableOwnerCol">RunEvent</td>
@@ -125,14 +143,32 @@ showHideInherited();
 <div class="MainContent">
 <a name="propertyDetail"></a>
 <div class="detailSectionHeader">Property detail</div>
-<a name="methodModel"></a>
+<a name="description"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">
 <tr>
-<td class="detailHeaderName">methodModel</td><td class="detailHeaderType">property</td>
+<td class="detailHeaderName">description</td><td class="detailHeaderType">property</td>
 </tr>
 </table>
 <div class="detailBody">
-<code>methodModel:<a href="../../introspection/models/MethodModel.html">MethodModel</a></code>&nbsp;&nbsp;[read-write]<span class="label">Implementation</span>
+<code>description:<a href="../models/Description.html">Description</a></code>&nbsp;&nbsp;[read-write]<p>
+   Bundled with all <code>TEST_CASE_STARTING</code> and <code>TEST_CASE_COMPLETED</code> events.
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get description():<a href="../models/Description.html">Description</a></code>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function set description(value:<a href="../models/Description.html">Description</a>):void</code>
+<br>
+</div>
+<a name="methodModel"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">methodModel</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>methodModel:<a href="../../introspection/models/MethodModel.html">MethodModel</a></code>&nbsp;&nbsp;[read-write]<p>
+   Bundled with all <code>TEST_STARTING</code> and <code>TEST_COMPLETED</code> events.
+   </p><span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get methodModel():<a href="../../introspection/models/MethodModel.html">MethodModel</a></code>
 <br>
@@ -146,7 +182,9 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>status:<a href="../statuses/IStatus.html">IStatus</a></code>&nbsp;&nbsp;[read-write]<span class="label">Implementation</span>
+<code>status:<a href="../statuses/IStatus.html">IStatus</a></code>&nbsp;&nbsp;[read-write]<p>
+   Bundled with all <code>TEST_COMPLETED</code> events.
+   </p><span class="label">Implementation</span>
 <br>
 <code>&nbsp;&nbsp;&nbsp;&nbsp;public function get status():<a href="../statuses/IStatus.html">IStatus</a></code>
 <br>
@@ -207,6 +245,26 @@ showHideInherited();
 <div class="detailBody">
 <code>public static const ALL_TESTS_COMPLETED:String = "ALL_TESTS_COMPLETED"</code><p>
    All tests in the current <code>TestSuite</code> have finished executing.
+   </p></div>
+<a name="TEST_CASE_COMPLETED"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">TEST_CASE_COMPLETED</td><td class="detailHeaderType">constant</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static const TEST_CASE_COMPLETED:String = "TEST_CASE_COMPLETED"</code><p>
+   A test case (ie. all of its testable methods) has completed.
+   </p></div>
+<a name="TEST_CASE_STARTING"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">TEST_CASE_STARTING</td><td class="detailHeaderType">constant</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public static const TEST_CASE_STARTING:String = "TEST_CASE_COMPLETED"</code><p>
+   A test case is starting.
    </p></div>
 <a name="TEST_COMPLETED"></a>
 <table cellspacing="0" cellpadding="0" class="detailHeader">

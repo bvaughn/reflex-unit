@@ -9,6 +9,7 @@ package reflexunit.async.tests {
 	import reflexunit.async.CallLaterUtil;
 	import reflexunit.framework.TestCase;
 	
+	[ExcludeClass]
 	public class TestCallLaterUtil extends TestCase {
 		
 		private var _errors:Array;

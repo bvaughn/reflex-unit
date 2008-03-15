@@ -1,7 +1,6 @@
 package reflexunit.framework.events {
 	import flash.events.Event;
 	
-	import reflexunit.framework.TestSuite;
 	import reflexunit.framework.models.Description;
 	import reflexunit.framework.statuses.IStatus;
 	import reflexunit.introspection.models.MethodModel;
@@ -45,7 +44,6 @@ package reflexunit.framework.events {
 		private var _description:Description;
 		private var _methodModel:MethodModel;
 		private var _status:IStatus;
-		private var _testSuite:TestSuite;
 		
 		/*
 		 * Initialization
@@ -59,6 +57,9 @@ package reflexunit.framework.events {
 		 * Getter / setter methods
 		 */
 		
+		/**
+		 * Bundled with all <code>TEST_CASE_STARTING</code> and <code>TEST_CASE_COMPLETED</code> events.
+		 */
 		public function get description():Description {
 			return _description;
 		}
@@ -66,6 +67,9 @@ package reflexunit.framework.events {
 			_description = value;
 		}
 		
+		/**
+		 * Bundled with all <code>TEST_STARTING</code> and <code>TEST_COMPLETED</code> events.
+		 */
 		public function get methodModel():MethodModel {
 			return _methodModel;
 		}
@@ -73,18 +77,14 @@ package reflexunit.framework.events {
 			_methodModel = value;
 		}
 		
+		/**
+		 * Bundled with all <code>TEST_COMPLETED</code> events.
+		 */
 		public function get status():IStatus {
 			return _status;
 		}
 		public function set status( value:IStatus ):void {
 			_status = value;
-		}
-		
-		public function get testSuite():TestSuite {
-			return _testSuite;
-		}
-		public function set testSuite( value:TestSuite ):void {
-			_testSuite = value;
 		}
 		
 		/**

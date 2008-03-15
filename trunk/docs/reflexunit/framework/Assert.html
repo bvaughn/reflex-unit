@@ -79,7 +79,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#assertEquals()">assertEquals</a>(expected:*, actual:*, message:String = null):void</div>
+<a class="signatureLink" href="#assertEquals()">assertEquals</a>(expected:*, actual:String, message:* = null):void</div>
 <div class="summaryTableDescription">[static]
    Asserts that two values are equal.</div>
 </td><td class="summaryTableOwnerCol">Assert</td>
@@ -95,7 +95,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="#assertNotEquals()">assertNotEquals</a>(expected:*, actual:*, message:String = null):void</div>
+<a class="signatureLink" href="#assertNotEquals()">assertNotEquals</a>(expected:*, actual:String, message:* = null):void</div>
 <div class="summaryTableDescription">[static]
    Asserts that the two values specified are not equal.</div>
 </td><td class="summaryTableOwnerCol">Assert</td>
@@ -164,7 +164,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public static function assertEquals(expected:*, actual:*, message:String = null):void</code><p>
+<code>public static function assertEquals(expected:*, actual:String, message:* = null):void</code><p>
    Asserts that two values are equal.
    
    </p><span class="label">Parameters</span>
@@ -176,13 +176,13 @@ showHideInherited();
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">actual</span>:*</code></td>
+<td width="20px"></td><td><code><span class="label">actual</span>:String</code></td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">message</span>:String</code> (default = <code>null</code>)<code></code></td>
+<td width="20px"></td><td><code><span class="label">message</span>:*</code> (default = <code>null</code>)<code></code></td>
 </tr>
 </table>
 <br>
@@ -232,7 +232,7 @@ showHideInherited();
 </tr>
 </table>
 <div class="detailBody">
-<code>public static function assertNotEquals(expected:*, actual:*, message:String = null):void</code><p>
+<code>public static function assertNotEquals(expected:*, actual:String, message:* = null):void</code><p>
    Asserts that the two values specified are not equal.
    
    </p><span class="label">Parameters</span>
@@ -244,13 +244,13 @@ showHideInherited();
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">actual</span>:*</code></td>
+<td width="20px"></td><td><code><span class="label">actual</span>:String</code></td>
 </tr>
 <tr>
 <td class="paramSpacer">&nbsp;</td>
 </tr>
 <tr>
-<td width="20px"></td><td><code><span class="label">message</span>:String</code> (default = <code>null</code>)<code></code></td>
+<td width="20px"></td><td><code><span class="label">message</span>:*</code> (default = <code>null</code>)<code></code></td>
 </tr>
 </table>
 <br>

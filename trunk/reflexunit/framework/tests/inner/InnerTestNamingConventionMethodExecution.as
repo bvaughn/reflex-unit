@@ -10,10 +10,10 @@ package reflexunit.framework.tests.inner {
 	public class InnerTestNamingConventionMethodExecution {
 		
 		public function get testMethod():Array {
-			return [ 'testMethod' ];
+			return [ 'testableMethod' ];
 		}
 		
-		public function testMethod():void {
+		public function testableMethod():void {
 			Assert.assertTrue( true );
 		}
 		

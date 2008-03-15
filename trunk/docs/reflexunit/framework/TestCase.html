@@ -4,7 +4,7 @@
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="../../style.css" type="text/css" media="screen">
 <link rel="stylesheet" href="../../print.css" type="text/css" media="print">
-<meta content="TestCase,reflexunit.framework.TestCase,asynchronousAssertions,asynchronousAssertionsCount,addAsync,resetStaticTestVars,setupTest,tearDownTest,fail" name="keywords">
+<meta content="TestCase,reflexunit.framework.TestCase,asynchronousAssertions,asynchronousAssertionsCount,addAsync,fail,resetStaticTestVars,setupTest,tearDownTest" name="keywords">
 <title>reflexunit.framework.TestCase</title>
 </head>
 <body>
@@ -125,7 +125,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="Assert.html#assertEquals()">assertEquals</a>(expected:*, actual:*, message:String = null):void</div>
+<a class="signatureLink" href="Assert.html#assertEquals()">assertEquals</a>(expected:*, actual:String, message:* = null):void</div>
 <div class="summaryTableDescription">[static]
    Asserts that two values are equal.</div>
 </td><td class="summaryTableOwnerCol"><a href="Assert.html">Assert</a></td>
@@ -141,7 +141,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <tr class="hideInheritedMethod">
 <td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img class="inheritedSummaryImage" title="Inherited" alt="Inherited" src="../../images/inheritedSummary.gif"></td><td class="summaryTableSignatureCol">
 <div class="summarySignature">
-<a class="signatureLink" href="Assert.html#assertNotEquals()">assertNotEquals</a>(expected:*, actual:*, message:String = null):void</div>
+<a class="signatureLink" href="Assert.html#assertNotEquals()">assertNotEquals</a>(expected:*, actual:String, message:* = null):void</div>
 <div class="summaryTableDescription">[static]
    Asserts that the two values specified are not equal.</div>
 </td><td class="summaryTableOwnerCol"><a href="Assert.html">Assert</a></td>
@@ -191,6 +191,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#setupTest()">setupTest</a>():void</div>
 <div class="summaryTableDescription">
+   
    Called before each testable method is run.</div>
 </td><td class="summaryTableOwnerCol">TestCase</td>
 </tr>
@@ -199,6 +200,7 @@ if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Cl
 <div class="summarySignature">
 <a class="signatureLink" href="#tearDownTest()">tearDownTest</a>():void</div>
 <div class="summaryTableDescription">
+   
    Called after each testable method has run and all asserts have completed.</div>
 </td><td class="summaryTableOwnerCol">TestCase</td>
 </tr>
@@ -365,6 +367,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function setupTest():void</code><p>
+   
    Called before each testable method is run.
    This method is responsible for initializing all common, pre-test settings.
    </p></div>
@@ -376,6 +379,7 @@ showHideInherited();
 </table>
 <div class="detailBody">
 <code>public function tearDownTest():void</code><p>
+   
    Called after each testable method has run and all asserts have completed.
    </p></div>
 <br>

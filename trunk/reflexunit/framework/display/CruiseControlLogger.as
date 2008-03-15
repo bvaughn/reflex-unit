@@ -49,6 +49,10 @@ package reflexunit.framework.display {
 		 * @inheritDoc
 		 */
 		public function allTestsCompleted():void {
+			var success:Boolean = _result.errorCount == 0 && _result.failureCount == 0;
+			
+			trace( 'Test Suite success: ' + success );
+			
 			trace( _xml );
 			
 			trace( '-----------------TESTRUNNEROUTPUTBEGINS----------------' );
