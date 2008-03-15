@@ -10,9 +10,8 @@ package reflexunit.framework.models {
 	 * Because of this, a <code>Description</code> should in most cases be cloned before being passed to a <code>Runner</code>.
 	 * 
 	 * <p>A <code>Description</code> analyzes the provided class to determine which methods are considered testable (see below).
-	 * Each testable method is bundled into a <code>MethodModel</code> for later use.</p>
-	 * 
-	 * <p>There are several possible ways for a method to be determined testable:</p>
+	 * Each testable method is bundled into a <code>MethodModel</code> for later use.
+	 * There are several possible ways for a method to be determined testable:</p>
 	 * 
 	 * <p>The first way is for the provided test class to define a static accessor named <code>testMethodNames</code>.
 	 * Such a method should return an <code>Array</code> of function names (ie. Strings) defining the complete set of all test methods.</p>
@@ -21,8 +20,19 @@ package reflexunit.framework.models {
 	 * In this case all methods meeting one of the following conditions will be considered testable:
 	 * <ul>
 	 *   <li>Method name begins with "test", accepts no parameters, and has a return type of <code>void</code></li>
-	 *   <li>Method is markd with the <code>metadata</code> tag "Test"</li>
+	 *   <li>Method is marked with the <code>metadata</code> tag "Test"</li>
 	 * </ul></p>
+	 * 
+	 * <p>Additional metadata support is also available for the following:
+	 * <ul>
+	 *   <li><code>allowParallelAsynchronousTests</code>:
+	 *       All asynchronous test methods in this class will execute in parallel.
+	 *       This tag must be defined at the class-level.
+	 *       If not specified all tests will be executed serially.</li>
+	 *   <li><code>shouldFail</code>:
+	 *       The associated test method is expected to fail, thus a failure will be considered a success.
+	 *       By default this value is false.</li>
+	 * </p>
 	 * 
 	 * @see reflexunit.introspection.models.MethodModel
 	 * @see reflexunit.introspection.util.IntrospectionUtil
