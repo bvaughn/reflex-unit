@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application width="100%" height="100%" layout="absolute"
+                backgroundColor="0xFFFFFF" backgroundGradientColors="[ 0xFFFFFF, 0xFFFFFF ]"
+                initialize="onInitialize( event )"
+                xmlns:framework="reflexunit.framework.display.flexviewer.*"
+                xmlns:mx="http://www.adobe.com/2006/mxml">
+	
+	<mx:Metadata>
+		[ExcludeClass]
+	</mx:Metadata>
+	
+	<mx:Script>
+		<![CDATA[
+			import reflexunit.framework.display.CruiseControlLogger;
+			import reflexunit.framework.Runner;
+			
+			import mx.events.FlexEvent;
+			
+			private function onInitialize( event:FlexEvent ):void {
+				Runner.create( new DemoTestSuite(), [ new CruiseControlLogger() ] );
+			}
+		]]>
+	</mx:Script>
+	
+</mx:Application>
