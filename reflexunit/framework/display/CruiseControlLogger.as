@@ -53,6 +53,8 @@ package reflexunit.framework.display {
 			
 			trace( 'Test Suite success: ' + success );
 			
+			_xml.@time = _result.testTimes
+			
 			trace( _xml );
 			
 			trace( '-----------------TESTRUNNEROUTPUTBEGINS----------------' );

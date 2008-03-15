@@ -29,6 +29,7 @@ package reflexunit.framework.statuses {
 		
 		/**
 		 * Total time (including asynchronous assertions) required to execute the associated test method.
+		 * This time value does not include (optional) setup or teardown operations.
 		 */
 		function get time():int;
 	}

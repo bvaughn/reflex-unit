@@ -20,6 +20,7 @@ package reflexunit.framework.models {
 		private var _numAsserts:int;
 		private var _successes:Array;
 		private var _testsRun:int;
+		private var _testTimes:int;
 		
 		/*
 		 * Initialization
@@ -32,6 +33,7 @@ package reflexunit.framework.models {
 			
 			_numAsserts = 0;
 			_testsRun = 0;
+			_testTimes = 0;
 		}
 		
 		/*
@@ -41,11 +43,12 @@ package reflexunit.framework.models {
 		/**
 		 * Adds an error to the list of errors.
 		 */
-		public function addError( methodModel:MethodModel, error:Error, numAsserts:int = 0 ):IStatus {
-			var failure:Failure = new Failure( methodModel, error, numAsserts );
+		public function addError( methodModel:MethodModel, error:Error, numAsserts:int, time:int ):IStatus {
+			var failure:Failure = new Failure( methodModel, error, numAsserts, time );
 			
 			_errors.push( failure );
 			_numAsserts += numAsserts;
+			_testTimes += time;
 			
 			return failure;
 		}
@@ -53,11 +56,12 @@ package reflexunit.framework.models {
 		/**
 		 * Adds a failure to the list of failures.
 		 */
-		public function addFailure( methodModel:MethodModel, error:AssertFailedError, numAsserts:int = 0 ):IStatus {
-			var failure:Failure = new Failure( methodModel, error, numAsserts );
+		public function addFailure( methodModel:MethodModel, error:AssertFailedError, numAsserts:int, time:int ):IStatus {
+			var failure:Failure = new Failure( methodModel, error, numAsserts, time );
 			
 			_failures.push( failure );
 			_numAsserts += numAsserts;
+			_testTimes += time;
 			
 			return failure;
 		}
@@ -65,11 +69,12 @@ package reflexunit.framework.models {
 		/**
 		 * Adds a failure to the list of failures.
 		 */
-		public function addSuccess( methodModel:MethodModel, numAsserts:int = 0 ):IStatus {
-			var success:Success = new Success( methodModel, numAsserts );
+		public function addSuccess( methodModel:MethodModel, numAsserts:int, time:int ):IStatus {
+			var success:Success = new Success( methodModel, numAsserts, time );
 			
 			_successes.push( success );
 			_numAsserts += numAsserts;
+			_testTimes += time;
 			
 			return success;
 		}
@@ -128,13 +133,25 @@ package reflexunit.framework.models {
 		}
 		
 		/**
-		 * Number of <code>ITest</code> instances that were run and are described by this result.
+		 * Number of test instances that were run and are described by this result.
 		 */
 		public function get testsRun():int {
 			return _testsRun;
 		}
 		public function set testsRun( value:int ):void {
 			_testsRun = value;
+		}
+		
+		/**
+		 * Total execution time for all test instances that were run and are described by this result.
+		 * 
+		 * @see reflexunit.framework.statuses.IStatus#time
+		 */
+		public function get testTimes():int {
+			return _testTimes;
+		}
+		public function set testTimes( value:int ):void {
+			_testTimes = value;
 		}
 		
 		/**

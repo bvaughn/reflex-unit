@@ -31,6 +31,7 @@ package reflexunit.framework.statuses {
 			_error = errorIn;
 			_methodModel = methodModelIn;
 			_numAsserts = numAssertsIn;
+			_time = time;
 		}
 		
 		/*
