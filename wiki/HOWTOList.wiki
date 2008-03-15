@@ -1,5 +1,5 @@
-#summary Basic list of how-to items that may be helpful for developers using Reflex Unit
 #labels howto,help,tips
+= Reflex Unit Users: Configuring a Flex Project =
 
 = Enabling Metadata =
 In order to enable metadata support for Reflex Unit, do the following:
@@ -11,8 +11,29 @@ In order to enable metadata support for Reflex Unit, do the following:
 }}}
 You may need to clean you project after making this change in order for it to apply.
 
-= Generating/Updating Documentation =
+= Reflex Unit Developers: Setting Up a Local SVN Checkout =
+
+== Configuring Project Directory ==
+If you're using the Flex Builder plugin with Subclipse, then this will not be an issue. If you're using Tortoise SVN though, you'll want to do the following:
+ # Navigate to the root of your project directory
+ # Right click on the "bin" folder and select: "Tortoise SVN" -> "Add to ignore list" -> "bin"
+
+== Generating/Updating Documentation ==
 In order to generate project docs from a local SVN checkout simply run the following terminal command from the root of the project:
 {{{
 asdoc -source-path . -doc-sources . -output docs
+}}}
+
+== Setting SVN Mime-Types ==
+ # Using Tortoise SVN, rick click on your local checkout and go to "Tortoise SVN" -> "Settings"
+ # In the "General" tab, click on the "Edit" button beside "Subversion configuration file"
+ # Make sure the following lines are in the file (and are not commented out)
+{{{
+enable-auto-props = yes
+[auto-props]
+*.gif = svn:mime-type=image/gif
+*.png = svn:mime-type=image/png
+*.jpg = svn:mime-type=image/jpeg
+*.htm = svn:mime-type=text/html
+*.html = svn:mime-type=text/html
 }}}
