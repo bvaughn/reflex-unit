@@ -29,9 +29,9 @@ package reflexunit.introspection.models {
 		
 		/**
 		 * Expects XML in the following format:
-		 * <code>
-		 *   <parameter index="2" type="Boolean" optional="true"/>
-		 * </code>
+		 * <pre>
+		 *   &lt;parameter index="2" type="Boolean" optional="true" /&gt;
+		 * </pre>
 		 *  
 		 * @see flash.utils.describeType
 		 */

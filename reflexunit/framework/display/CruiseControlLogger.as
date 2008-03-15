@@ -13,21 +13,21 @@ package reflexunit.framework.display {
 	 * Generates XML information for use with a CruiseControl environment.
 	 * XML is in the following format:
 	 * 
-	 * <code>
-	 * <testsuites>
-	 *   <testsuite name="package_name::ClassName">
-	 *     <testcase name="methodName" time="0.0"/>
-	 *     <testcase name="methodName" time="0.0">
-	 *       <error><<stack trace>></error>
-	 *     </testcase>
-	 *     <testcase name="methodName" time="0.0">
-	 *       <failure><<stack trace>></failure>
-	 *     </testcase>
+	 * <pre>
+	 * &lt;testsuites&gt;
+	 *   &lt;testsuite name="package_name::ClassName"&gt;
+	 *     &lt;testcase name="methodName" time="0.0"/&gt;
+	 *     &lt;testcase name="methodName" time="0.0"&gt;
+	 *       &lt;error&gt;{{stack trace}}&lt;/error&gt;
+	 *     &lt;/testcase&gt;
+	 *     &lt;testcase name="methodName" time="0.0"&gt;
+	 *       &lt;failure&gt;{{stack trace}}&lt;/failure&gt;
+	 *     &lt;/testcase&gt;
 	 *     ...
-	 *   </testsuite>
+	 *   &lt;/testsuite&gt;
 	 *   ...
-	 * </testsuites>
-	 * </code>
+	 * &lt;/testsuites&gt;
+	 * </pre>
 	 */
 	public class CruiseControlLogger implements IResultViewer {
 		

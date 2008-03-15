@@ -14,11 +14,11 @@ package reflexunit.async {
 	 * 
 	 * <p>The most basic usage example of this class is as follows:</p>
 	 * 
-	 * <code>
+	 * <pre>
 	 * CallLaterUtil.functionFrameDelay( this, function():void {
 	 *   tace( 'Method executed!' );
 	 * } );
-	 * </code>
+	 * </pre>
 	 */
 	public class CallLaterUtil {
 		

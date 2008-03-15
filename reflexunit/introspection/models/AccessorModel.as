@@ -39,9 +39,9 @@ package reflexunit.introspection.models {
 		
 		/**
 		 * Expects XML in the following format:
-		 * <code>
-		 *   <accessor name="description" access="readonly" type="reflexunit.framework::Description" declaredBy="reflexunit.framework::TestCase" />
-		 * </code>
+		 * <pre>
+		 *   &lt;accessor name="description" access="readonly" type="reflexunit.framework::Description" declaredBy="reflexunit.framework::TestCase" /&gt;
+		 * </pre>
 		 *  
 		 * @see flash.utils.describeType
 		 */

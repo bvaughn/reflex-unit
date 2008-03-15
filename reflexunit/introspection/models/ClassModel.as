@@ -45,14 +45,14 @@ package reflexunit.introspection.models {
 		
 		/**
 		 * Expects XML in the following format:
-		 * <code>
-		 *   <type name="::ClassName" base="Object" isDynamic="true" isFinal="false" isStatic="false">
-		 *     <metadata name="MetaData">
-		 *       <arg key="attribute" value="value"/>
-		 *     </metadata>
-		 *     <extendsClass type="Object" />
-		 *   </type>
-		 * </code>
+		 * <pre>
+		 *   &lt;type name="::ClassName" base="Object" isDynamic="true" isFinal="false" isStatic="false"&gt;
+		 *     &lt;metadata name="MetaData"&gt;
+		 *       &lt;arg key="attribute" value="value" /&gt;
+		 *     &lt;/metadata&gt;
+		 *     &lt;extendsClass type="Object" /&gt;
+		 *   &lt;/type&gt;
+		 * </pre>
 		 *  
 		 * @see flash.utils.describeType
 		 */
