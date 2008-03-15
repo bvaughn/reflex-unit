@@ -13,12 +13,9 @@ package reflexunit.framework.statuses {
 	 * 
 	 * <p>This class contains an <code>isFailure</code> method to differentiate between assertion failures and runtime errors.</p>
 	 */
-	public class Failure implements IStatus {
+	public class Failure extends AbstractStatus {
 		
 		private var _error:Error;
-		private var _methodModel:MethodModel;
-		private var _numAsserts:int;
-		private var _time:int;
 		
 		/*
 		 * Initialization
@@ -28,10 +25,9 @@ package reflexunit.framework.statuses {
 		 * Constructor.
 		 */
 		public function Failure( methodModelIn:MethodModel, errorIn:Error, numAssertsIn:int = 0, time:int = 0 ) {
+			super( methodModelIn );
+			
 			_error = errorIn;
-			_methodModel = methodModelIn;
-			_numAsserts = numAssertsIn;
-			_time = time;
 		}
 		
 		/*
@@ -65,36 +61,8 @@ package reflexunit.framework.statuses {
 		/**
 		 * @inheritDoc
 		 */
-		public function get methodModel():MethodModel {
-			return _methodModel;
-		}
-		
-		/**
-		 * @inheritDoc
-		 */
-		public function get numAsserts():int {
-			return _numAsserts;
-		}
-		
-		/**
-		 * @inheritDoc
-		 */
-		public function get status():String {
+		override public function get status():String {
 			return isFailure ? 'failure' : 'error';
-		}
-		
-		/**
-		 * @inheritDoc
-		 */
-		public function get test():* {
-			return _methodModel.thisObject;
-		}
-		
-		/**
-		 * @inheritDoc
-		 */
-		public function get time():int {
-			return _time;
 		}
 	}
 }

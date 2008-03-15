@@ -7,9 +7,7 @@ package reflexunit.framework.statuses {
 	 * 
 	 * @see reflexunit.framework.statuses.InProgress
 	 */
-	public class Untested implements IStatus {
-		
-		private var _methodModel:MethodModel;
+	public class Untested extends AbstractStatus {
 		
 		/*
 		 * Initialization
@@ -19,7 +17,7 @@ package reflexunit.framework.statuses {
 		 * Constructor.
 		 */
 		public function Untested( methodModelIn:MethodModel ) {
-			_methodModel = methodModelIn;
+			super( methodModelIn );
 		}
 		
 		/*
@@ -29,36 +27,8 @@ package reflexunit.framework.statuses {
 		/**
 		 * @inheritDoc
 		 */
-		public function get methodModel():MethodModel {
-			return _methodModel;
-		}
-		
-		/**
-		 * @inheritDoc
-		 */
-		public function get numAsserts():int {
-			return 0;
-		}
-		
-		/**
-		 * @inheritDoc
-		 */
-		public function get status():String {
+		override public function get status():String {
 			return 'new';
-		}
-		
-		/**
-		 * @inheritDoc
-		 */
-		public function get test():* {
-			return _methodModel.thisObject;
-		}
-		
-		/**
-		 * @inheritDoc
-		 */
-		public function get time():int {
-			return 0;
 		}
 	}
 }
