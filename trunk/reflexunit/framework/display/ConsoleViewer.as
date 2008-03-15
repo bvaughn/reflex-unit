@@ -58,6 +58,18 @@ package reflexunit.framework.display {
 		/**
 		 * @inheritDoc
 		 */
+		public function testCaseCompleted( description:Description ):void {
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function testCaseStarting( description:Description ):void {
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
 		public function testCompleted( methodModel:MethodModel, status:IStatus ):void {
 			trace( '+ completed: ' + methodModel.name + ' => ' + status.status );
 		}

@@ -135,6 +135,22 @@ package reflexunit.framework {
 			}
 		}
 		
+		private function alertTestCaseCompleted( description:Description ):void {
+			_runNotifier.testCaseCompleted( description );
+			
+			for each ( var resultViewer:IResultViewer in _resultViewers ) {
+				resultViewer.testCaseCompleted( description );
+			}
+		}
+		
+		private function alertTestCaseStarting( description:Description ):void {
+			_runNotifier.testCaseStarting( description );
+			
+			for each ( var resultViewer:IResultViewer in _resultViewers ) {
+				resultViewer.testCaseStarting( description );
+			}
+		}
+		
 		private function alertTestStarting( methodModel:MethodModel ):void {
 			_runNotifier.testStarting( methodModel );
 			
@@ -167,6 +183,9 @@ package reflexunit.framework {
 			if ( !_currentDescription ) {
 				if ( _recipe.descriptions.length > 0 ) {
 					_currentDescription = _recipe.descriptions.shift() as Description;
+					
+					alertTestCaseStarting( _currentDescription );
+					
 				} else {
 					alertAllTestsCompleted();
 					
@@ -176,6 +195,8 @@ package reflexunit.framework {
 			
 			// If the current Description contains no more MethodModel objects, then it's time to run the next Description.
 			if ( _currentDescription.methodModels.length == 0 ) {
+				alertTestCaseCompleted( _currentDescription );
+				
 				_currentDescription = null;
 				
 				return runNextSeriesOfTests();

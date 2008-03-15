@@ -2,6 +2,7 @@ package reflexunit.framework {
 	import flash.events.EventDispatcher;
 	
 	import reflexunit.framework.events.RunEvent;
+	import reflexunit.framework.models.Description;
 	import reflexunit.framework.statuses.IStatus;
 	import reflexunit.introspection.models.MethodModel;
 	
@@ -22,6 +23,26 @@ package reflexunit.framework {
 		 */
 		public function allTestsCompleted():void {
 			dispatchEvent( new RunEvent( RunEvent.ALL_TESTS_COMPLETED ) );
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function testCaseCompleted( description:Description ):void {
+			var event:RunEvent = new RunEvent( RunEvent.TEST_CASE_COMPLETED );
+			event.description = description;
+			
+			dispatchEvent( event );
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function testCaseStarting( description:Description ):void {
+			var event:RunEvent = new RunEvent( RunEvent.TEST_CASE_STARTING );
+			event.description = description;
+			
+			dispatchEvent( event );
 		}
 		
 		/**
