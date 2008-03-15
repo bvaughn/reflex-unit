@@ -32,6 +32,7 @@ package reflexunit.framework {
 		private var _recipe:Recipe;
 		private var _result:Result;
 		private var _runNotifier:RunNotifier;
+		private var _testingInProgress:Boolean;
 		
 		/*
 		 * Initialization
@@ -169,6 +170,9 @@ package reflexunit.framework {
 		}
 		
 		private function runNextSeriesOfTests():void {
+			if ( _testingInProgress ) {
+				return;
+			}
 			
 			// If we do not have a current Description this means: (a) we should get the next one or (b) tests are all done. 
 			if ( !_currentDescription ) {
@@ -187,6 +191,12 @@ package reflexunit.framework {
 				
 				return runNextSeriesOfTests();
 			}
+			
+			// TRICKY: If the last MethodModel is being run for its given Description and it contains only synchronous tests, it will trigger testCompleted().
+			// The testCompleted() method will check the remaining MethodModels, see that there are none, and re-trigger runNextSeriesOfTests().
+			// For this one case only we need to set a blocking condition to prevent the second, concurrent execution.
+			// Once the while loop has completed, it will check for the empty MethodModels and re-trigger runNextSeriesOfTests() anyway.
+			_testingInProgress = true;
 			
 			// Run tests until: (a) we run out of them for this Description or (b) we reach a blocking test
 			while ( _currentDescription.methodModels.length > 0 ) {
@@ -213,6 +223,8 @@ package reflexunit.framework {
 					alertTestCompleted( methodModel, wrapper.previousStatus );
 				}
 			}
+			
+			_testingInProgress = false;
 			
 			// If all tests in the current Description were synchronous then immediately run the next Description's tests.
 			if ( _currentMethodModels.length == 0 ) {
