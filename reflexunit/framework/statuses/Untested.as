@@ -53,5 +53,12 @@ package reflexunit.framework.statuses {
 		public function get test():* {
 			return _methodModel.thisObject;
 		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function get time():int {
+			return 0;
+		}
 	}
 }

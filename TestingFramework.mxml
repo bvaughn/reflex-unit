@@ -7,6 +7,8 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import reflexunit.framework.display.CruiseControlLogger;
+			import reflexunit.framework.Runner;
 			import reflexunit.async.tests.TestCallLaterUtil;
 			import reflexunit.framework.tests.TestMethodExecution;
 			import reflexunit.framework.models.Recipe;

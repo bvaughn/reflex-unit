@@ -7,6 +7,7 @@ package reflexunit.framework.display.flexviewer {
 	import mx.events.FlexEvent;
 	import mx.events.ListEvent;
 	
+	import reflexunit.framework.TestSuite;
 	import reflexunit.framework.display.IResultViewer;
 	import reflexunit.framework.display.flexviewer.embedded.Resources;
 	import reflexunit.framework.models.Description;
@@ -53,6 +54,18 @@ package reflexunit.framework.display.flexviewer {
 		 * @see reflexunit.framework.ITestWatcher#allTestsCompleted
 		 */
 		public function allTestsCompleted():void {
+		}
+		
+		/**
+		 * @see reflexunit.framework.ITestWatcher#testCaseCompleted
+		 */
+		public function testCaseCompleted( description:Description ):void {
+		}
+		
+		/**
+		 * @see reflexunit.framework.ITestWatcher#testCaseStarting
+		 */
+		public function testCaseStarting( description:Description ):void {
 		}
 		
 		/**

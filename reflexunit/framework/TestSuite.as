@@ -92,6 +92,8 @@ package reflexunit.framework {
 		 */
 		
 		private function initTests( testsAndTestSuites:Array ):void {
+			
+			// TODO: Don't collapse TestSuites until runtime; this way we can display/notify of them uniquely.
 			if ( testsAndTestSuites ) {
 				for ( var index:int = 0; index < testsAndTestSuites.length; index++ ) {
 					var testOrTestSuite:* = testsAndTestSuites[ index ];

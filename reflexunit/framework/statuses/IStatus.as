@@ -26,5 +26,10 @@ package reflexunit.framework.statuses {
 		 * Convenience method.
 		 */
 		function get test():*;
+		
+		/**
+		 * Total time (including asynchronous assertions) required to execute the associated test method.
+		 */
+		function get time():int;
 	}
 }

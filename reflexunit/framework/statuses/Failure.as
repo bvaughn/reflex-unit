@@ -18,6 +18,7 @@ package reflexunit.framework.statuses {
 		private var _error:Error;
 		private var _methodModel:MethodModel;
 		private var _numAsserts:int;
+		private var _time:int;
 		
 		/*
 		 * Initialization
@@ -26,7 +27,7 @@ package reflexunit.framework.statuses {
 		/**
 		 * Constructor.
 		 */
-		public function Failure( methodModelIn:MethodModel, errorIn:Error, numAssertsIn:int = 0 ) {
+		public function Failure( methodModelIn:MethodModel, errorIn:Error, numAssertsIn:int = 0, time:int = 0 ) {
 			_error = errorIn;
 			_methodModel = methodModelIn;
 			_numAsserts = numAssertsIn;
@@ -86,6 +87,13 @@ package reflexunit.framework.statuses {
 		 */
 		public function get test():* {
 			return _methodModel.thisObject;
+		}
+		
+		/**
+		 * @inheritDoc
+		 */
+		public function get time():int {
+			return _time;
 		}
 	}
 }
