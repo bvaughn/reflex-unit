@@ -7,6 +7,10 @@
  * Test all meta-data
  * Test parallel execution thoroughly
 
+== Improve Test Tree Structure ==
+ * Don't collapse {{{TestSuite}}} until runtime.
+ * Dispatch events when beginning or completing a {{{TestSuite}}}
+
 == Continuous Integration Output ==
 {{{
 <testsuites>
