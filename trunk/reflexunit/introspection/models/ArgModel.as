@@ -21,9 +21,9 @@ package reflexunit.introspection.models {
 		
 		/**
 		 * Expects XML in the following format:
-		 * <code>
-		 *   <arg key="attribute" value="value" />
-		 * </code>
+		 * <pre>
+		 *   &lt;arg key="attribute" value="value" /&gt;
+		 * </pre>
 		 *  
 		 * @see flash.utils.describeType
 		 */

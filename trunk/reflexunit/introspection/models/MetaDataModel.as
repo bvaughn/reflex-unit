@@ -28,11 +28,11 @@ package reflexunit.introspection.models {
 		
 		/**
 		 * Expects XML in the following format:
-		 * <code>
-		 *   <metadata name="MetaData">
-		 *     <arg key="attribute" value="value" />
-		 *   </metadata>
-		 * </code>
+		 * <pre>
+		 *   &lt;metadata name="MetaData">
+		 *     &lt;arg key="attribute" value="value" /&gt;
+		 *   &lt;/metadata>
+		 * </pre>
 		 *  
 		 * @see flash.utils.describeType
 		 */

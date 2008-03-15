@@ -41,15 +41,15 @@ package reflexunit.introspection.models {
 		
 		/**
 		 * Expects XML in the following format:
-		 * <code>
-		 *   <method name="expectsArguments" declaredBy="TestClass" returnType="Boolean">
-		 *     <metadata name="MetaData">
-		 *       <arg key="attribute" value="value"/>
-		 *     </metadata>
-		 *     <parameter index="1" type="String" optional="false"/>
-		 *     <parameter index="2" type="Boolean" optional="true"/>
-		 *   </method>
-		 * </code>
+		 * <pre>
+		 *   &lt;method name="expectsArguments" declaredBy="TestClass" returnType="Boolean"&gt;
+		 *     &lt;metadata name="MetaData"&gt;
+		 *       &lt;arg key="attribute" value="value" /&gt;
+		 *     &lt;/metadata&gt;
+		 *     &lt;parameter index="1" type="String" optional="false" /&gt;
+		 *     &lt;parameter index="2" type="Boolean" optional="true" /&gt;
+		 *   &lt;/method&gt;
+		 * </pre>
 		 *  
 		 * @see flash.utils.describeType
 		 */
