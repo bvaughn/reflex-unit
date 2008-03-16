@@ -162,7 +162,7 @@ Test Suite success: true
 
 = In Closing =
 
-I hope you have found this tutorial helpful. We've only scratched the surface of the types of testing that is possible, but you now have a foundation on which to build. For further information, I recommend the following sources:
+I hope you have found this tutorial helpful. We've only scratched the surface of the types of testing that is possible but you now have a foundation on which to build. For further information I recommend the following sources:
   * [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/index.html Reflex Unit documentation]
   * [http://code.google.com/p/reflex-unit/wiki/FAQs FAQs] and [http://code.google.com/p/reflex-unit/wiki/HOWTOList How-To] wiki pages
 
