@@ -94,7 +94,7 @@ We now have a usable test, but how do we run it?
 
 Reflex Unit provides several methods of running a suite of tests and viewing the results. For our purposes we'll use the graphical display, [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/reflexunit/framework/display/flexviewer/FlexViewer.html Flex Viewer].
 
-Invoking it is very simple. All it needs is a [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/reflexunit/framework/models/Recipe.html Recipe]. (A `Recipe` is simply a collection of tests that should be run.) We can pass `Flex Viewer` our test class as follows:
+Invoking it is easy. All it needs is a [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/reflexunit/framework/models/Recipe.html Recipe]. (A `Recipe` is simply a collection of tests that should be run.) We can pass `Flex Viewer` our newly created test as follows:
 
 {{{
 <?xml version="1.0" encoding="utf-8"?>
