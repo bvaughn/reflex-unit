@@ -16,7 +16,7 @@ Now we're ready to begin.
 
 Reflex Unit supports several ways of creating tests and defining a collection of test methods. For our example we'll demonstrate the simplest method (and probably most commonly used). Rather than write example code to test we'll further simplify by testing one of the built-in Flash classes, `Timer`.
 
-Create a new ActionScript class named "TimerTest" that extends the [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/reflexunit/framework/TestCase.html TestCase] class. For now, define the following empty methods:
+Create a new !ActionScript class named "!TimerTest" that extends the [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/reflexunit/framework/TestCase.html TestCase] class. For now, define the following empty methods:
 
 {{{
 override public function setupTest():void {
@@ -26,7 +26,7 @@ override public function tearDownTest():void {
 }
 }}}
 
-The `setupTest` and `tearDownTest` methods are not required. Overriding them however provides our test class with an easy mehcnanism to perform and pre-test and post-test operations. The Reflex Unit test runner will call these methods automatically, before/after each test method is executed.
+The `setupTest` and `tearDownTest` methods are not required. Overriding them however provides our test class with an easy mehcnanism to perform pre-test and post-test operations. The Reflex Unit test runner will call these methods automatically, before/after each test method is executed. For the purposes of our test, we'll not be needing either method but it helps it to know that they are available.
 
 Next let's create an empty test method. By default, Reflex Unit automatically executes a method as a test if it meets the following conditions:
   # The name begins with "test"
@@ -42,7 +42,7 @@ public function testTimerCompletes():void {
 
 Reflex unit supports both synchronous and asynchronous testing. Test results are verified by [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/reflexunit/framework/Assert.html assertions]. An assertion is a statement of an expected condition. If the expected condition is not met then a test is considered to have failed. (This is true unless the test method has been marked as an expected-failure. See the [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/reflexunit/framework/models/Description.html Description] documentation for more info.)
 
-For the purposes of our example test, we'll make a synchronous assertion as well as an asynchronous one. Let's add the following to our test class:
+For the purposes of our example test, we'll make a synchronous assertion as well as an asynchronous one. Let's go ahead and fill in our test class:
 
 {{{
 package {
