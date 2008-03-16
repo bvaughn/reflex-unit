@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Grid width="100%" height="100%"
          paddingTop="15" paddingBottom="15" paddingLeft="15" paddingRight="15"
+         backgroundColor="0xFFFFFF"
          initialize="onInitialize( event )"
          xmlns:flexviewer="reflexunit.framework.display.flexviewer.*"
          xmlns:mx="http://www.adobe.com/2006/mxml">
-	
-	<mx:Metadata>
-		[ExcludeClass]
-	</mx:Metadata>
 	
 	<mx:Style>
 		.progressBarError,
@@ -43,6 +40,12 @@
 			 * Getter / setter methods
 			 */
 			
+			/**
+			 * Manages visual state of <code>FlexViewer</code>.
+			 * Defines methods for interacting with test <code>Recipe</code>.
+			 * 
+			 * @see reflexunit.framework.display.flexviewer.FlexViewerController
+			 */
 			public function get controller():FlexViewerController {
 				if ( _controller == null ) {
 					_controller = new FlexViewerController( this );

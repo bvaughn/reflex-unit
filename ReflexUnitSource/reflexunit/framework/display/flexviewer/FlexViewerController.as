@@ -2,12 +2,12 @@ package reflexunit.framework.display.flexviewer {
 	import flash.events.MouseEvent;
 	import flash.utils.getQualifiedClassName;
 	
+	import mx.controls.ProgressBar;
 	import mx.controls.ProgressBarMode;
 	import mx.events.ListEvent;
 	
 	import reflexunit.framework.RunNotifier;
 	import reflexunit.framework.Runner;
-	import reflexunit.framework.display.ConsoleViewer;
 	import reflexunit.framework.display.flexviewer.embedded.Resources;
 	import reflexunit.framework.events.RunEvent;
 	import reflexunit.framework.models.Recipe;
@@ -16,9 +16,12 @@ package reflexunit.framework.display.flexviewer {
 	import reflexunit.framework.statuses.IStatus;
 	import reflexunit.framework.statuses.Success;
 	import reflexunit.framework.statuses.Untested;
-	import mx.controls.ProgressBar;
 	
-	[ExcludeClass]
+	/**
+	 * Manages the visual state of the <code>FlexViewer</code> viewer.
+	 * 
+	 * @see reflexunit.framework.display.flexviewer.FlexViewer
+	 */
 	public class FlexViewerController {
 		
 		private var _activeRecipe:Recipe;
