@@ -1,5 +1,6 @@
 #summary Beginner's guide to using the Reflex Unit framework
 #labels tutorial,quickstart,guide
+by [mailto:boynamedbri@gmail.com Brian Vaughn]
 
 = Setting Up =
 
