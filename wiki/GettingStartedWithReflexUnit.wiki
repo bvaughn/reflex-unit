@@ -122,3 +122,47 @@ Invoking it is easy. All it needs is a [http://reflex-unit.googlecode.com/svn/tr
 }}}
 
 That's it! Running the above `Application` will display a graphical interface for running our test and viewing its results. To add more tests, we simply pass additional classes to the [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/reflexunit/framework/TestSuite.html TestSuite] constructor.
+
+= Continuous Integration =
+
+Although a graphical test runner is useful for developers, often times production code is tested with a continuous integrate tool such as [http://cruisecontrol.sourceforge.net/ Cruise Control]. Reflex Unit provides a test runner for this very purpose: [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/reflexunit/framework/display/CruiseControlLogger.html Cruise Control Logger].)
+
+To run our above test using the Cruise Control Logger, we can start by creating a new !ActionScript class that extends Sprite. It should look like this:
+
+{{{
+package {
+
+	import flash.display.Sprite;
+	
+	import reflexunit.framework.Runner;
+	import reflexunit.framework.TestSuite;
+	import reflexunit.framework.display.CruiseControlLogger;
+	
+	public class CruiseControlDemo extends Sprite {
+		public function CruiseControlDemo() {
+			Runner.create( new TestSuite( [ TimerTest ] ), [ new CruiseControlLogger() ] );
+		}
+	}
+}
+}}}
+
+Viewing our test case in this runner will output the following to our Flex console:
+
+{{{
+-----------------TESTRUNNEROUTPUTBEGINS----------------
+Test Suite success: true
+<testsuites time="516">
+  <testsuite name="TimerTest">
+    <testcase time="516" name="testTimerCompletes"/>
+  </testsuite>
+</testsuites>
+-----------------TESTRUNNEROUTPUTBEGINS----------------
+}}}
+
+= In Closing =
+
+I hope you have found this tutorial helpful. We've only scratched the surface of the types of testing that is possible, but you now have a foundation on which to build. For further information, I recommend the following sources:
+  * [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/index.html Reflex Unit documentation]
+  * [http://code.google.com/p/reflex-unit/wiki/FAQs FAQs] and [http://code.google.com/p/reflex-unit/wiki/HOWTOList How-To] wiki pages
+
+If the links above don't lead you to an answer, feel free to contact one of our project owners (listed on the right side of the [http://code.google.com/p/reflex-unit/ home page]).
