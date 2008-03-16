@@ -10,7 +10,7 @@ To association the SWC with your project, do the following:
   # Go to the "Flex Build Path" tab and the click on the "Library Path" sub-tab
   # Choose "Add SWC" and browse to where you saved the Reflex Unit SWC
 
-Now we're ready to being.
+Now we're ready to begin.
 
 = Writing Your First Test =
 
