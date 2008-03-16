@@ -1,5 +1,5 @@
 #summary Beginner's guide to using the Reflex Unit framework
-#labels Featured,quickstart,guide
+#labels tutorial,quickstart,guide
 
 = Setting Up =
 
