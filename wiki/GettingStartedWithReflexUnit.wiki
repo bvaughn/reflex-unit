@@ -16,7 +16,7 @@ Now we're ready to being.
 
 Reflex Unit supports several ways of creating tests and defining a collection of test methods. For our example we'll demonstrate the simplest method (and probably most commonly used). Rather than write example code to test we'll further simplify by testing one of the built-in Flash classes, `Timer`.
 
-Create a new ActionScript class named "TimerTest" that extends the [http://reflex-unit.googlecode.com/svn/trunk/docs/reflexunit/framework/TestCase.html TestCase] class. For now, define the following empty methods:
+Create a new ActionScript class named "TimerTest" that extends the [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/reflexunit/framework/TestCase.html TestCase] class. For now, define the following empty methods:
 
 {{{
 override public function setupTest():void {
@@ -40,7 +40,7 @@ public function testTimerCompletes():void {
 }
 }}}
 
-Reflex unit supports both synchronous and asynchronous testing. Test results are verified by [http://reflex-unit.googlecode.com/svn/trunk/docs/reflexunit/framework/Assert.html assertions]. An assertion is a statement of an expected condition. If the expected condition is not met then a test is considered to have failed. (This is true unless the test method has been marked as an expected-failure. See the [http://reflex-unit.googlecode.com/svn/trunk/docs/reflexunit/framework/models/Description.html Description] documentation for more info.)
+Reflex unit supports both synchronous and asynchronous testing. Test results are verified by [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/reflexunit/framework/Assert.html assertions]. An assertion is a statement of an expected condition. If the expected condition is not met then a test is considered to have failed. (This is true unless the test method has been marked as an expected-failure. See the [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/reflexunit/framework/models/Description.html Description] documentation for more info.)
 
 For the purposes of our example test, we'll make a synchronous assertion as well as an asynchronous one. Let's add the following to our test class:
 
@@ -82,7 +82,7 @@ Our test now asserts 2 things:
   # Starting our `Timer` sets its "running" state to true
   # Our Timer fires a completion event within the alloted time
 
-Let's take a closer look at this second assertion. To test asynchronous behavior our test method uses the [http://reflex-unit.googlecode.com/svn/trunk/docs/reflexunit/framework/TestCase.html#addAsync() addAsync] method. This method _must_ be used in the context of a call to `addEventListener`. It takes a few parameters, but the two most significant are:
+Let's take a closer look at this second assertion. To test asynchronous behavior our test method uses the [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/reflexunit/framework/TestCase.html#addAsync() addAsync] method. This method _must_ be used in the context of a call to `addEventListener`. It takes a few parameters, but the two most significant are:
   * The event listener method defined by your test class
   * A timeout, or maximum allowable time (in milliseconds) before test should be considered a failure
 
@@ -92,9 +92,9 @@ We now have a usable test, but how do we run it?
 
 = Choosing a Test Runner =
 
-Reflex Unit provides several methods of running a suite of tests and viewing the results. For our purposes we'll use the graphical display, [http://reflex-unit.googlecode.com/svn/trunk/docs/reflexunit/framework/display/flexviewer/FlexViewer.html Flex Viewer].
+Reflex Unit provides several methods of running a suite of tests and viewing the results. For our purposes we'll use the graphical display, [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/reflexunit/framework/display/flexviewer/FlexViewer.html Flex Viewer].
 
-Invoking it is very simple. All it needs is a [http://reflex-unit.googlecode.com/svn/trunk/docs/reflexunit/framework/models/Recipe.html Recipe]. (A `Recipe` is simply a collection of tests that should be run.) We can pass `Flex Viewer` our test class as follows:
+Invoking it is very simple. All it needs is a [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/reflexunit/framework/models/Recipe.html Recipe]. (A `Recipe` is simply a collection of tests that should be run.) We can pass `Flex Viewer` our test class as follows:
 
 {{{
 <?xml version="1.0" encoding="utf-8"?>
@@ -121,4 +121,4 @@ Invoking it is very simple. All it needs is a [http://reflex-unit.googlecode.com
 </mx:Application>
 }}}
 
-That's it! Running the above `Application` will display a graphical interface for running our test and viewing its results. To add more tests, we simply pass additional classes to the [http://reflex-unit.googlecode.com/svn/trunk/docs/reflexunit/framework/TestSuite.html TestSuite] constructor.
+That's it! Running the above `Application` will display a graphical interface for running our test and viewing its results. To add more tests, we simply pass additional classes to the [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/reflexunit/framework/TestSuite.html TestSuite] constructor.
