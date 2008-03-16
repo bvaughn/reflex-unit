@@ -80,13 +80,13 @@ package {
 
 Our test now asserts 2 things:
   # Starting our `Timer` sets its "running" state to true
-  # Our Timer fires a completion event within the alloted time
+  # Our Timer fires a completion event within the allotted time
 
 Let's take a closer look at this second assertion. To test asynchronous behavior our test method uses the [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/reflexunit/framework/TestCase.html#addAsync() addAsync] method. This method _must_ be used in the context of a call to `addEventListener`. It takes a few parameters, but the two most significant are:
   * The event listener method defined by your test class
-  * A timeout, or maximum allowable time (in milliseconds) before test should be considered a failure
+  * A timeout, or maximum allowable time (in milliseconds) before the test should be considered a failure
 
-In our above test then, we create a `Timer` that should complete in 500 milliseconds. We then tell `addAsync` that it should allow up to 1000 milliseconds before considering the timer to have failed.
+In our above test we've create a `Timer` that should complete in 500 milliseconds. We then tell `addAsync` that it should allow up to 1000 milliseconds before considering the timer to have failed.
 
 We now have a usable test, but how do we run it?
 
