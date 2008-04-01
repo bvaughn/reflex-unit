@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application width="100%" height="100%" layout="absolute"
+                backgroundColor="0xFFFFFF" backgroundGradientColors="[ 0xFFFFFF, 0xFFFFFF ]"
+                initialize="onInitialize( event )"
+                xmlns:local="*"
+                xmlns:mx="http://www.adobe.com/2006/mxml">
+	
+	<mx:Metadata>
+		[ExcludeClass]
+	</mx:Metadata>
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			import reflexunit.framework.models.Recipe;
+			import reflexunit.framework.TestSuite;
+			
+			import tests.Test1;
+			import tests.Test2;
+			import tests.Test3;
+			import tests.Test4;
+			import tests.Test5;
+			
+			private function onInitialize( event:FlexEvent ):void {
+				viewer.controller.recipe = new Recipe(
+					new TestSuite( [ Test1, Test2, Test3, Test4, Test5 ] ) );
+			}
+		]]>
+	</mx:Script>
+	
+	<local:CustomResultViewer id="viewer" width="100%" height="100%" />
+	
+</mx:Application>
