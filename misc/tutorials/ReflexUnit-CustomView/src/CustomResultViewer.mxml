@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Grid width="100%" height="100%"
          initialize="onInitialize( event )"
-         xmlns:mx="http://www.adobe.com/2006/mxml">
+         xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:local="*">
 	
 	<mx:Script>
 		<![CDATA[
@@ -15,12 +15,6 @@
 			 */
 			[Bindable]
 			public var dataProvider:ArrayCollection = new ArrayCollection();
-			
-			[Bindable]
-			public var pieChartDataProvider:ArrayCollection = new ArrayCollection();
-			
-			[Bindable]
-			public var timeChartDataProvider:ArrayCollection = new ArrayCollection();
 			
 			private var _controller:CustomResultViewerController;
 			
@@ -40,11 +34,6 @@
 			
 			private function onInitialize( event:FlexEvent ):void {
 				controller.initialize();
-				
-				areaChart.filters =
-					columnChart.filters =
-						lineChart.filters =
-							pieChart.filters = [];
 			}
 			
 			public function get controller():CustomResultViewerController {
@@ -54,43 +43,27 @@
 				
 				return _controller;
 			}
-			
-			private function getHorizontalAxis( categoryValue:Object, previousCategoryValue:Object, axis:CategoryAxis, categoryItem:Object ):String {
-				var array:Array = categoryValue.toString().match( /\:(\w+)$/ );
-				
-				return array ? array[1] : categoryValue.toString();
-			}
 		]]>
 	</mx:Script>
 	
 	<mx:GridRow width="100%" height="50%">
 		
 		<mx:GridItem width="50%" height="100%" verticalAlign="middle">
-			
-			<mx:ColumnChart id="columnChart" height="100%" width="100%"
-			                dataProvider="{ dataProvider }">
-				
-				<mx:horizontalAxis>
-					<mx:CategoryAxis dataProvider="{ dataProvider }" categoryField="testCaseName"
-					                 labelFunction="{ getHorizontalAxis }" />
-				</mx:horizontalAxis>
-				
-				<mx:series>
-					<mx:ColumnSeries xField="testCaseName" yField="successCount" displayName="Successes"
-					                 fill="{ solidColorSuccess }" stroke="{ strokeSuccess }" />
-					<mx:ColumnSeries xField="testCaseName" yField="failureCount" displayName="Failures"
-					                 fill="{ solidColorFailure }" stroke="{ strokeFailure }" />
-					<mx:ColumnSeries xField="testCaseName" yField="errorCount" displayName="Errors"
-					                 fill="{ solidColorError }" stroke="{ strokeError }" />
-				</mx:series>
-			</mx:ColumnChart>
-			
-			<mx:Legend dataProvider="{ columnChart }" />
-			
+			<local:OverallTestStatuses id="overallTestStatuses" width="100%" height="100%" />
 		</mx:GridItem>
 		
 		<mx:GridItem width="50%" height="100%" verticalAlign="middle">
-			
+			<local:IndividualTestStatuses id="individualTestStatuses" width="100%" height="100%" />
+		</mx:GridItem>
+		
+	</mx:GridRow>
+	
+	<mx:GridRow width="100%" height="50%">
+		<mx:GridItem width="50%" height="100%" verticalAlign="middle">
+			<local:TestsAndAssertionsOverTime id="testsAndAssertionsOverTime" width="100%" height="100%" />
+		</mx:GridItem>
+		<mx:GridItem width="50%" height="100%" verticalAlign="middle">
+<!--
 			<mx:AreaChart id="areaChart" height="100%" width="100%" type="stacked"
 			              dataProvider="{ dataProvider }">
 				
@@ -110,51 +83,8 @@
 			</mx:AreaChart>
 			
 			<mx:Legend dataProvider="{ areaChart }" />
-			
+-->
 		</mx:GridItem>
-		
-	</mx:GridRow>
-	
-	<mx:GridRow width="100%" height="50%">
-		
-		<mx:GridItem width="50%" height="100%" verticalAlign="middle">
-			
-			<mx:AreaChart id="lineChart" height="100%" width="100%"
-			              dataProvider="{ timeChartDataProvider }">
-				
-				<mx:horizontalAxis>
-					<mx:CategoryAxis dataProvider="{ timeChartDataProvider }" categoryField="time" />
-				</mx:horizontalAxis>
-				
-				<mx:series>
-					<mx:AreaSeries yField="testsRemaining" displayName="Remaining"
-					               areaFill="{ solidColorError }" areaStroke="{ strokeError }" />
-					<mx:AreaSeries yField="testsRun" displayName="Run"
-					               areaFill="{ solidColorSuccess }" areaStroke="{ strokeSuccess }" />
-				</mx:series>
-				
-			</mx:AreaChart>
-			
-			<mx:Legend dataProvider="{ lineChart }" />
-			
-		</mx:GridItem>
-		
-		<mx:GridItem width="50%" height="100%" verticalAlign="middle">
-			
-			<mx:PieChart id="pieChart" width="100%" height="100%"
-			             dataProvider="{ pieChartDataProvider }">
-				
-				<mx:series>
-					<mx:PieSeries nameField="statusName" field="count"
-					              fills="{ [ solidColorError, solidColorFailure, solidColorSuccess ] }" />
-				</mx:series>
-				
-			</mx:PieChart>
-			
-			<mx:Legend dataProvider="{ pieChart }"/>
-			
-		</mx:GridItem>
-		
 	</mx:GridRow>
 	
 </mx:Grid>

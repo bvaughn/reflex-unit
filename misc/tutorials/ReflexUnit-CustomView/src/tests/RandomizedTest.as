@@ -59,6 +59,12 @@ package tests {
 				throw new Error( 'This is an expected error' );
 			}
 			
+			var maxIndex:int = Math.round( Math.random() * 6 );
+			
+			for ( var index:int = 0; index <= maxIndex; index++ ) {
+				assertTrue( true );
+			}
+			
 			assertFalse( _timer.running, 'Timer should not be running' );
 		}
 	}

@@ -68,20 +68,20 @@ package {
 			
 			_result = new Result();
 			
-			_view.dataProvider.removeAll();
+			_view.individualTestStatuses.dataProvider.removeAll();
 			
 			for each ( var description:Description in _recipe.descriptions ) {
-				_view.dataProvider.addItem(
-					new ChartData( description.introspectionUtil.classModel ) );				
+				_view.individualTestStatuses.dataProvider.addItem(
+					new ChartData( description.introspectionUtil.classModel ) );		
 			}
 			
 			// These display names must match IStatus "status" fields. 
-			_view.pieChartDataProvider.removeAll();
-			_view.pieChartDataProvider.addItem( new PieChartData( 'error' ) );
-			_view.pieChartDataProvider.addItem( new PieChartData( 'failure' ) );
-			_view.pieChartDataProvider.addItem( new PieChartData( 'success' ) );
+			_view.overallTestStatuses.dataProvider.removeAll();
+			_view.overallTestStatuses.dataProvider.addItem( new OverallTestStatusesData( 'error' ) );
+			_view.overallTestStatuses.dataProvider.addItem( new OverallTestStatusesData( 'failure' ) );
+			_view.overallTestStatuses.dataProvider.addItem( new OverallTestStatusesData( 'success' ) );
 			
-			_view.timeChartDataProvider.removeAll();
+			_view.testsAndAssertionsOverTime.dataProvider.removeAll();
 			
 			// TODO: Should the Recipe be cloned?
 			Runner.create( _recipe.clone(), [ new ConsoleViewer() ], _runNotifier, _result );
@@ -98,32 +98,32 @@ package {
 		}
 		
 		public function onTestCompleted( event:RunEvent ):void {
-			for each ( var chartData:ChartData in _view.dataProvider.source ) {
+			for each ( var chartData:ChartData in _view.individualTestStatuses.dataProvider.source ) {
 				if ( chartData.testCaseName == getQualifiedClassName( event.methodModel.thisObject ) ) {
 					chartData.addStatus( event.status );
 				}
 			}
 			
-			for each ( var pieChartData:PieChartData in _view.pieChartDataProvider.source ) {
+			for each ( var pieChartData:OverallTestStatusesData in _view.overallTestStatuses.dataProvider.source ) {
 				if ( pieChartData.statusName == event.status.status ) {
 					pieChartData.count++;
 				}
 			}
 			
-			_view.dataProvider.refresh();
-			_view.pieChartDataProvider.refresh();
+			_view.individualTestStatuses.dataProvider.refresh();
+			_view.overallTestStatuses.dataProvider.refresh();
 		}
 		
 		public function onTestStarting( event:RunEvent ):void {
 		}
 		
 		private function onTimer( event:TimerEvent ):void {
-			_view.timeChartDataProvider.addItem(
-				new TimeChartData( ( _timer.currentCount * _timer.delay ) / 1000,
-				                   _result.testsRun,
-				                   _recipe.testCount - _result.testsRun ) );
+			var timeInSeconds:Number = ( _timer.currentCount * _timer.delay ) / 1000;
 			
-			_view.timeChartDataProvider.refresh();
+			_view.testsAndAssertionsOverTime.dataProvider.addItem(
+				new TestsAndAssertionsOverTimeData( timeInSeconds, _result.testsRun, _result.numAsserts ) );
+			
+			_view.testsAndAssertionsOverTime.dataProvider.refresh();
 		}
 	}
 }

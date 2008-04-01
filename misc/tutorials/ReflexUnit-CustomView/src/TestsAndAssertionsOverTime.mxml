@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Grid width="100%" height="100%"
+         xmlns:mx="http://www.adobe.com/2006/mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.graphics.SolidColor;
+			import mx.graphics.Stroke;
+			
+			[Bindable]	// Contains: TestsAndAssertionsOverTimeData
+			public var dataProvider:ArrayCollection = new ArrayCollection();
+			
+			private var solidColorAssertions:SolidColor = new SolidColor( 0xAA0000, 1 );
+			private var solidColorTests:SolidColor = new SolidColor( 0x0000AA, 1 );
+		]]>
+	</mx:Script>
+	
+	<mx:GridRow width="100%">
+		<mx:GridItem width="50%" height="100%" horizontalAlign="center" verticalAlign="middle">
+			<mx:Label text="Tests and Assertions Over Time" />
+		</mx:GridItem>
+		<mx:GridItem width="50%" height="100%" horizontalAlign="center" verticalAlign="middle">
+			<mx:Legend dataProvider="{ areaChart }" />
+		</mx:GridItem>
+	</mx:GridRow>
+	
+	<mx:GridRow width="100%">
+		<mx:GridItem width="100%" height="100%" colSpan="2">
+			<mx:AreaChart id="areaChart" height="100%" width="100%"
+			              dataProvider="{ dataProvider }">
+				
+				<mx:horizontalAxis>
+					<mx:CategoryAxis dataProvider="{ dataProvider }" categoryField="time" />
+				</mx:horizontalAxis>
+				
+				<mx:series>
+					<mx:AreaSeries yField="assertionCount" displayName="Assertions"
+					               areaFill="{ solidColorTests }" />
+					<mx:AreaSeries yField="testCount" displayName="Tests"
+					               areaFill="{ solidColorAssertions }" />
+				</mx:series>
+				
+			</mx:AreaChart>
+		</mx:GridItem>
+	</mx:GridRow>
+	
+</mx:Grid>

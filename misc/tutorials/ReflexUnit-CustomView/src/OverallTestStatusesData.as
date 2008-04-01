@@ -1,12 +1,12 @@
 package {
 	import reflexunit.framework.statuses.IStatus;
 	
-	public class PieChartData {
+	public class OverallTestStatusesData {
 		
 		private var _count:int;
 		private var _statusName:String;
 		
-		public function PieChartData( statusName:String ) {
+		public function OverallTestStatusesData( statusName:String ) {
 			_statusName = statusName;
 			
 			_count = 0;
