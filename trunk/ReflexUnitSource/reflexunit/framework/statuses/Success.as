@@ -26,7 +26,7 @@ package reflexunit.framework.statuses {
 		 * @inheritDoc
 		 */
 		override public function get status():String {
-			return 'sucess';
+			return 'success';
 		}
 	}
 }
