@@ -11,7 +11,6 @@
 <sourceAttachmentPath/>
 </compiler>
 <applications>
-<application path="TEST.mxml"/>
 <application path="main.mxml"/>
 </applications>
 <modules/>

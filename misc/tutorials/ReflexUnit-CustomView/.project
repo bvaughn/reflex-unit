@@ -3,6 +3,7 @@
 	<name>ReflexUnit-CustomView</name>
 	<comment></comment>
 	<projects>
+		<project>ReflexUnitSource-trunk</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -1,15 +1,17 @@
 package {
+	import com.adobe.flex.extras.controls.springgraph.Item;
+	
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	import flash.utils.getQualifiedClassName;
 	
 	import reflexunit.framework.RunNotifier;
 	import reflexunit.framework.Runner;
-	import reflexunit.framework.display.ConsoleViewer;
 	import reflexunit.framework.events.RunEvent;
 	import reflexunit.framework.models.Description;
 	import reflexunit.framework.models.Recipe;
 	import reflexunit.framework.models.Result;
+	import reflexunit.introspection.models.MethodModel;
 	
 	/**
 	 * Manages the visual state of the <code>FlexViewer</code> viewer.
@@ -83,8 +85,10 @@ package {
 			
 			_view.testsAndAssertionsOverTime.dataProvider.removeAll();
 			
+			_view.testCasesAndContainedTests.dataProvider.empty();
+			
 			// TODO: Should the Recipe be cloned?
-			Runner.create( _recipe.clone(), [ new ConsoleViewer() ], _runNotifier, _result );
+			Runner.create( _recipe.clone(), [ /*new ConsoleViewer()*/ ], _runNotifier, _result );
 			
 			_timer.start();
 		}
@@ -115,6 +119,35 @@ package {
 		}
 		
 		public function onTestStarting( event:RunEvent ):void {
+			var matchingTestCaseItem:Item;
+			var lastTestCaseItem:Item;
+			
+			for each ( var item:Item in _view.testCasesAndContainedTests.dataProvider.nodes ) {
+				if ( item.data is MethodModel ) {
+					// For now, do nothing with this type of data.
+				} else if ( item.data == event.methodModel.thisObject ) {
+					matchingTestCaseItem = item;
+				} else {
+					lastTestCaseItem = item;
+				}
+			}
+			
+			if ( !matchingTestCaseItem ) {
+				matchingTestCaseItem = new Item( getQualifiedClassName( event.methodModel.thisObject ) );
+				matchingTestCaseItem.data = event.methodModel.thisObject;
+				
+				_view.testCasesAndContainedTests.dataProvider.add( matchingTestCaseItem );
+				
+				if ( lastTestCaseItem ) {
+					_view.testCasesAndContainedTests.dataProvider.link( lastTestCaseItem, matchingTestCaseItem );
+				}
+			}
+			
+			var methodModelItem:Item = new Item( getQualifiedClassName( event.methodModel.thisObject ) + '.' + event.methodModel.name );
+			methodModelItem.data = event.methodModel;
+			
+			_view.testCasesAndContainedTests.dataProvider.add( methodModelItem );
+			_view.testCasesAndContainedTests.dataProvider.link( matchingTestCaseItem, methodModelItem );
 		}
 		
 		private function onTimer( event:TimerEvent ):void {

@@ -1,38 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Grid width="100%" height="100%"
-         initialize="onInitialize( event )"
+         initialize="onInitialize()"
          xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:local="*">
 	
 	<mx:Script>
 		<![CDATA[
-			import mx.collections.ArrayCollection;
-			import mx.events.FlexEvent;
-			import mx.graphics.SolidColor;
-			import mx.graphics.Stroke;
-			
-			/**
-			 * Contains <code>ChartData</code> objects.
-			 */
-			[Bindable]
-			public var dataProvider:ArrayCollection = new ArrayCollection();
-			
 			private var _controller:CustomResultViewerController;
 			
-			[Bindable]
-			private var solidColorError:SolidColor = new SolidColor( 0xBB0000, .75 );
-			[Bindable]
-			private var solidColorFailure:SolidColor = new SolidColor( 0xEEEE00, .75 );
-			[Bindable]
-			private var solidColorSuccess:SolidColor = new SolidColor( 0x00BB00, .75 );
-			
-			[Bindable]
-			private var strokeError:Stroke = new Stroke( 0xBB0000, 2 );
-			[Bindable]
-			private var strokeFailure:Stroke = new Stroke( 0xEEEE00, 2 );
-			[Bindable]
-			private var strokeSuccess:Stroke = new Stroke( 0x00BB00, 2 );
-			
-			private function onInitialize( event:FlexEvent ):void {
+			private function onInitialize():void {
 				controller.initialize();
 			}
 			
@@ -63,27 +38,7 @@
 			<local:TestsAndAssertionsOverTime id="testsAndAssertionsOverTime" width="100%" height="100%" />
 		</mx:GridItem>
 		<mx:GridItem width="50%" height="100%" verticalAlign="middle">
-<!--
-			<mx:AreaChart id="areaChart" height="100%" width="100%" type="stacked"
-			              dataProvider="{ dataProvider }">
-				
-				<mx:horizontalAxis>
-					<mx:CategoryAxis dataProvider="{ dataProvider }" categoryField="testCaseName"
-					                 labelFunction="{ getHorizontalAxis }" />
-				</mx:horizontalAxis>
-				
-				<mx:series>
-					<mx:AreaSeries yField="successCount" displayName="Successes"
-					               areaFill="{ solidColorSuccess }" areaStroke="{ strokeSuccess }" />
-					<mx:AreaSeries yField="failureCount" displayName="Failures"
-					               areaFill="{ solidColorFailure }" areaStroke="{ strokeFailure }" />
-					<mx:AreaSeries yField="errorCount" displayName="Errors"
-					               areaFill="{ solidColorError }" areaStroke="{ strokeError }" />
-				</mx:series>
-			</mx:AreaChart>
-			
-			<mx:Legend dataProvider="{ areaChart }" />
--->
+			<local:TestCasesAndContainedTests id="testCasesAndContainedTests" width="100%" height="100%" />
 		</mx:GridItem>
 	</mx:GridRow>
 	

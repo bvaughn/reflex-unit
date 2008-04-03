@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Label fontSize="8"
+          xmlns:mx="http://www.adobe.com/2006/mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.adobe.flex.extras.controls.springgraph.Item;
+			
+			import flash.utils.getQualifiedClassName;
+			
+			import reflexunit.introspection.models.MethodModel;
+			
+			override public function set data( value:Object ):void {
+				super.data = value;
+				
+				var item:Item = value as Item;
+				
+				if ( item.data is MethodModel ) {
+					var methodModel:MethodModel = item.data as MethodModel;
+					
+					text = methodModel.name;
+					setStyle( 'fontWeight', 'normal' );
+					
+				} else {
+					text = getQualifiedClassName( item.data );
+					setStyle( 'fontWeight', 'bold' );
+				}
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:filters>
+		<mx:GlowFilter alpha=".75" strength="10" blurX="5" blurY="5" color="0xFFFFFF" />
+	</mx:filters>
+	
+</mx:Label>
