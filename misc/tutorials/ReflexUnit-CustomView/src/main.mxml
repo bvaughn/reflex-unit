@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application width="1024" height="768" layout="absolute"
+<mx:Application width="100%" height="100%" layout="absolute"
                 backgroundColor="0xFFFFFF" backgroundGradientColors="[ 0xFFFFFF, 0xFFFFFF ]"
                 initialize="onInitialize( event )"
                 xmlns:local="*"

@@ -21,23 +21,38 @@
 		]]>
 	</mx:Script>
 	
+	<mx:Style>
+		.header {
+			fontSize: 14px;
+			fontWeight: bold;
+		}
+		
+		.primaryGridItem {
+			verticalAlign: middle;
+			
+			borderColor: #333;
+			borderStyle: solid;
+			borderThickness: 1;
+		}
+	</mx:Style>
+	
 	<mx:GridRow width="100%" height="50%">
 		
-		<mx:GridItem width="50%" height="100%" verticalAlign="middle">
+		<mx:GridItem styleName="primaryGridItem" width="50%" height="100%">
 			<local:OverallTestStatuses id="overallTestStatuses" width="100%" height="100%" />
 		</mx:GridItem>
 		
-		<mx:GridItem width="50%" height="100%" verticalAlign="middle">
+		<mx:GridItem styleName="primaryGridItem" width="50%" height="100%">
 			<local:IndividualTestStatuses id="individualTestStatuses" width="100%" height="100%" />
 		</mx:GridItem>
 		
 	</mx:GridRow>
 	
 	<mx:GridRow width="100%" height="50%">
-		<mx:GridItem width="50%" height="100%" verticalAlign="middle">
+		<mx:GridItem styleName="primaryGridItem" width="50%" height="100%">
 			<local:TestsAndAssertionsOverTime id="testsAndAssertionsOverTime" width="100%" height="100%" />
 		</mx:GridItem>
-		<mx:GridItem width="50%" height="100%" verticalAlign="middle">
+		<mx:GridItem styleName="primaryGridItem" width="50%" height="100%">
 			<local:TestCasesAndContainedTests id="testCasesAndContainedTests" width="100%" height="100%" />
 		</mx:GridItem>
 	</mx:GridRow>
