@@ -1,0 +1,321 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../../../style.css" type="text/css" media="screen">
+<link rel="stylesheet" href="../../../print.css" type="text/css" media="print">
+<meta content="Description,reflexunit.framework.models.Description,allowParallelAsynchronousTests,introspectionUtil,methodModels,testCount,testName,clone,isTestableMethod" name="keywords">
+<title>reflexunit.framework.models.Description</title>
+</head>
+<body>
+<script type="text/javascript" language="javascript" src="../../../asdoc.js"></script><script type="text/javascript" language="javascript" src="../../../cookies.js"></script><script type="text/javascript" language="javascript">
+<!--
+				asdocTitle = 'Description - API Documentation';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<table style="display:none" id="titleTable" cellspacing="0" cellpadding="0" class="titleTable">
+<tr>
+<td align="left" class="titleTableTitle">API Documentation</td><td align="right" class="titleTableTopNav"><a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../package-summary.html">All&nbsp;Packages</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../all-classes.html')" href="../../../class-summary.html">All&nbsp;Classes</a>&nbsp;|&nbsp;<a onclick="loadClassListFrame('../../../index-list.html')" href="../../../all-index-A.html">Index</a>&nbsp;|&nbsp;<a href="../../../index.html?reflexunit/framework/models/Description.html&amp;reflexunit/framework/models/class-list.html" id="framesLink1">Frames</a><a onclick="parent.location=document.location" href="" style="display:none" id="noFramesLink1">No&nbsp;Frames</a></td><td rowspan="3" align="right" class="titleTableLogo"><img alt="Adobe Logo" title="Adobe Logo" class="logoImage" src="../../../images/logo.jpg"></td>
+</tr>
+<tr class="titleTableRow2">
+<td align="left" id="subTitle" class="titleTableSubTitle">Class&nbsp;Description</td><td align="right" id="subNav" class="titleTableSubNav"><a href="#propertySummary">Properties</a>&nbsp;| <a href="#methodSummary">Methods</a></td>
+</tr>
+<tr class="titleTableRow3">
+<td colspan="2">&nbsp;</td>
+</tr>
+</table>
+<script type="text/javascript" language="javascript">
+<!--
+if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("Class Description"); titleBar_setSubNav(false,true,false,false,false,false,true,false,false,false,false,false,false,false);}
+--></script>
+<div class="MainContent">
+<table cellspacing="0" cellpadding="0" class="classHeaderTable">
+<tr>
+<td class="classHeaderTableLabel">Package</td><td><a onclick="javascript:loadClassListFrame('class-list.html')" href="package-detail.html">reflexunit.framework.models</a></td>
+</tr>
+<tr>
+<td class="classHeaderTableLabel">Class</td><td class="classSignature">public class Description</td>
+</tr>
+</table>
+<p></p>
+  Describes a single class and the testable methods it defines.
+  A <code>Description</code> may only be run (ie. tested) once.
+  Because of this, a <code>Description</code> should in most cases be cloned before being passed to a <code>Runner</code>.
+  
+  <p>A <code>Description</code> analyzes the provided class to determine which methods are considered testable (see below).
+  Each testable method is bundled into a <code>MethodModel</code> for later use.
+  There are several possible ways for a method to be determined testable:</p>
+  
+  <p>The first way is for the provided test class to define a static accessor named <code>testMethodNames</code>.
+  Such a method should return an <code>Array</code> of function names (ie. Strings) defining the complete set of all test methods.</p>
+  
+  <p>If such an accessor is not defined, the provided test will be analyzed using the <code>IntrospectionUtil</code>.
+  In this case all methods meeting one of the following conditions will be considered testable:
+  <ul>
+    <li>Method name begins with "test", accepts no parameters, and has a return type of <code>void</code></li>
+    <li>Method is marked with the <code>metadata</code> tag "Test"</li>
+  </ul></p>
+  
+  <p>Additional metadata support is also available for the following:
+  <ul>
+    <li><code>allowParallelAsynchronousTests</code>:
+        All asynchronous test methods in this class will execute in parallel.
+        This tag must be defined at the class-level.
+        If not specified all tests will be executed serially.</li>
+    <li><code>shouldFail</code>:
+        The associated test method is expected to fail, thus a failure will be considered a success.
+        By default this value is false.</li>
+  </p>
+  
+  <p></p>
+<p>
+<span class="classHeaderTableLabel">See also</span>
+</p>
+<div class="seeAlso">
+<a href="../../introspection/models/MethodModel.html" target="">reflexunit.introspection.models.MethodModel</a>
+<br>
+<a href="../../introspection/util/IntrospectionUtil.html" target="">reflexunit.introspection.util.IntrospectionUtil</a>
+</div>
+<br>
+<hr>
+</div>
+<a name="propertySummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Properties</div>
+<table id="summaryTableProperty" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Property</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#allowParallelAsynchronousTests">allowParallelAsynchronousTests</a> : Boolean<div class="summaryTableDescription">[read-only]
+   Current test has elected to allow parallel execution of its asynchronous test methods.</div>
+</td><td class="summaryTableOwnerCol">Description</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#introspectionUtil">introspectionUtil</a> : <a href="../../introspection/util/IntrospectionUtil.html">IntrospectionUtil</a>
+<div class="summaryTableDescription">[read-only]
+   <code>IntrospectionUtil</code> object used to describe the contained test.</div>
+</td><td class="summaryTableOwnerCol">Description</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#methodModels">methodModels</a> : Array<div class="summaryTableDescription">[read-only]
+   Array containing <code>MethodModel</code> objects describing all testable functions for the provided test class.</div>
+</td><td class="summaryTableOwnerCol">Description</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#testCount">testCount</a> : int<div class="summaryTableDescription">[read-only]
+   Convenience method.</div>
+</td><td class="summaryTableOwnerCol">Description</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><a class="signatureLink" href="#testName">testName</a> : String<div class="summaryTableDescription">[read-only]
+   Convenience method.</div>
+</td><td class="summaryTableOwnerCol">Description</td>
+</tr>
+</table>
+</div>
+<a name="methodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Public Methods</div>
+<table id="summaryTableMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#Description()">Description</a>(testIn:*, explicitMethodNamesIn:Array = null)</div>
+<div class="summaryTableDescription">
+   Constructor.</div>
+</td><td class="summaryTableOwnerCol">Description</td>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#clone()">clone</a>():<a href="../models/Description.html">Description</a>
+</div>
+<div class="summaryTableDescription">
+   Creates and returns a duplicate copy of the current <code>Description</code>.</div>
+</td><td class="summaryTableOwnerCol">Description</td>
+</tr>
+</table>
+</div>
+<a name="protectedMethodSummary"></a>
+<div class="summarySection">
+<div class="summaryTableTitle">Protected Methods</div>
+<table id="summaryTableProtectedMethod" class="summaryTable " cellpadding="3" cellspacing="0">
+<tr>
+<th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined&nbsp;by</th>
+</tr>
+<tr class="">
+<td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol">
+<div class="summarySignature">
+<a class="signatureLink" href="#isTestableMethod()">isTestableMethod</a>(methodModel:<a href="../../introspection/models/MethodModel.html">MethodModel</a>):Boolean</div>
+<div class="summaryTableDescription">[static]
+   Returns TRUE if the specified method is a testable method.</div>
+</td><td class="summaryTableOwnerCol">Description</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript" language="javascript">
+<!--
+showHideInherited();
+--></script>
+<div class="MainContent">
+<a name="propertyDetail"></a>
+<div class="detailSectionHeader">Property detail</div>
+<a name="allowParallelAsynchronousTests"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">allowParallelAsynchronousTests</td><td class="detailHeaderType">property</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>allowParallelAsynchronousTests:Boolean</code>&nbsp;&nbsp;[read-only]<p>
+   Current test has elected to allow parallel execution of its asynchronous test methods.
+   
+   If FALSE, no other tests should be run until this method has completed its assertions.
+   (In that event all previously executed asynchronous tests should be allowed to complete before this method is started.)
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get allowParallelAsynchronousTests():Boolean</code>
+<br>
+</div>
+<a name="introspectionUtil"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">introspectionUtil</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>introspectionUtil:<a href="../../introspection/util/IntrospectionUtil.html">IntrospectionUtil</a></code>&nbsp;&nbsp;[read-only]<p>
+   <code>IntrospectionUtil</code> object used to describe the contained test.
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get introspectionUtil():<a href="../../introspection/util/IntrospectionUtil.html">IntrospectionUtil</a></code>
+<br>
+</div>
+<a name="methodModels"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">methodModels</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>methodModels:Array</code>&nbsp;&nbsp;[read-only]<p>
+   Array containing <code>MethodModel</code> objects describing all testable functions for the provided test class.
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get methodModels():Array</code>
+<br>
+</div>
+<a name="testCount"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">testCount</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>testCount:int</code>&nbsp;&nbsp;[read-only]<p>
+   Convenience method.
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get testCount():int</code>
+<br>
+</div>
+<a name="testName"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">testName</td><td class="detailHeaderType">property</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>testName:String</code>&nbsp;&nbsp;[read-only]<p>
+   Convenience method.
+   </p><span class="label">Implementation</span>
+<br>
+<code>&nbsp;&nbsp;&nbsp;&nbsp;public function get testName():String</code>
+<br>
+</div>
+<a name="constructorDetail"></a>
+<div class="detailSectionHeader">Constructor detail</div>
+<a name="Description()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">Description</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">constructor</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function Description(testIn:*, explicitMethodNamesIn:Array = null)</code><p>
+   Constructor.
+   
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">testIn</span>:*</code> &mdash; Object containing one or more testable methods
+   </td>
+</tr>
+<tr>
+<td class="paramSpacer">&nbsp;</td>
+</tr>
+<tr>
+<td width="20px"></td><td><code><span class="label">explicitMethodNamesIn</span>:Array</code> (default = <code>null</code>)<code></code> &mdash; Complete set of test method names (ie. Strings) that define the resulting test
+   </td>
+</tr>
+</table>
+</div>
+<a name="methodDetail"></a>
+<div class="detailSectionHeader">Method detail</div>
+<a name="clone()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">clone</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>public function clone():<a href="../models/Description.html">Description</a></code><p>
+   Creates and returns a duplicate copy of the current <code>Description</code>.
+   </p><p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code><a href="../models/Description.html">Description</a></code></td>
+</tr>
+</table>
+</div>
+<a name="isTestableMethod()"></a>
+<table cellspacing="0" cellpadding="0" class="detailHeader">
+<tr>
+<td class="detailHeaderName">isTestableMethod</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td><td class="detailHeaderRule">&nbsp;</td>
+</tr>
+</table>
+<div class="detailBody">
+<code>protected static function isTestableMethod(methodModel:<a href="../../introspection/models/MethodModel.html">MethodModel</a>):Boolean</code><p>
+   Returns TRUE if the specified method is a testable method.
+   See class documentation for more information.
+   </p><span class="label">Parameters</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20px"></td><td><code><span class="label">methodModel</span>:<a href="../../introspection/models/MethodModel.html">MethodModel</a></code></td>
+</tr>
+</table>
+<p></p>
+<span class="label">Returns</span>
+<table border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td width="20"></td><td><code>Boolean</code></td>
+</tr>
+</table>
+</div>
+<br>
+<br>
+<hr>
+<br>
+<p></p>
+<center class="copyright"> 
+</center>
+</div>
+</body>
+</html>
+<!-- -->

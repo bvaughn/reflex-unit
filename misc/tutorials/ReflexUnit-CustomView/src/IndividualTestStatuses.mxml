@@ -7,14 +7,9 @@
 		<![CDATA[
 			import mx.collections.ArrayCollection;
 			import mx.graphics.SolidColor;
-			import mx.graphics.Stroke;
 			
 			[Bindable]	// Contains: IndividualTestStatusesData
 			public var dataProvider:ArrayCollection = new ArrayCollection();
-			
-			private var solidColorError:SolidColor = new SolidColor( 0x990000 );
-			private var solidColorFailure:SolidColor = new SolidColor( 0xAAAA00 );
-			private var solidColorSuccess:SolidColor = new SolidColor( 0x009900 );
 			
 			private function getHorizontalAxis( categoryValue:Object, previousCategoryValue:Object, axis:CategoryAxis, categoryItem:Object ):String {
 				var array:Array = categoryValue.toString().match( /\:(\w+)$/ );
@@ -25,6 +20,7 @@
 	</mx:Script>
 	
 	<mx:ColumnChart id="columnChart" height="100%" width="100%" maxWidth="475" maxHeight="300"
+	                showDataTips="true"
 	                dataProvider="{ dataProvider }">
 		
 		<mx:horizontalAxis>
@@ -34,11 +30,11 @@
 		
 		<mx:series>
 			<mx:ColumnSeries xField="testCaseName" yField="successCount" displayName="Successes"
-			                 fill="{ solidColorSuccess }" />
+			                 fill="{ new SolidColor( 0x009900 ) }" />
 			<mx:ColumnSeries xField="testCaseName" yField="failureCount" displayName="Failures"
-			                 fill="{ solidColorFailure }" />
+			                 fill="{ new SolidColor( 0xAAAA00 ) }" />
 			<mx:ColumnSeries xField="testCaseName" yField="errorCount" displayName="Errors"
-			                 fill="{ solidColorError }" />
+			                 fill="{ new SolidColor( 0x990000 ) }" />
 		</mx:series>
 	</mx:ColumnChart>
 	

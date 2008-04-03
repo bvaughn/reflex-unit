@@ -7,13 +7,9 @@
 		<![CDATA[
 			import mx.collections.ArrayCollection;
 			import mx.graphics.SolidColor;
-			import mx.graphics.Stroke;
 			
 			[Bindable]	// Contains: TestsAndAssertionsOverTimeData
 			public var dataProvider:ArrayCollection = new ArrayCollection();
-			
-			private var solidColorAssertions:SolidColor = new SolidColor( 0xAA0000, 1 );
-			private var solidColorTests:SolidColor = new SolidColor( 0x0000AA, 1 );
 		]]>
 	</mx:Script>
 	
@@ -26,9 +22,9 @@
 		
 		<mx:series>
 			<mx:AreaSeries yField="assertionCount" displayName="Assertions"
-			               areaFill="{ solidColorTests }" />
+			               areaFill="{ new SolidColor( 0x0000AA, 1 ) }" />
 			<mx:AreaSeries yField="testCount" displayName="Tests"
-			               areaFill="{ solidColorAssertions }" />
+			               areaFill="{ new SolidColor( 0xAA0000, 1 ) }" />
 		</mx:series>
 		
 	</mx:AreaChart>
