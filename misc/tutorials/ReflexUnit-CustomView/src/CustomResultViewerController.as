@@ -87,8 +87,7 @@ package {
 			
 			_view.testCasesAndContainedTests.dataProvider.empty();
 			
-			// TODO: Should the Recipe be cloned?
-			Runner.create( _recipe.clone(), [ /*new ConsoleViewer()*/ ], _runNotifier, _result );
+			Runner.create( _recipe.clone(), [], _runNotifier, _result );
 			
 			_timer.start();
 		}
@@ -102,6 +101,9 @@ package {
 		}
 		
 		public function onTestCompleted( event:RunEvent ):void {
+			
+			// Update Success vs Failure charts.
+			
 			for each ( var chartData:ChartData in _view.individualTestStatuses.dataProvider.source ) {
 				if ( chartData.testCaseName == getQualifiedClassName( event.methodModel.thisObject ) ) {
 					chartData.addStatus( event.status );

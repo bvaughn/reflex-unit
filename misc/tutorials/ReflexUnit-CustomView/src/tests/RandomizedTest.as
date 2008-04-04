@@ -26,19 +26,19 @@ package tests {
 			
 			var random:Number = Math.random();
 			
-			// 50% chance of success
-			if ( random < .5 ) {
+			// 65% chance of success
+			if ( random < .65 ) {
 				_errorOnTimerEvent = false;
 				
 				timeOutTime = maxTime * 2;
 				
-			// 35% chance of failure
-			} else if ( random < .85 ) {
+			// 25% chance of failure
+			} else if ( random < .9 ) {
 				_errorOnTimerEvent = false;
 				
 				timeOutTime = minTime / 2;
 				
-			// 15% chance of runtime error
+			// 10% chance of runtime error
 			} else {
 				_errorOnTimerEvent = true;
 				

@@ -23,14 +23,18 @@
 					setStyle( 'fontWeight', 'normal' );
 					
 					if ( status is Failure ) {
-						setStyle( 'color', 0xAA0000 );
+						if ( ( status as Failure ).isFailure ) {
+							setStyle( 'color', 0x8888a00 );
+						} else {
+							setStyle( 'color', 0xAA0000 );
+						}
 					} else {
-						setStyle( 'color', 0x666666 );
+						setStyle( 'color', 0x009900 );
 					}
 					
 				} else {
 					text = getQualifiedClassName( item.data );
-					setStyle( 'color', 0x000000 );
+					setStyle( 'color', 0x333333 );
 					setStyle( 'fontWeight', 'bold' );
 				}
 			}

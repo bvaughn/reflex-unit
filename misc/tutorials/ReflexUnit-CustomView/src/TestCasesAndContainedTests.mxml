@@ -15,7 +15,7 @@
 	
 	<fc:SpringGraph id="springGraph" width="100%" height="100%" maxWidth="475" maxHeight="300"
 	                left="0" right="0" top="0" bottom="0"
-	                backgroundColor="0xFFFFFF" lineColor="0xAAAAAA"
+	                backgroundColor="0xFFFFFF" lineColor="0xCCCCCC"
 	                autoFit="false" repulsionFactor=".33"
 	                itemRenderer="TestCasesAndContainedTestsRenderer"
 	                dataProvider="{ dataProvider }" />
