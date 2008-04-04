@@ -11,7 +11,7 @@ package {
 	import reflexunit.framework.models.Description;
 	import reflexunit.framework.models.Recipe;
 	import reflexunit.framework.models.Result;
-	import reflexunit.introspection.models.MethodModel;
+	import reflexunit.framework.statuses.IStatus;
 	
 	/**
 	 * Manages the visual state of the <code>FlexViewer</code> viewer.
@@ -116,14 +116,14 @@ package {
 			
 			_view.individualTestStatuses.dataProvider.refresh();
 			_view.overallTestStatuses.dataProvider.refresh();
-		}
-		
-		public function onTestStarting( event:RunEvent ):void {
+			
+			// Update SpringGraph data.
+			
 			var matchingTestCaseItem:Item;
 			var lastTestCaseItem:Item;
 			
 			for each ( var item:Item in _view.testCasesAndContainedTests.dataProvider.nodes ) {
-				if ( item.data is MethodModel ) {
+				if ( item.data is IStatus ) {
 					// For now, do nothing with this type of data.
 				} else if ( item.data == event.methodModel.thisObject ) {
 					matchingTestCaseItem = item;
@@ -143,11 +143,14 @@ package {
 				}
 			}
 			
-			var methodModelItem:Item = new Item( getQualifiedClassName( event.methodModel.thisObject ) + '.' + event.methodModel.name );
-			methodModelItem.data = event.methodModel;
+			var statusItem:Item = new Item( getQualifiedClassName( event.methodModel.thisObject ) + '.' + event.methodModel.name );
+			statusItem.data = event.status;
 			
-			_view.testCasesAndContainedTests.dataProvider.add( methodModelItem );
-			_view.testCasesAndContainedTests.dataProvider.link( matchingTestCaseItem, methodModelItem );
+			_view.testCasesAndContainedTests.dataProvider.add( statusItem );
+			_view.testCasesAndContainedTests.dataProvider.link( matchingTestCaseItem, statusItem );
+		}
+		
+		public function onTestStarting( event:RunEvent ):void {
 		}
 		
 		private function onTimer( event:TimerEvent ):void {

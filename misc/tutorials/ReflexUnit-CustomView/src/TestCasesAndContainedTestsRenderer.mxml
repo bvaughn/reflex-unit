@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Label fontSize="8"
+<mx:Label fontSize="9"
           xmlns:mx="http://www.adobe.com/2006/mxml">
 	
 	<mx:Script>
@@ -8,21 +8,29 @@
 			
 			import flash.utils.getQualifiedClassName;
 			
-			import reflexunit.introspection.models.MethodModel;
+			import reflexunit.framework.statuses.Failure;
+			import reflexunit.framework.statuses.IStatus;
 			
 			override public function set data( value:Object ):void {
 				super.data = value;
 				
 				var item:Item = value as Item;
 				
-				if ( item.data is MethodModel ) {
-					var methodModel:MethodModel = item.data as MethodModel;
+				if ( item.data is IStatus ) {
+					var status:IStatus = item.data as IStatus;
 					
-					text = methodModel.name;
+					text = status.methodModel.name;
 					setStyle( 'fontWeight', 'normal' );
+					
+					if ( status is Failure ) {
+						setStyle( 'color', 0xAA0000 );
+					} else {
+						setStyle( 'color', 0x666666 );
+					}
 					
 				} else {
 					text = getQualifiedClassName( item.data );
+					setStyle( 'color', 0x000000 );
 					setStyle( 'fontWeight', 'bold' );
 				}
 			}
