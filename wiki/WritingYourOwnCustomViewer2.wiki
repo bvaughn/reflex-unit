@@ -141,7 +141,7 @@ package {
 
 The above two components are stubs that we'll be filling in shortly. The first ({{{CustomResultViewer}}}) will hold MX charting components and the second ({{{CustomResultViewerController}}}) will monitor test progress and pass the appropriate bits of information on to our charts.
 
-You may have noticed our use of the [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/reflexunit/framework/display/ConsoleViewer.as ConsoleViewer] component. This component simply prints plain-text information to the Eclipse console as each test method finishes its execution. Using this "viewer" offers us a quick and easy way of trouble-shooting our tests until they are completed.
+You may have noticed our use of the [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/reflexunit/framework/display/ConsoleViewer.html ConsoleViewer] component. This component simply prints plain-text information to the Eclipse console as each test method finishes its execution. Using this "viewer" offers us a quick and easy way of trouble-shooting our tests until they are completed.
 
 As a final setup step let's add the following code to our project's main Flex Application component. (By default this file is named {{{main.mxml}}}.)
 
