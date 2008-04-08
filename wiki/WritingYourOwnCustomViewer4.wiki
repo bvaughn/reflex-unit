@@ -349,4 +349,8 @@ Admittedly our last chart is just for-fun. Given that, I won't even attempt to j
 </mx:Label>
 }}}
 
+We've just covered a lot, but hopefully it was mostly self-explanatory. If not that's okay; take a look at the online [http://livedocs.adobe.com/flex/3/langref/index.html Flash 9 Language Reference] for lots of good documentation, pointers, and example code.
+
+We're now ready to plug everything together and see our code in action!
+
 == [WritingYourOwnCustomViewer5 Continue to Part 5..] ==
