@@ -133,4 +133,6 @@ At this point you may wish to see your example tests in action. This can be done
 </mx:Application>
 }}}
 
+You are now ready to run your application if you wish. At this point nothing fancy will happen, but you will see console output indicating that your test results and times.
+
 = [WritingYourOwnCustomViewer4 Continue to Part 4..] =
