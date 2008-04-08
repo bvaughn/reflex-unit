@@ -258,9 +258,7 @@ package {
 
 == Sprint Graph ==
 
-Admittedly our last chart is just for-fun. Given that, I won't even attempt to justify it. This view uses Mark Shepherd's [http://mark-shepherd.com/blog/springgraph-flex-component/ SpringGraph] component.
-
-Unlike our other views, this consists of 2 MXML components (defined below). The "model" portion will consist of Reflex Unit classes.
+Admittedly our last chart is just for-fun. Given that, I won't even attempt to justify it. This view uses Mark Shepherd's [http://mark-shepherd.com/blog/springgraph-flex-component/ SpringGraph] component. Unlike our other views, it consists of the following 2 MXML components. (The "model" portion will be comprised of Reflex Unit classes.)
 
 === !TestsCasesAndContainedTests.mxml ===
 
