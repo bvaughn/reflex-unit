@@ -2,6 +2,8 @@
 
 = Part 4: Creating Individual Result Views =
 
-Coming soon...
+We're going to move quickly through this next part. Although it contains the most source code, much of this code deals with Flex charting components and other areas that lie outside of the scope of this tutorial. For more information in these areas I recommend Google-searching one of the available "Flex Charting Explorer" applications.
+
+
 
 == [WritingYourOwnCustomViewer5 Continue to Part 5..] ==
