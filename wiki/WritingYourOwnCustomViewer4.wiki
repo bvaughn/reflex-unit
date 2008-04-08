@@ -4,6 +4,80 @@
 
 We're going to move quickly through this next part. Although it contains the most source code, much of this code deals with Flex charting components and other areas that lie outside of the scope of this tutorial. For more information in these areas I recommend Google-searching one of the available "Flex Charting Explorer" applications.
 
+As previously stated, a primary purpose of this tutorial is to illustrate a variety of ways in which Reflex Unit test result data may be displayed to a user/developer. The custom "viewer" we will create will be comprised of several smaller views or charts. Each of these charts will illustrate a different way of interpreting/displaying the outcome of tests.
 
+== Overall / Summary Test Information ==
+
+After running a suite of tests, your first thought may be "did they all pass?". For this purposes we'll be using a [http://livedocs.adobe.com/flex/3/langref/mx/charts/PieChart.html PieChart] to display the overall percentages of errors, failures, and successes.
+
+To do this we will create 2 components: {{{OverallTestStatuses.mxml}}} and {{{OverallTestStatusesData.as}}}. You can think of these components as our view and model. (We will introduce the "controller" in the next section of this article.)
+
+== !OverallTestStatuses.mxml ==
+
+{{{
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox width="100%" height="100%" horizontalGap="20"
+         horizontalAlign="center" verticalAlign="middle"
+         xmlns:mx="http://www.adobe.com/2006/mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.graphics.SolidColor;
+			
+			[Bindable]	// Contains: OverallTestStatusesData
+			public var dataProvider:ArrayCollection = new ArrayCollection();
+		]]>
+	</mx:Script>
+	
+	<mx:PieChart id="pieChart" width="100%" height="100%" maxWidth="475" maxHeight="300"
+	             showAllDataTips="true"
+	             dataProvider="{ dataProvider }">
+		
+		<mx:series>
+			<mx:PieSeries nameField="statusName" field="count"
+			              fills="{ [ new SolidColor( 0x990000 ), new SolidColor( 0xAAAA00 ), new SolidColor( 0x009900 ) ] }">
+				
+				<!-- Clear the ugly drop-shadow and bevel effects. -->
+				<mx:filters>
+					<mx:Array />
+				</mx:filters>
+				
+			</mx:PieSeries>
+		</mx:series>
+		
+	</mx:PieChart>
+	
+	<mx:VBox horizontalAlign="center" verticalGap="0">
+		<mx:Text styleName="header" text="Overall" />
+		<mx:Text styleName="header" text="Test" />
+		<mx:Text styleName="header" text="Statuses" />
+		
+		<mx:Spacer height="25" />
+		
+		<mx:Legend dataProvider="{ pieChart }"/>
+	</mx:VBox>
+	
+</mx:HBox>
+}}}
+
+== !OverallTestStatusesData.as ==
+
+{{{
+package {
+	import reflexunit.framework.statuses.IStatus;
+	
+	public class OverallTestStatusesData {
+		
+		public var count:int;
+		public var statusName:String;
+		
+		public function OverallTestStatusesData( statusNameIn:String ) {
+			statusName = statusName;
+			count = 0;
+		}
+	}
+}
+}}}
 
 == [WritingYourOwnCustomViewer5 Continue to Part 5..] ==
