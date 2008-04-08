@@ -2,17 +2,24 @@
 
 = Introduction =
 
-This tutorial is intended for Reflex Unit users who are interested in creating their own custom components for displaying test results. Results can be "displayed" in many ways including visual interfaces comprised of graphs and text (e.g. [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/reflexunit/framework/display/flexviewer/FlexViewer.mxml FlexViewer], plain text that prints to the console (e.g. [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/reflexunit/framework/display/ConsoleViewer.as ConsoleViewer]), or even components that send data via a socket to an external application (e.g. an Eclipse plug-in).
+This tutorial is intended for Reflex Unit users who are interested in creating their own custom components for displaying test results. Results can be "displayed" in many ways including visual interfaces comprised of graphs and text (e.g. [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/reflexunit/framework/display/flexviewer/FlexViewer.mxml FlexViewer]), plain text or XML that prints to the console (e.g. [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/reflexunit/framework/display/ConsoleViewer.as ConsoleViewer] or [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/reflexunit/framework/display/CruiseControlLogger.as CruiseControlLogger]), or even components that send data via a socket to an external application (e.g. an Eclipse plug-in).
 
-For the purposes of this tutorial we will be using a handful of MX charting components to demonstrate various ways in which test data could be displayed visually to a user/developer Since these components are included with the Flex framework we won't dive too deeply into their uses/syntax. Instead, our primary goal is to create a solid foundation upon which a developer can expand when creating his or her own custom viewer.
-
-= Part 1: Setting Up the Basic Development Environment ==
+For the purposes of this tutorial we will be using a handful of MX charting components to demonstrate various ways in which test data can be displayed visually to a user/developer Since these components are included with the Flex framework we won't dive too deeply into their uses/syntax. Instead, our primary goal is to create a solid foundation upon which a developer can expand when creating his or her own custom viewer.
 
 Before starting, make sure that you've downloaded a recent release of Reflex Unit from the [http://code.google.com/p/reflex-unit/downloads/list downloads page]. You may download a bundled SWC or check out the project source.
 
 Next let's create a new Eclipse project to do our development in. ({{{File -> New -> Flex Project}}}). Once the new project is open, right click on its name in the explorer and choose {{{Properties -> Flex Build Path}}}. Tell Flex Builder to include Reflex Unit by modifying the {{{Source Path}}} or {{{Library Path}}} (depending on which format you downloaded the release in).
 
-We'll begin by creating a few stub classes. First, create a new MXML component named {{{CustomResultViewer}}} and a new !ActionScript class named {{{CustomResultViewerController}}}. For now, they should consist of the following:
+If at any point during this exercise you become confused, feel free to take a peek at the final source code for this example application. It is accessible via SVN at the following URL:
+ * http://reflex-unit.googlecode.com/svn/misc/tutorials/ReflexUnit-CustomView/
+
+= Part 1: Creating the Basic Stub Classes ==
+
+In order for a component to monitor the status of a Reflex Unit testing suite it must:
+ * Implement [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/reflexunit/framework/display/IResultViewer.as IResultViewer], or...
+ * Listen to a [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/reflexunit/framework/RunNotifier.as RunNotifier] for [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/reflexunit/framework/events/RunEvent.as RunEvents]
+
+For our example application we will do the latter. Let's begin by creating a few stub classes. First, create a new MXML component named {{{CustomResultViewer}}} and a new !ActionScript class named {{{CustomResultViewerController}}}. For now, they should consist of the following:
 
 == !CustomResultViewer.mxml ==
 
