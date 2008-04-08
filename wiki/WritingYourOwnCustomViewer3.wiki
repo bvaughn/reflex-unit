@@ -8,6 +8,7 @@ By executing asynchronously we will be able to watch our viewer update itself in
 
 == !RandomizedTest.as ==
 
+{{{
 package tests {
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
@@ -81,6 +82,7 @@ package tests {
 		}
 	}
 }
+}}}
 
 = Creating Individual Result Views =
 
