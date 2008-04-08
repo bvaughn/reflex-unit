@@ -73,7 +73,7 @@ package {
 		public var statusName:String;
 		
 		public function OverallTestStatusesData( statusNameIn:String ) {
-			statusName = statusName;
+			statusName = statusNameIn;
 			count = 0;
 		}
 	}
