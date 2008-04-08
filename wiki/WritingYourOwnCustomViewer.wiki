@@ -68,14 +68,12 @@ We'll begin by creating a few stub classes. First, create a new MXML component n
 
 {{{
 package {
-	import reflexunit.framework.display.ConsoleViewer;
 	import reflexunit.framework.RunNotifier;
 	import reflexunit.framework.Runner;
+	import reflexunit.framework.display.ConsoleViewer;
 	import reflexunit.framework.events.RunEvent;
-	import reflexunit.framework.models.Description;
 	import reflexunit.framework.models.Recipe;
 	import reflexunit.framework.models.Result;
-	import reflexunit.framework.statuses.IStatus;
 	
 	public class CustomResultViewerController {
 		
@@ -151,6 +149,56 @@ package {
 The above two components are stubs that we'll be filling in shortly. The first ({{{CustomResultViewer}}}) will hold MX charting components and the second ({{{CustomResultViewerController}}}) will monitor test progress and pass the appropriate bits of information on to our charts.
 
 You may have noticed our use of the [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/reflexunit/framework/display/ConsoleViewer.as ConsoleViewer] component. This component simply prints plain-text information to the Eclipse console as each test method finishes its execution. Using this "viewer" offers us a quick and easy way of trouble-shooting our tests until they are completed.
+
+As a final setup step let's add the following code to our project's main Flex Application component:
+
+{{{
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Grid width="100%" height="100%"
+         initialize="onInitialize()"
+         xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:local="*">
+	
+	<mx:Script>
+		<![CDATA[
+			private var _controller:CustomResultViewerController;
+			
+			private function onInitialize():void {
+				controller.initialize();
+			}
+			
+			public function get controller():CustomResultViewerController {
+				if ( _controller == null ) {
+					_controller = new CustomResultViewerController( this );
+				}
+				
+				return _controller;
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:GridRow width="100%" height="50%">
+		
+		<mx:GridItem styleName="primaryGridItem" width="50%" height="100%">
+			<!-- This will contain a graph soon. -->
+		</mx:GridItem>
+		
+		<mx:GridItem styleName="primaryGridItem" width="50%" height="100%">
+			<!-- This will contain a graph soon. -->
+		</mx:GridItem>
+		
+	</mx:GridRow>
+	
+	<mx:GridRow width="100%" height="50%">
+		<mx:GridItem styleName="primaryGridItem" width="50%" height="100%">
+			<!-- This will contain a graph soon. -->
+		</mx:GridItem>
+		<mx:GridItem styleName="primaryGridItem" width="50%" height="100%">
+			<!-- This will contain a graph soon. -->
+		</mx:GridItem>
+	</mx:GridRow>
+	
+</mx:Grid>
+}}}
 
 = Creating a Sample Test Suite =
  * For now, use !ConsoleViewer to test
