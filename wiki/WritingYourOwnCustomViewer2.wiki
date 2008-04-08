@@ -117,7 +117,7 @@ package {
 			_result = new Result();
 			
 			// For now let's use the built-in ConsoleViewer app to debug our tests with.
-			Runner.create( _recipe.clone(), [ ConsoleViewer ], _runNotifier, _result );
+			Runner.create( _recipe.clone(), [ new ConsoleViewer() ], _runNotifier, _result );
 		}
 		
 		/*
