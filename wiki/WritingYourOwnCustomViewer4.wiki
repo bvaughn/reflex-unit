@@ -80,4 +80,106 @@ package {
 }
 }}}
 
+== Individual Test Statuses ==
+
+If one or more tests fail, you'll need to know which were the failures. For this purpose we'll introduce our second chart, a [http://livedocs.adobe.com/flex/3/langref/mx/charts/ColumnChart.html ColumnChart] showing the outcomes of each individual test class. Like our previous chart, this too will consist of an MXML component (the view) and an !ActionScript class (the model):
+
+=== !IndividualTestStatuses.mxml ===
+
+{{{
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox width="100%" height="100%" horizontalGap="20"
+         horizontalAlign="center" verticalAlign="middle"
+         xmlns:mx="http://www.adobe.com/2006/mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.graphics.SolidColor;
+			
+			[Bindable]	// Contains: IndividualTestStatusesData
+			public var dataProvider:ArrayCollection = new ArrayCollection();
+			
+			private function getHorizontalAxis( categoryValue:Object, previousCategoryValue:Object, axis:CategoryAxis, categoryItem:Object ):String {
+				var array:Array = categoryValue.toString().match( /\:(\w+)$/ );
+				
+				return array ? array[1] : categoryValue.toString();
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:ColumnChart id="columnChart" height="100%" width="100%" maxWidth="475" maxHeight="300"
+	                showDataTips="true"
+	                dataProvider="{ dataProvider }">
+		
+		<mx:horizontalAxis>
+			<mx:CategoryAxis dataProvider="{ dataProvider }" categoryField="testCaseName"
+			                 labelFunction="{ getHorizontalAxis }" />
+		</mx:horizontalAxis>
+		
+		<mx:series>
+			<mx:ColumnSeries xField="testCaseName" yField="successCount" displayName="Successes"
+			                 fill="{ new SolidColor( 0x009900 ) }" />
+			<mx:ColumnSeries xField="testCaseName" yField="failureCount" displayName="Failures"
+			                 fill="{ new SolidColor( 0xAAAA00 ) }" />
+			<mx:ColumnSeries xField="testCaseName" yField="errorCount" displayName="Errors"
+			                 fill="{ new SolidColor( 0x990000 ) }" />
+		</mx:series>
+	</mx:ColumnChart>
+	
+	<mx:VBox horizontalAlign="center" verticalGap="0">
+		<mx:Text styleName="header" text="Individual" />
+		<mx:Text styleName="header" text="Test" />
+		<mx:Text styleName="header" text="Statuses" />
+		
+		<mx:Spacer height="25" />
+		
+		<mx:Legend dataProvider="{ columnChart }"/>
+	</mx:VBox>
+	
+</mx:HBox>
+}}}
+
+=== !IndividualTestStatusesData.as ===
+
+{{{
+package {
+	import reflexunit.framework.statuses.Failure;
+	import reflexunit.framework.statuses.IStatus;
+	import reflexunit.framework.statuses.Success;
+	import reflexunit.introspection.models.ClassModel;
+	
+	public class IndividualTestStatusesData {
+		
+		public var classModel:ClassModel;
+		public var errorCount:int;
+		public var failureCount:int;
+		public var successCount:int;
+		
+		public function IndividualTestStatusesData( classModelIn:ClassModel ) {
+			classModel = classModelIn;
+			
+			errorCount = 0;
+			failureCount = 0;
+			successCount = 0;
+		}
+		
+		public function addStatus( status:IStatus ):void {
+			if ( status is Failure ) {
+				var failure:Failure = status as Failure;
+				
+				if ( failure.isFailure ) {
+					_failureCount++;
+				} else {
+					_errorCount++;
+				}
+				
+			} else if ( status is Success ) {
+				_successCount++;
+			}
+		}
+	}
+}
+}}}
+
 == [WritingYourOwnCustomViewer5 Continue to Part 5..] ==
