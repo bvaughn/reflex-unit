@@ -1,5 +1,5 @@
 #summary Step-by-step tutorial for creating a custom test results viewer - Part 1
-#labels Featured,Tutorial,HOWTO
+#labels IResultViewer,Tutorial,HOWTO
 
 = Part 1: Introduction =
 
