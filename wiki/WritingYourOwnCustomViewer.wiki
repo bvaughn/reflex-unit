@@ -1,0 +1,7 @@
+#summary Step-by-step tutorial for creating a custom test results viewer
+
+Outline/ideas:
+ # Setup basic application and interface implementation
+ # Create test and derivations (using !ConsoleViewer for now)
+ # Create individual viewers and models
+ # Plug-in custom models and get ride of !ConsoleViewer
