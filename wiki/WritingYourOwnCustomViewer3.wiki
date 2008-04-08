@@ -4,7 +4,7 @@
 
 If you would like a more detailed explanation of creating Reflex Unit tests, see the [GettingStartedWithReflexUnit Getting Started Guide]. For the purposes of this tutorial we are simply going to create a dummy "test" that executes asynchronously and returns random values (success, failure, or error).
 
-By executing asynchronously we will be able to watch our viewer update itself in real time as tests finish executing. To do this, we'll use the built in Flash {{{Timer}}}. Let's define our test as follows:
+By executing asynchronously we will be able to watch our viewer update itself in real time as each test is completed. To do this, we'll use the built in Flash {{{Timer}}}. Let's define our test as follows:
 
 == !RandomizedTest.as ==
 
