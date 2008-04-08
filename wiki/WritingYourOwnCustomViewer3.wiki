@@ -86,11 +86,11 @@ package tests {
 }
 }}}
 
-We've now created a legitimate (although contrived) test that can be run within the Reflex Unit framework. This test consists of 10 testable methods, ({{{test0}}}-{{{test9}}}), each returning a random result.
+We've now created a legitimate (although contrived) test that can be run within the Reflex Unit framework. This test consists of 10 testable methods ({{{test0}}} - {{{test9}}}) each returning a random result.
 
-In reality, an application will rarely only have a single test class. For this purpose we will be designing a viewer that displays results on a per-test-class basis. Because of that, it would be useful if we had more than just one test to run in our sample viewer. This can be easily achieved by creating a couple sub-classes of our {{{RandomizedTest}}} class.
+In reality an application will rarely contain only a single test class. For this purpose we will be designing a viewer that displays results with multiple test classes in mind. Because of that, it would be useful if we had more than just one test to run in our sample viewer. This can easily be achieved by creating extending our {{{RandomizedTest}}} class.
 
-Create as many as you would like. An example is as follows:
+Create as many sub-classes as you would like. An example is as follows:
 
 == !TestSubClass.as ==
 
