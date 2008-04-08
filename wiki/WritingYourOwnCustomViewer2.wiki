@@ -3,8 +3,8 @@
 = Part 2: Creating the Basic Stub Classes ==
 
 In order for a component to monitor the status of a Reflex Unit testing suite it must:
- * Implement [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/reflexunit/framework/display/IResultViewer.as IResultViewer], or...
- * Listen to a [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/reflexunit/framework/RunNotifier.as RunNotifier] for [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/reflexunit/framework/events/RunEvent.as RunEvents]
+ * Implement [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/reflexunit/framework/display/IResultViewer.html IResultViewer], or...
+ * Listen to a [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/reflexunit/framework/RunNotifier.html RunNotifier] for [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/reflexunit/framework/events/RunEvent.html RunEvents]
 
 For our example application we will do the latter. Let's begin by creating a few stub classes. First, create a new MXML component named {{{CustomResultViewer}}} and a new !ActionScript class named {{{CustomResultViewerController}}}. For now they should consist of the following:
 
