@@ -14,7 +14,7 @@ Next let's create a new Eclipse project to do our development in. ({{{File -> Ne
 
 We'll begin by creating a few stub classes. First, create a new MXML component named {{{CustomResultViewer}}} and a new !ActionScript class named {{{CustomResultViewerController}}}. For now, they should consist of the following:
 
-== CustomResultViewer.mxml ==
+== !CustomResultViewer.mxml ==
 
 {{{
 <?xml version="1.0" encoding="utf-8"?>
@@ -64,7 +64,7 @@ We'll begin by creating a few stub classes. First, create a new MXML component n
 </mx:Grid>
 }}}
 
-== CustomResultViewerController.as ==
+== !CustomResultViewerController.as ==
 
 {{{
 package {
@@ -147,6 +147,8 @@ package {
 	}
 }
 }}}
+
+The above two components are stubs that we'll be filling in shortly. The first ({{{CustomResultViewer}}}) will hold MX charting components and the second (CustomResultViewerController}}}) will monitor test progress and pass the appropriate bits of information on to our charts.
 
 = Creating a Sample Test Suite =
  * For now, use !ConsoleViewer to test
