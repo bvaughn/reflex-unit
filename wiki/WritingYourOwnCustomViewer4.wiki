@@ -256,4 +256,99 @@ package {
 }
 }}}
 
+== Sprint Graph ==
+
+Admittedly our last chart is just for-fun. Given that, I won't even attempt to justify it. This view uses Mark Shepherd's [http://mark-shepherd.com/blog/springgraph-flex-component/ SpringGraph] component.
+
+Unlike our other views, this consists of 2 MXML components (defined below). The "model" portion will consist of Reflex Unit classes.
+
+=== !TestsCasesAndContainedTests.mxml ===
+
+{{{
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox width="100%" height="100%" horizontalGap="20"
+         horizontalAlign="center" verticalAlign="middle"
+         xmlns:fc="http://www.adobe.com/2006/fc"
+         xmlns:mx="http://www.adobe.com/2006/mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.adobe.flex.extras.controls.springgraph.Graph;
+			
+			[Bindable]	// Contains Item objects (which in turn hold ClassModel or MethodModel objects)
+			public var dataProvider:Graph = new Graph();
+		]]>
+	</mx:Script>
+	
+	<fc:SpringGraph id="springGraph" width="100%" height="100%" maxWidth="475" maxHeight="300"
+	                left="0" right="0" top="0" bottom="0"
+	                backgroundColor="0xFFFFFF" lineColor="0xCCCCCC"
+	                autoFit="false" repulsionFactor=".33"
+	                itemRenderer="TestCasesAndContainedTestsRenderer"
+	                dataProvider="{ dataProvider }" />
+	
+	<mx:VBox horizontalAlign="center" verticalGap="0">
+		<mx:Text styleName="header" text="Test" />
+		<mx:Text styleName="header" text="Cases" />
+		<mx:Text styleName="header" text="and" />
+		<mx:Text styleName="header" text="Contained" />
+		<mx:Text styleName="header" text="Tests" />
+	</mx:VBox>
+	
+</mx:HBox>
+}}}
+
+=== !TestsCasesAndContainedTestsRenderer.mxml ===
+
+{{{
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Label fontSize="9"
+          xmlns:mx="http://www.adobe.com/2006/mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.adobe.flex.extras.controls.springgraph.Item;
+			
+			import flash.utils.getQualifiedClassName;
+			
+			import reflexunit.framework.statuses.Failure;
+			import reflexunit.framework.statuses.IStatus;
+			
+			override public function set data( value:Object ):void {
+				super.data = value;
+				
+				var item:Item = value as Item;
+				
+				if ( item.data is IStatus ) {
+					var status:IStatus = item.data as IStatus;
+					
+					text = status.methodModel.name;
+					setStyle( 'fontWeight', 'normal' );
+					
+					if ( status is Failure ) {
+						if ( ( status as Failure ).isFailure ) {
+							setStyle( 'color', 0x8888a00 );
+						} else {
+							setStyle( 'color', 0xAA0000 );
+						}
+					} else {
+						setStyle( 'color', 0x009900 );
+					}
+					
+				} else {
+					text = getQualifiedClassName( item.data );
+					setStyle( 'color', 0x333333 );
+					setStyle( 'fontWeight', 'bold' );
+				}
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:filters>
+		<mx:GlowFilter alpha=".75" strength="10" blurX="5" blurY="5" color="0xFFFFFF" />
+	</mx:filters>
+	
+</mx:Label>
+}}}
+
 == [WritingYourOwnCustomViewer5 Continue to Part 5..] ==
