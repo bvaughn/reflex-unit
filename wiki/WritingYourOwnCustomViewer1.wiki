@@ -17,4 +17,4 @@ Next let's create a new Eclipse project to do our development in ({{{File -> New
 
 Now we are ready to begin.
 
-= [WritingYourOwnCustomViewer2 Continue to Part 2..] =
+== [WritingYourOwnCustomViewer2 Continue to Part 2..] ==
