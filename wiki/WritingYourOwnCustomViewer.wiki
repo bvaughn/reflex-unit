@@ -2,7 +2,7 @@
 
 = Introduction =
 
-This tutorial is intended for Reflex Unit users who are interested in creating their own custom components for displaying test results. Results can be "displayed" in many ways including visual interfaces comprised of graphs and text, plain text that prints to the console, or even components that send data via a socket to an external application (e.g. an Eclipse plug-in).
+This tutorial is intended for Reflex Unit users who are interested in creating their own custom components for displaying test results. Results can be "displayed" in many ways including visual interfaces comprised of graphs and text, plain text that prints to the console (e.g. [http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/reflexunit/framework/display/ConsoleViewer.as ConsoleViewer]), or even components that send data via a socket to an external application (e.g. an Eclipse plug-in).
 
 For the purposes of this tutorial we will be using a handful of MX charting components to demonstrate various ways in which test data could be displayed visually to a user/developer Since these components are included with the Flex framework we won't dive too deeply into their uses/syntax. Instead, our primary goal is to create a solid foundation upon which a developer can expand when creating his or her own custom viewer.
 
@@ -11,6 +11,142 @@ For the purposes of this tutorial we will be using a handful of MX charting comp
 Before starting, make sure that you've downloaded a recent release of Reflex Unit from the [http://code.google.com/p/reflex-unit/downloads/list downloads page]. You may download a bundled SWC or check out the project source.
 
 Next let's create a new Eclipse project to do our development in. ({{{File -> New -> Flex Project}}}). Once the new project is open, right click on its name in the explorer and choose {{{Properties -> Flex Build Path}}}. Tell Flex Builder to include Reflex Unit by modifying the {{{Source Path}}} or {{{Library Path}}} (depending on which format you downloaded the release in).
+
+We'll begin by creating a few stub classes. First, create a new MXML component named {{{CustomResultViewer}}} and a new !ActionScript class named {{{CustomResultViewerController}}}. For now, they should consist of the following:
+
+== CustomResultViewer.mxml ==
+
+{{{
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Grid width="100%" height="100%"
+         initialize="onInitialize()"
+         xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:local="*">
+	
+	<mx:Script>
+		<![CDATA[
+			private var _controller:CustomResultViewerController;
+			
+			private function onInitialize():void {
+				controller.initialize();
+			}
+			
+			public function get controller():CustomResultViewerController {
+				if ( _controller == null ) {
+					_controller = new CustomResultViewerController( this );
+				}
+				
+				return _controller;
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:GridRow width="100%" height="50%">
+		
+		<mx:GridItem styleName="primaryGridItem" width="50%" height="100%">
+			<!-- This will contain a graph soon. -->
+		</mx:GridItem>
+		
+		<mx:GridItem styleName="primaryGridItem" width="50%" height="100%">
+			<!-- This will contain a graph soon. -->
+		</mx:GridItem>
+		
+	</mx:GridRow>
+	
+	<mx:GridRow width="100%" height="50%">
+		<mx:GridItem styleName="primaryGridItem" width="50%" height="100%">
+			<!-- This will contain a graph soon. -->
+		</mx:GridItem>
+		<mx:GridItem styleName="primaryGridItem" width="50%" height="100%">
+			<!-- This will contain a graph soon. -->
+		</mx:GridItem>
+	</mx:GridRow>
+	
+</mx:Grid>
+}}}
+
+== CustomResultViewerController.as ==
+
+{{{
+package {
+	import reflexunit.framework.display.ConsoleViewer;
+	import reflexunit.framework.RunNotifier;
+	import reflexunit.framework.Runner;
+	import reflexunit.framework.events.RunEvent;
+	import reflexunit.framework.models.Description;
+	import reflexunit.framework.models.Recipe;
+	import reflexunit.framework.models.Result;
+	import reflexunit.framework.statuses.IStatus;
+	
+	public class CustomResultViewerController {
+		
+		private var _initialized:Boolean;
+		private var _recipe:Recipe;
+		private var _result:Result;
+		private var _runNotifier:RunNotifier;
+		private var _view:CustomResultViewer;
+		
+		/*
+		 * Initialization
+		 */
+		
+		public function CustomResultViewerController( view:CustomResultViewer ) {
+			_view = view;
+			
+			_runNotifier = new RunNotifier();
+			_runNotifier.addEventListener( RunEvent.ALL_TESTS_COMPLETED, onAllTestsCompleted, false, 0, true );
+			_runNotifier.addEventListener( RunEvent.TEST_COMPLETED, onTestCompleted, false, 0, true );
+			_runNotifier.addEventListener( RunEvent.TEST_STARTING, onTestStarting, false, 0, true );
+		}
+		
+		public function initialize():void {
+			_initialized = true;
+			
+			runRecipeWhenReady();
+		}
+		
+		/*
+		 * Getter / setter methods
+		 */
+		
+		public function set recipe( value:Recipe ):void {
+			_recipe = value;
+			
+			runRecipeWhenReady();
+		}
+		
+		/*
+		 * Helper methods
+		 */
+		
+		private function runRecipeWhenReady():void {
+			if ( !_initialized || !_recipe ) {
+				return;
+			}
+			
+			_result = new Result();
+			
+			// For now let's use the built-in ConsoleViewer app to debug our tests with.
+			Runner.create( _recipe.clone(), [ ConsoleViewer ], _runNotifier, _result );
+		}
+		
+		/*
+		 * Event handlers
+		 */
+		
+		public function onAllTestsCompleted( event:RunEvent ):void {
+			// Code will go here soon.
+		}
+		
+		public function onTestCompleted( event:RunEvent ):void {
+			// Code will go here soon.
+		}
+		
+		public function onTestStarting( event:RunEvent ):void {
+			// Code will go here soon.
+		}
+	}
+}
+}}}
 
 = Creating a Sample Test Suite =
  * For now, use !ConsoleViewer to test
