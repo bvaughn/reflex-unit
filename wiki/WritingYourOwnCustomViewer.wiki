@@ -8,7 +8,7 @@ For the purposes of this tutorial we will be using a handful of MX charting comp
 
 Before starting, make sure that you've downloaded a recent release of Reflex Unit from the [http://code.google.com/p/reflex-unit/downloads/list downloads page]. You may download a bundled SWC or check out the project source.
 
-Next let's create a new Eclipse project to do our development in. ({{{File -> New -> Flex Project}}}). Once the new project is open, right click on its name in the explorer and choose {{{Properties -> Flex Build Path}}}. Tell Flex Builder to include Reflex Unit by modifying the {{{Source Path}}} or {{{Library Path}}} (depending on which format you downloaded the release in).
+Next let's create a new Eclipse project to do our development in ({{{File -> New -> Flex Project}}}). Once the new project is open, right click on its name in the explorer and choose {{{Properties -> Flex Build Path}}}. Tell Flex Builder to include Reflex Unit by modifying the {{{Source Path}}} or {{{Library Path}}} (depending on which format you downloaded the release in).
 
 If at any point during this exercise you become confused, feel free to take a peek at the final source code for this example application. It is accessible via SVN at the following URL:
  * http://reflex-unit.googlecode.com/svn/misc/tutorials/ReflexUnit-CustomView/
