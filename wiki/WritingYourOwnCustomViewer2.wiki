@@ -172,4 +172,4 @@ As a final setup step let's add the following code to our project's main Flex Ap
 
 That's all the setup we need to do. Next let's take a look at writing an example test.
 
-== [WritingYourOwnCustomViewer2 Continue...] ==
+== [WritingYourOwnCustomViewer3 Continue to Part 3..] ==
