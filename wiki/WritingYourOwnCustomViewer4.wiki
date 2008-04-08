@@ -4,6 +4,4 @@
 
 Coming soon...
 
-= Part 5: Tying it All Together =
-
-Coming soon...
+== [WritingYourOwnCustomViewer5 Continue to Part 5..] ==
