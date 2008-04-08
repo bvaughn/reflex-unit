@@ -21,6 +21,7 @@ package tests {
 		private var _timer:Timer;
 		
 		// These dummy methods will each be executed since they begin with "test".
+		// See: http://reflex-unit.googlecode.com/svn/trunk/ReflexUnitSource/docs/reflexunit/framework/models/Description.html
 		public function test0():void { testMethodHelper(); }
 		public function test1():void { testMethodHelper(); }
 		public function test2():void { testMethodHelper(); }
