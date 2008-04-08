@@ -82,7 +82,7 @@ package {
 
 == Individual Test Statuses ==
 
-If one or more tests fail, you'll need to know which were the failures. For this purpose we'll introduce our second chart, a [http://livedocs.adobe.com/flex/3/langref/mx/charts/ColumnChart.html ColumnChart] showing the outcomes of each individual test class. Like our previous chart, this too will consist of an MXML component (the view) and an !ActionScript class (the model):
+If one or more tests fail, you'll need a way to separate the failures. For this purpose we'll introduce our second chart, a [http://livedocs.adobe.com/flex/3/langref/mx/charts/ColumnChart.html ColumnChart] showing the outcomes of each individual test class. Like our previous chart, this too will consist of an MXML component (the view) and an !ActionScript class (the model):
 
 === !IndividualTestStatuses.mxml ===
 
