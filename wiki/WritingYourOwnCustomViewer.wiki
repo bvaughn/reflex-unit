@@ -6,7 +6,7 @@ This tutorial is intended for Reflex Unit users who are interested in creating t
 
 For the purposes of this tutorial we will be using a handful of MX charting components to demonstrate various ways in which test data could be displayed visually to a user/developer Since these components are included with the Flex framework we won't dive too deeply into their uses/syntax. Instead, our primary goal is to create a solid foundation upon which a developer can expand when creating his or her own custom viewer.
 
-= Setting Up the Basic Development Environment =
+= Part 1: Setting Up the Basic Development Environment ==
 
 Before starting, make sure that you've downloaded a recent release of Reflex Unit from the [http://code.google.com/p/reflex-unit/downloads/list downloads page]. You may download a bundled SWC or check out the project source.
 
