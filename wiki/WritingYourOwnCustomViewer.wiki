@@ -1,4 +1,4 @@
-#summary Step-by-step tutorial for creating a custom test results viewer
+#summary Step-by-step tutorial for creating a custom test results viewer - Part 1
 
 = Introduction =
 
@@ -176,9 +176,6 @@ As a final setup step let's add the following code to our project's main Flex Ap
 </mx:Application>
 }}}
 
-= Creating a Sample Test Suite =
- * For now, use !ConsoleViewer to test
+That's all the setup we need to do. Next let's take a look at writing an example test.
 
-= Creating Individual Result Views =
-
-= Tying it All Together =
+> [WritingYourOwnCustomViewer2 Continue...]
