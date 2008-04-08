@@ -160,6 +160,7 @@ As a final setup step let's add the following code to our project's main Flex Ap
 			import mx.events.FlexEvent;
 			
 			private function onInitialize( event:FlexEvent ):void {
+				// Our test suite will be defined here.
 			}
 		]]>
 	</mx:Script>
