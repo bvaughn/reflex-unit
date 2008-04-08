@@ -12,7 +12,7 @@ After running a suite of tests, your first thought may be "did they all pass?". 
 
 To do this we will create 2 components: {{{OverallTestStatuses.mxml}}} and {{{OverallTestStatusesData.as}}}. You can think of these components as our view and model. (We will introduce the "controller" in the next section of this article.)
 
-== !OverallTestStatuses.mxml ==
+=== !OverallTestStatuses.mxml ===
 
 {{{
 <?xml version="1.0" encoding="utf-8"?>
@@ -61,7 +61,7 @@ To do this we will create 2 components: {{{OverallTestStatuses.mxml}}} and {{{Ov
 </mx:HBox>
 }}}
 
-== !OverallTestStatusesData.as ==
+=== !OverallTestStatusesData.as ===
 
 {{{
 package {
