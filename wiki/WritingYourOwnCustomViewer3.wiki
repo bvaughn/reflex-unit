@@ -66,6 +66,7 @@ package tests {
 			assertTrue( _timer.running, 'Timer should be running' );
 		}
 		
+		// At this point our test could still fail, error, or succeed.
 		private function onTimerComplete( event:TimerEvent ):void {
 			_timer.removeEventListener( TimerEvent.TIMER_COMPLETE, onTimerComplete );
 			
