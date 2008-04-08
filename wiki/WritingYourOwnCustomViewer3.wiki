@@ -100,8 +100,4 @@ package tests {
 }
 }}}
 
-
-
-= Creating Individual Result Views =
-
-= Tying it All Together =
+= [WritingYourOwnCustomViewer4 Continue to Part 4..] =
