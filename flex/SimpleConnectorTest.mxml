@@ -17,6 +17,7 @@
 			private function init():void {
 				_stub = new EclipsePluginStub( 'localhost', 55582 );
 				_stub.addEventListener( ConnectorErrorEvent.ERROR, onError );
+				_stub.addEventListener( ConnectorEvent.CONNETED, onStubConnected );
 				
 				_skeleton = new EclipsePluginSkeleton( 'localhost', 55583 );
 				_skeleton.addEventListener( SkeletonEvent.MESSAGE_RECEIVED, onMessageRecieved );
@@ -27,7 +28,7 @@
 			}
 			
 			private function onStubConnected( event:ConnectorEvent ):void {
-				_stub.sendMessage( <message /> );
+				_stub.sendMessage( <message>HELLO BOB</message> );
 			}
 			
 			private function onError( event:ConnectorErrorEvent ):void {
@@ -39,7 +40,7 @@
 			private function onMessageRecieved( event:SkeletonEvent ):void {
 				trace( event.xml );
 				
-				debugText.text = event.xml.toString();
+				debugText.text = event.xml.toXMLString();
 			}
 		]]>
 	</mx:Script>
