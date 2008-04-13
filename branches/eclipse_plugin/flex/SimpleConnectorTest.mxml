@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application width="100%" height="100%" layout="absolute"
+                initialize="init()"
+                xmlns:mx="http://www.adobe.com/2006/mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import reflexunit.rpc.ConnectorEvent;
+			import reflexunit.rpc.ConnectorErrorEvent;
+			import reflexunit.rpc.SkeletonEvent;
+			import reflexunit.rpc.EclipsePluginSkeleton;
+			import reflexunit.rpc.EclipsePluginStub;
+			
+			private var _skeleton:EclipsePluginSkeleton;
+			private var _stub:EclipsePluginStub;
+			
+			private function init():void {
+				_stub = new EclipsePluginStub( 'localhost', 55582 );
+				_stub.addEventListener( ConnectorErrorEvent.ERROR, onError );
+				
+				_skeleton = new EclipsePluginSkeleton( 'localhost', 55583 );
+				_skeleton.addEventListener( SkeletonEvent.MESSAGE_RECEIVED, onMessageRecieved );
+				_skeleton.addEventListener( ConnectorErrorEvent.ERROR, onError );
+				
+				_stub.connect();
+				_skeleton.connect();
+			}
+			
+			private function onStubConnected( event:ConnectorEvent ):void {
+				_stub.sendMessage( <message /> );
+			}
+			
+			private function onError( event:ConnectorErrorEvent ):void {
+				trace( event.message );
+				
+				debugText.text = event.message;
+			}
+			
+			private function onMessageRecieved( event:SkeletonEvent ):void {
+				trace( event.xml );
+				
+				debugText.text = event.xml.toString();
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Text id="debugText" width="800" height="600" horizontalCenter="0" verticalCenter="0" />
+	
+</mx:Application>
