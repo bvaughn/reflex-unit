@@ -17,10 +17,7 @@ package reflexunit.rpc {
 			
 			try {
 				var xml:XML = new XML( _socket.readUTF() );
-				
-				_socket.writeInt( 1 );
-				_socket.flush();
-				
+						
 				dispatchEvent( new SkeletonEvent( SkeletonEvent.MESSAGE_RECEIVED, xml ) );
 				
 			} catch ( error:Error ) {

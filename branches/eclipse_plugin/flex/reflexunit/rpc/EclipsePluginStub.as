@@ -19,10 +19,8 @@ package reflexunit.rpc {
 			}
 			
 			try {
-				_socket.writeUTF( xml.toString() );
+				_socket.writeUTF( xml.toXMLString() );
 				_socket.flush();
-				
-				var ack:int = _socket.readInt();
 			} catch ( error:Error ) {
 				dispatchEvent( new ConnectorErrorEvent( ConnectorErrorEvent.ERROR, error ) );
 			}
