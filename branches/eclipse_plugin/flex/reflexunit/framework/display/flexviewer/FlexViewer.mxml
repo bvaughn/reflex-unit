@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Grid width="100%" height="100%"
+         paddingTop="15" paddingBottom="15" paddingLeft="15" paddingRight="15"
+         backgroundColor="0xFFFFFF"
+         initialize="onInitialize( event )"
+         xmlns:flexviewer="reflexunit.framework.display.flexviewer.*"
+         xmlns:mx="http://www.adobe.com/2006/mxml">
+	
+	<mx:Style>
+		.progressBarError,
+		.progressBarFailure {
+			barColor: #B00;
+		}
+		.progressBarSuccess {
+			barColor: #0B0;
+		}
+	</mx:Style>
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			import reflexunit.framework.display.flexviewer.FlexViewerController;
+			
+			/*
+			 * Variables
+			 */
+			
+			private var _controller:FlexViewerController;
+			
+			/*
+			 * Initialization
+			 */
+			
+			private function onInitialize( event:FlexEvent ):void {
+				controller.initialize();
+			}
+			
+			/*
+			 * Getter / setter methods
+			 */
+			
+			/**
+			 * Manages visual state of <code>FlexViewer</code>.
+			 * Defines methods for interacting with test <code>Recipe</code>.
+			 * 
+			 * @see reflexunit.framework.display.flexviewer.FlexViewerController
+			 */
+			public function get controller():FlexViewerController {
+				if ( _controller == null ) {
+					_controller = new FlexViewerController( this );
+				}
+				
+				return _controller;
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:GridRow width="100%">
+		<mx:GridItem width="100%" colSpan="2">
+			<mx:Label text="Reflex Unit Runner"
+			          color="0x333333" fontSize="16" fontWeight="bold" />
+		</mx:GridItem>
+	</mx:GridRow>
+	
+	<mx:GridRow width="100%">
+		<mx:GridItem width="100%" colSpan="2">
+			<mx:Label text="Tests:" fontSize="14" color="0x666666" fontWeight="bold" />
+		</mx:GridItem>
+	</mx:GridRow>
+	
+	<mx:GridRow width="100%" height="50%">
+		<mx:GridItem width="75%">
+			<mx:VBox width="100%" height="100%">
+				<flexviewer:TestCaseTree id="tree" width="100%" height="100%" />
+				
+				<mx:Grid width="100%">
+					<mx:GridRow width="100%">
+						<mx:GridItem width="50%" verticalAlign="middle">
+							<mx:ProgressBar id="progressBar" styleName="progressBarSuccess" width="100%"
+							                labelPlacement="center" />
+						</mx:GridItem>
+						<mx:GridItem width="50%" horizontalAlign="right">
+							<mx:Button id="runSelectedButton" label="Run Selected Tests"
+							           enabled="{ tree.selectedItems.length > 0 }" />
+							<mx:Button id="runAllButton" label="Run All Tests" />
+						</mx:GridItem>
+					</mx:GridRow>
+				</mx:Grid>
+			</mx:VBox>
+		</mx:GridItem>
+		<mx:GridItem width="25%">
+			<mx:Grid width="100%" height="100%">
+				<mx:GridRow width="100%">
+					<mx:GridItem>
+						<mx:Label text="Tests:" fontSize="12" color="0x666666" fontWeight="bold" />
+					</mx:GridItem>
+					<mx:GridItem width="100%">
+						<mx:Label id="testProgressLabel" fontSize="12" text="0/0" />
+					</mx:GridItem>
+				</mx:GridRow>
+				<mx:GridRow width="100%">
+					<mx:GridItem>
+						<mx:Label text="Assertions:" fontSize="12" color="0x666666" fontWeight="bold" />
+					</mx:GridItem>
+					<mx:GridItem width="100%">
+						<mx:Label id="assertsLabel" fontSize="12" text="0" />
+					</mx:GridItem>
+				</mx:GridRow>
+				<mx:GridRow width="100%">
+					<mx:GridItem>
+						<mx:Label text="Test Time:" fontSize="12" color="0x666666" fontWeight="bold" />
+					</mx:GridItem>
+					<mx:GridItem width="100%">
+						<mx:Label id="timeLabel" fontSize="12" text="0" />
+					</mx:GridItem>
+				</mx:GridRow>
+				<mx:GridRow width="100%">
+					<mx:GridItem colSpan="2">
+						<mx:Spacer height="5" />
+					</mx:GridItem>
+				</mx:GridRow>
+				<mx:GridRow width="100%">
+					<mx:GridItem>
+						<mx:UIComponent id="successIconContainer" width="16" height="16" />
+						<mx:Label text="Successes:" fontSize="12" />
+					</mx:GridItem>
+					<mx:GridItem width="100%">
+						<mx:Label id="successesLabel" fontSize="12" text="0" />
+					</mx:GridItem>
+				</mx:GridRow>
+				<mx:GridRow width="100%">
+					<mx:GridItem>
+						<mx:UIComponent id="errorIconContainer" width="16" height="16" />
+						<mx:Label text="Errors:" fontSize="12" />
+					</mx:GridItem>
+					<mx:GridItem width="100%">
+						<mx:Label id="errorsLabel" fontSize="12" text="0" />
+					</mx:GridItem>
+				</mx:GridRow>
+				<mx:GridRow width="100%">
+					<mx:GridItem>
+						<mx:UIComponent id="failureIconContainer" width="16" height="16" />
+						<mx:Label text="Failures:" fontSize="12" />
+					</mx:GridItem>
+					<mx:GridItem width="100%">
+						<mx:Label id="failuresLabel" fontSize="12" text="0" />
+					</mx:GridItem>
+				</mx:GridRow>
+				<mx:GridRow width="100%">
+					<mx:GridItem>
+						<mx:UIComponent id="warningIconContainer" width="16" height="15" />
+						<mx:Label text="Warnings:" fontSize="12" />
+					</mx:GridItem>
+					<mx:GridItem width="100%">
+						<mx:Label id="warningsLabel" fontSize="12" text="0" />
+					</mx:GridItem>
+				</mx:GridRow>
+			</mx:Grid>
+		</mx:GridItem>
+	</mx:GridRow>
+	
+	<mx:GridRow width="100%">
+		<mx:GridItem width="100%" colSpan="2">
+			<mx:Label text="Stack Trace:" fontSize="14" color="0x666666" fontWeight="bold" />
+		</mx:GridItem>
+	</mx:GridRow>
+	
+	<mx:GridRow width="100%" height="50%">
+		<mx:GridItem width="75%" height="100%">
+			<mx:TextArea id="stackTraceTextArea" width="100%" height="100%" />
+		</mx:GridItem>
+		<mx:GridItem width="25%">
+			<mx:Grid width="100%" height="100%">
+				<mx:GridRow width="100%">
+					<mx:GridItem>
+						<mx:Label text="Test Case:" fontSize="12" color="0x666666" fontWeight="bold" />
+					</mx:GridItem>
+					<mx:GridItem width="100%">
+						<mx:Label id="testCaseLabel" fontSize="12" />
+					</mx:GridItem>
+				</mx:GridRow>
+				<mx:GridRow width="100%">
+					<mx:GridItem>
+						<mx:Label text="Method:" fontSize="12" color="0x666666" fontWeight="bold" />
+					</mx:GridItem>
+					<mx:GridItem width="100%">
+						<mx:Label id="methodLabel" fontSize="12" />
+					</mx:GridItem>
+				</mx:GridRow>
+				<mx:GridRow width="100%">
+					<mx:GridItem>
+						<mx:Label text="Message:" fontSize="12" color="0x666666" fontWeight="bold" />
+					</mx:GridItem>
+					<mx:GridItem width="100%">
+						<mx:TextArea id="messageTextArea" width="100%" fontSize="12"
+						             wordWrap="true" borderStyle="none" />
+					</mx:GridItem>
+				</mx:GridRow>
+			</mx:Grid>
+		</mx:GridItem>
+	</mx:GridRow>
+	
+</mx:Grid>
