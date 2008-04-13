@@ -25,7 +25,7 @@ package reflexunit.framework {
 			_numAsserts++;
 			
 			if ( expected != actual ) {
-				throw new AssertFailedError( message ? message : 'Values expected to be equal but were different.' );
+				throw new AssertFailedError( message ? message : 'Expected "' + expected + '" but was "' + actual + '".' );
 			}
 		}
 		
