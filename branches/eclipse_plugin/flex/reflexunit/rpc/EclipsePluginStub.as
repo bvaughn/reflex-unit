@@ -19,8 +19,8 @@ package reflexunit.rpc {
 			}
 			
 			try {
-				_socket.writeUTF( xml.toXMLString() );
-				_socket.flush();
+				_socket.send( xml );
+				
 			} catch ( error:Error ) {
 				dispatchEvent( new ConnectorErrorEvent( ConnectorErrorEvent.ERROR, error ) );
 			}

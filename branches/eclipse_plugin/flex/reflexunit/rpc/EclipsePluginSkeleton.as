@@ -1,5 +1,5 @@
 package reflexunit.rpc {
-	import flash.events.ProgressEvent;
+	import flash.events.DataEvent;
 	
 	/**
 	 * 
@@ -10,13 +10,9 @@ package reflexunit.rpc {
 			super( host, port );
 		}
 		
-		override protected function onSocketProgressEvent( event:ProgressEvent ):void {
-			if ( event.bytesLoaded < event.bytesTotal ) {
-				return;
-			}
-			
+		override protected function onSocketDataEvent( event:DataEvent ):void {
 			try {
-				var xml:XML = new XML( _socket.readUTF() );
+				var xml:XML = new XML( event.data );
 						
 				dispatchEvent( new SkeletonEvent( SkeletonEvent.MESSAGE_RECEIVED, xml ) );
 				
