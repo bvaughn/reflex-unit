@@ -1,10 +1,11 @@
 package reflexunit.rpc {
+	import flash.events.DataEvent;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
 	import flash.events.SecurityErrorEvent;
-	import flash.net.Socket;
+	import flash.net.XMLSocket;
 	
 	/**
 	 * 
@@ -16,7 +17,7 @@ package reflexunit.rpc {
 		
 		private var _host:String;
 		private var _port:int;
-		protected var _socket:Socket;
+		protected var _socket:XMLSocket;
 		private var _state:int;
 		
 		/**
@@ -26,12 +27,12 @@ package reflexunit.rpc {
 			_host = host;
 			_port = port;
 			
-			_socket = new Socket();
+			_socket = new XMLSocket();
         	_socket.addEventListener( Event.CLOSE, onSocketClose );
         	_socket.addEventListener( Event.CONNECT, onSocketConnect );
         	_socket.addEventListener( IOErrorEvent.IO_ERROR, onSocketIOError );
         	_socket.addEventListener( SecurityErrorEvent.SECURITY_ERROR, onSocketSecurityError );
-        	_socket.addEventListener( ProgressEvent.SOCKET_DATA, onSocketProgressEvent );
+        	_socket.addEventListener( DataEvent.DATA, onSocketDataEvent );
         	
         	_state = DISCONNECTED;
 		}
@@ -88,11 +89,11 @@ package reflexunit.rpc {
 			dispatchEvent( new ConnectorErrorEvent( ConnectorErrorEvent.ERROR, null, event ) );
 		}
 		
-		private function onSocketSecurityError( event:SecurityErrorEvent ):void {
-			dispatchEvent( new ConnectorErrorEvent( ConnectorErrorEvent.ERROR, null, event ) );
+		protected function onSocketDataEvent( event:DataEvent ):void {
 		}
 		
-		protected function onSocketProgressEvent( event:ProgressEvent ):void {
+		private function onSocketSecurityError( event:SecurityErrorEvent ):void {
+			dispatchEvent( new ConnectorErrorEvent( ConnectorErrorEvent.ERROR, null, event ) );
 		}
 	}
 }
