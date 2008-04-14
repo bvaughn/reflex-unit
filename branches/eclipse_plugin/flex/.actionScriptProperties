@@ -30,6 +30,7 @@
 </sourceAttachmentPath>
 </compiler>
 <applications>
+<application path="FlexViewerDemo.mxml"/>
 <application path="TestingFramework.mxml"/>
 <application path="SimpleConnectorTest.mxml"/>
 </applications>
