@@ -11,12 +11,14 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import reflexunit.rpc.tests.RemotingServiceTest;
+			import reflexunit.framework.TestSuite;
 			import reflexunit.framework.models.Recipe;
 			
 			import mx.events.FlexEvent;
 			
 			private function onInitialize( event:FlexEvent ):void {
-				flexViewer.controller.recipe = new Recipe( new DemoTestSuite() );
+				flexViewer.controller.recipe = new Recipe( new TestSuite( [ RemotingServiceTest ] ) );
 			}
 		]]>
 	</mx:Script>
