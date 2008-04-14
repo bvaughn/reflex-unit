@@ -20,3 +20,21 @@
  * Button for showing only errors/failures
  * Summary count panel
  * Single-click a test method to view full info (assertions, stack-trace, etc.)
+
+= XML Protocol =
+
+== Outgoing/Incoming XML ==
+
+{{{
+<message id="UNIQUE_INVOCATION_ID" receiverID="RECEIVER_ID" name="METHOD_NAME">
+  <data />
+</message>
+}}}
+
+== Return Value ==
+
+{{{
+<return messageID="UNIQUE_INVOCATION_ID" receiverID="RECEIVER_ID" name="METHOD_NAME">
+  <data />
+</return>
+}}}
