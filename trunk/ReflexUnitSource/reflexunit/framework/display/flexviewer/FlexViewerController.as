@@ -1,8 +1,8 @@
 package reflexunit.framework.display.flexviewer {
+	import flash.errors.IllegalOperationError;
 	import flash.events.MouseEvent;
 	import flash.utils.getQualifiedClassName;
 	
-	import mx.controls.ProgressBar;
 	import mx.controls.ProgressBarMode;
 	import mx.events.ListEvent;
 	
@@ -29,6 +29,7 @@ package reflexunit.framework.display.flexviewer {
 		private var _recipe:Recipe;
 		private var _result:Result;
 		private var _runNotifier:RunNotifier;
+		private var _runTestsWhenInitialized:Boolean;
 		private var _testInProgress:Boolean;
 		private var _view:FlexViewer;
 		
@@ -60,6 +61,31 @@ package reflexunit.framework.display.flexviewer {
 			_view.warningIconContainer.addChild( Resources.statusWarning() );
 			
 			_view.progressBar.mode = ProgressBarMode.MANUAL;
+			
+			if ( _runTestsWhenInitialized ) {
+				runTests();
+			}
+		}
+		
+		/**
+		 * Runs all tests contained within the current <code>Recipe</code>.
+		 * 
+		 * @throws IllegalOperationError if no Recipe specified
+		 */
+		public function runTests():void {
+			if ( !_recipe ) {
+				throw IllegalOperationError( 'No Recipe provided' );
+			}
+			
+			if ( !_initialized ) {
+				_runTestsWhenInitialized = true;
+				
+				return;
+			}
+			
+			_activeRecipe = _recipe.clone();
+			
+			runCurrentRecipe();
 		}
 		
 		/*
@@ -151,9 +177,7 @@ package reflexunit.framework.display.flexviewer {
 		}
 		
 		private function onRunAllButtonClick( event:MouseEvent ):void {
-			_activeRecipe = _recipe.clone();
-			
-			runCurrentRecipe();
+			runTests();
 		}
 		
 		private function onRunSelectedButtonClick( event:MouseEvent ):void {
